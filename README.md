@@ -2,6 +2,8 @@
 
 This addon provides services for detecting user activity & idling across the entire application.
 
+Check out the [Demo](http://github.jhawk.co/ember-user-activity/)!
+
 ## Installation
 
 `ember install ember-user-activity`
