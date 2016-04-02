@@ -9,19 +9,20 @@ export default Service.extend({
   IDLE_TIMEOUT: 600000, // 10 minutes
   isIdle: false,
 
-  init() {
+  _setupListeners(method) {
     let userActivity = this.get('userActivity');
     this.get('activeEvents').forEach((event) => {
-      userActivity.on(event, this, this.resetTimeout);
+      userActivity[method](event, this, this.resetTimeout);
     });
+  },
+
+  init() {
+    this._setupListeners('on');
     this.resetTimeout();
   },
 
   willDestroy() {
-    let userActivity = this.get('userActivity');
-    this.get('activeEvents').forEach((event) => {
-      userActivity.off(event, this, this.resetTimeout);
-    });
+    this._setupListeners('off');
   },
 
   resetTimeout() {

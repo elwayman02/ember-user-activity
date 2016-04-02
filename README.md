@@ -1,5 +1,8 @@
 # Ember User Activity
 
+[![Build Status](https://travis-ci.org/elwayman02/ember-user-activity.svg?branch=master)](https://travis-ci.org/elwayman02/ember-user-activity)
+[![Code Climate](https://codeclimate.com/github/elwayman02/ember-user-activity/badges/gpa.svg)](https://codeclimate.com/github/elwayman02/ember-user-activity)
+
 This addon provides services for detecting user activity & idling across the entire application.
 
 Check out the [Demo](http://github.jhawk.co/ember-user-activity/)!
