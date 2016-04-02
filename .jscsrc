@@ -1,0 +1,8 @@
+{
+  "preset": "ember-suave",
+
+  "disallowSpacesInFunction": null,
+  "disallowSpacesInNamedFunctionExpression": {
+    "beforeOpeningRoundBrace": true
+  }
+}

@@ -1,0 +1,12 @@
+<h1 class="title">Ember User Activity Demo</h1>
+
+<p>Move your mouse, click, or press keys to see events fire!</p>
+
+{{idle-display}}
+
+<div class="flexContainer">
+  {{event-display}}
+  {{event-display eventName='mousemove'}}
+  {{event-display eventName='mousedown'}}
+  {{event-display eventName='keydown'}}
+</div>

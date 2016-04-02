@@ -1,0 +1,29 @@
+body {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.title,
+p {
+  text-align: center;
+}
+
+.flexContainer {
+  align-items: top;
+  display: flex;
+  flex-direction: row;
+}
+
+.eventDisplay {
+  margin: 5px;
+}
+
+.eventDisplay .eventList {
+  border: 1px dashed black;
+  padding: 5px;
+}
+
+.idleDisplay .idleStatus {
+  font-weight: bold;
+}
