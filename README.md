@@ -110,6 +110,18 @@ export default UserIdleService.extend({
 Note that the `userActive` event is a superset of all events fired from `user-activity`, 
 so in most cases you won't need to change this.
 
+### Cleanup
+
+Please remember that subscribing to events can cause memory leaks if they are not properly cleaned up.
+Make sure to remove any listeners before destroying their parent objects.
+
+```javascript
+// app/components/foo-bar.js
+willDestroyElement() {
+  this.get('userActivity').off('keydown', this, this.keydownHandler);
+}
+```
+
 ## Contributing
 
 This section outlines the details of collaborating on this Ember addon.
