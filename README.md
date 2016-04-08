@@ -122,7 +122,7 @@ willDestroyElement() {
 }
 ```
 
-### Using in Addons
+### Using in an Addon
 
 Building your own addon to extend Ember User Activity? No problem! Depending on what you need to do, there are two paths forward:
 
@@ -137,7 +137,7 @@ export default UserIdleService.extend({
 });
 ```
 
-Additionally, make sure that your addon gets loaded *after* EUA, to prevent conflicts when merging the `app/` directory trees. This can be accomplished by modifying your addon's `package.json`
+Make sure that your addon gets loaded *after* EUA, to prevent conflicts when merging the `app/` directory trees. This can be accomplished by modifying your addon's `package.json`
 
 ```json
 "ember-addon": {
