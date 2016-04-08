@@ -122,6 +122,32 @@ willDestroyElement() {
 }
 ```
 
+### Using in Addons
+
+Building your own addon to extend Ember User Activity? No problem! Depending on what you need to do, there are two paths forward:
+
+If you'd like the base services from EUA to still be available in the consuming app, then import them into your own `addon/` service and export under a different name. Otherwise, make sure to export the modified service in your addon's `app/` directory:
+
+```javascript
+// app/services/user-idle.js
+import UserIdleService from 'ember-user-activity/services/user-idle';
+
+export default UserIdleService.extend({
+  IDLE_TIMEOUT: 3000
+});
+```
+
+Additionally, make sure that your addon gets loaded *after* EUA, to prevent conflicts when merging the `app/` directory trees. This can be accomplished by modifying your addon's `package.json`
+
+```json
+"ember-addon": {
+  "configPath": "tests/dummy/config",
+  "after": "ember-user-activity"
+}
+```
+
+See the [Ember CLI docs](http://ember-cli.com/extending/#configuring-your-ember-addon-properties) for more information on configuring your addon properties.
+
 ## Contributing
 
 This section outlines the details of collaborating on this Ember addon.
