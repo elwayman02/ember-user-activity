@@ -40,7 +40,7 @@
     "ember-suave": "2.0.1",
     "ember-try": "^0.2.2",
     "loader.js": "^4.0.1",
-    "publish": "^0.5.0",
+    "publish": "^0.6.0",
     "rsvp": "^3.2.1"
   },
   "keywords": [
