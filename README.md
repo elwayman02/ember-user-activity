@@ -21,14 +21,14 @@ Two services are included:
 This service fires events from global window listeners. 
 These listeners trigger on capture, meaning they are not affected by event cancellation. 
 
-Four `window` events are enabled by default:
+Three `window` events are enabled by default:
 
 * `keydown` - Fires when a key is pressed
 * `mousedown` - Fires when a mouse is clicked
-* `mousemove` - Fires when the user moves the mouse
 * `scroll` - Fires when the user scrolls
+* ~~`mousemove` - Fires when the user moves the mouse~~ [Removed as of v0.2.0]
 
-A fifth custom event, `userActive` is fired for ALL events.
+A custom event, `userActive` is fired for ALL enabled events.
 
 To catch these events, simply inject the service and subscribe to the events you care about:
 
@@ -53,7 +53,7 @@ If you would like to listen to a different set of events, extend the service in 
 import UserActivityService from 'ember-user-activity/services/user-activity';
 
 export default UserActivityService.extend({
-  defaultEvents: ['keypress', 'mouseenter']
+  defaultEvents: ['keypress', 'mouseenter', 'mousemove']
 });
 ```
 
@@ -72,8 +72,25 @@ You can find out if an event is currently enabled:
 
 ```javascript
 this.get('userActivity').isEnabled('foo'); // false
-this.get('userActivity').isEnabled('mousemove'); // true
+this.get('userActivity').isEnabled('keydown'); // true
 ```
+
+Each individual event is throttled by 100ms for performance reasons, 
+to avoid clogging apps with a firehose of activity events. The length of 
+the throttling can be configured by setting `EVENT_THROTTLE` on the activity service.
+
+```javascript
+// app/services/user-activity.js
+import UserActivityService from 'ember-user-activity/services/user-activity';
+
+export default UserActivityService.extend({
+  EVENT_THROTTLE: 200 // 200 ms
+});
+```
+
+Setting `EVENT_THROTTLE` to 0 will enable the full firehose of events. 
+This may cause performance issues in your application if non-trivial 
+amounts of code are being executed for each event being fired.
 
 ### User Idle Service
 
@@ -104,7 +121,7 @@ configured to listen to a custom set of events from the `user-activity` service:
 import UserIdleService from 'ember-user-activity/services/user-idle';
 
 export default UserIdleService.extend({
-  activeEvents: ['mousedown', 'mousemove']
+  activeEvents: ['mousedown', 'keydown']
 });
 ```
 
@@ -125,20 +142,25 @@ willDestroyElement() {
 
 ### Using in an Addon
 
-Building your own addon to extend Ember User Activity? No problem! Depending on what you need to do, there are two paths forward:
+Building your own addon to extend Ember User Activity? No problem! 
+Depending on what you need to do, there are two paths forward:
 
-If you'd like the base services from EUA to still be available in the consuming app, then import them into your own `addon/` service and export under a different name. Otherwise, make sure to export the modified service in your addon's `app/` directory:
+If you'd like the base services from EUA to still be available in the 
+consuming app, then import them into your own `addon/` service and 
+export under a different name. Otherwise, make sure to export the 
+modified service in your addon's `app/` directory:
 
 ```javascript
 // app/services/user-idle.js
 import UserIdleService from 'ember-user-activity/services/user-idle';
 
 export default UserIdleService.extend({
-  IDLE_TIMEOUT: 3000
+  IDLE_TIMEOUT: 3000 // 3 minutes
 });
 ```
 
-Make sure that your addon gets loaded *after* EUA, to prevent conflicts when merging the `app/` directory trees. This can be accomplished by modifying your addon's `package.json`
+Make sure that your addon gets loaded *after* EUA, to prevent conflicts when 
+merging the `app/` directory trees. This can be accomplished by modifying your addon's `package.json`
 
 ```json
 "ember-addon": {
@@ -147,7 +169,8 @@ Make sure that your addon gets loaded *after* EUA, to prevent conflicts when mer
 }
 ```
 
-See the [Ember CLI docs](http://ember-cli.com/extending/#configuring-your-ember-addon-properties) for more information on configuring your addon properties.
+See the [Ember CLI docs](http://ember-cli.com/extending/#configuring-your-ember-addon-properties) 
+for more information on configuring your addon properties.
 
 ## Contributing
 

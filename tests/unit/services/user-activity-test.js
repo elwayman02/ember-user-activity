@@ -13,7 +13,7 @@ test('init', function (assert) {
 
   assert.equal(typeOf(service.get('_boundEventHandler')), 'function', 'bound event handler initialized');
   assert.equal(typeOf(service.get('enabledEvents')), 'array', 'enabledEvents set to empty array');
-  assert.equal(service.enableEvent.callCount, 4, '4 events enabled by default');
+  assert.equal(service.enableEvent.callCount, 3, '3 events enabled by default');
 });
 
 test('enableEvent', function (assert) {

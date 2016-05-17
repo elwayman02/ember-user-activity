@@ -4,7 +4,7 @@ const { A: emberArray, Evented, Service, isEmpty, run, testing } = Ember;
 
 export default Service.extend(Evented, {
   EVENT_THROTTLE: 100,
-  defaultEvents: ['keydown', 'mousedown', 'mousemove', 'scroll'],
+  defaultEvents: ['keydown', 'mousedown', 'scroll'],
   enabledEvents: null,
   _eventsListened: null,
 
