@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Service, inject, run } = Ember;
+const { Service, inject, run, testing } = Ember;
 
 export default Service.extend({
   userActivity: inject.service('ember-user-activity@user-activity'),
@@ -17,6 +17,9 @@ export default Service.extend({
   },
 
   init() {
+    if (testing) { // Shorter debounce in testing mode
+      this.set('IDLE_TIMEOUT', 10);
+    }
     this._setupListeners('on');
     this.resetTimeout();
   },
