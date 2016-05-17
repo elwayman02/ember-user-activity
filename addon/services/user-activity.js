@@ -1,17 +1,18 @@
 import Ember from 'ember';
 
-const { A: emberArray, Evented, Service, isEmpty } = Ember;
+const { A: emberArray, Evented, Service, isEmpty, run, testing } = Ember;
 
 export default Service.extend(Evented, {
+  EVENT_THROTTLE: 100,
   defaultEvents: ['keydown', 'mousedown', 'mousemove', 'scroll'],
   enabledEvents: null,
   _eventsListened: null,
 
+  _throttledEventHandlers: null,
+
   _boundEventHandler: null,
   _eventHandler(event) {
-    if (this.isEnabled(event.type)) {
-      this.fireEvent(event);
-    }
+    run.throttle(this, this._throttledEventHandlers[event.type], event, this.get('EVENT_THROTTLE'));
   },
 
   _setupListeners() {
@@ -28,9 +29,13 @@ export default Service.extend(Evented, {
   },
 
   init() {
+    if (testing) { // Do not throttle in testing mode
+      this.set('EVENT_THROTTLE', 0);
+    }
     this.setProperties({
       _boundEventHandler: this._eventHandler.bind(this),
-      _eventsListened: emberArray()
+      _eventsListened: emberArray(),
+      _throttledEventHandlers: {}
     });
     if (isEmpty(this.get('enabledEvents'))) {
       this.set('enabledEvents', emberArray());
@@ -41,12 +46,18 @@ export default Service.extend(Evented, {
   enableEvent(eventName) {
     if (!this.isEnabled(eventName)) {
       this.get('enabledEvents').pushObject(eventName);
+      this._throttledEventHandlers[eventName] = function fireEnabledEvent(event) {
+        if (this.isEnabled(event.type)) {
+          this.fireEvent(event);
+        }
+      };
       this._listen(eventName);
     }
   },
 
   disableEvent(eventName) {
     this.get('enabledEvents').removeObject(eventName);
+    this.set(`_throttledEventHandlers.${eventName}`, null);
   },
 
   fireEvent(event) {
