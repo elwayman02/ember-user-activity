@@ -14,8 +14,6 @@ Check out the [Demo](http://github.jhawk.co/ember-user-activity/)!
 
 ## Usage
 
-Two services are included:
-
 ### User Activity Service
 
 This service fires events from global window listeners. 
