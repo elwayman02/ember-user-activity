@@ -8,12 +8,12 @@ moduleFor('service:scroll-activity', 'Unit | Service | scroll activity', {});
 test('init', function (assert) {
   let service = this.subject({
     subscribe: this.stub(),
-    pollScroll: this.stub()
+    _pollScroll: this.stub()
   });
 
   assert.ok(isEmberArray(service.get('subscribers')), 'sets subscribers to new Ember.A');
   assert.ok(service.subscribe.calledOnce, 'subscribe was called');
-  assert.ok(service.pollScroll.calledOnce, 'pollScroll was called');
+  assert.ok(service._pollScroll.calledOnce, '_pollScroll was called');
 });
 
 test('subscribe - no callback', function (assert) {
@@ -87,10 +87,10 @@ test('unsubscribe', function (assert) {
   assert.ok(isEmpty(service.get('subscribers')), 'subscriber removed');
 });
 
-test('checkScroll - no change', function (assert) {
+test('_checkScroll - no change', function (assert) {
   let service = this.subject({
     init: this.stub(),
-    pollScroll: this.stub(),
+    _pollScroll: this.stub(),
     trigger: this.stub(),
     subscribers: A()
   });
@@ -104,17 +104,17 @@ test('checkScroll - no change', function (assert) {
   let callback = this.stub();
   service.subscribe(target, elem, callback);
 
-  service.checkScroll();
+  service._checkScroll();
 
   assert.notOk(callback.called, 'callback not called when scrollTop has not changed');
   assert.notOk(service.trigger.called, 'no scroll event triggered');
-  assert.ok(service.pollScroll.calledOnce, 'pollScroll called to schedule polling');
+  assert.ok(service._pollScroll.calledOnce, '_pollScroll called to schedule polling');
 });
 
-test('checkScroll - scroll changed', function (assert) {
+test('_checkScroll - scroll changed', function (assert) {
   let service = this.subject({
     init: this.stub(),
-    pollScroll: this.stub(),
+    _pollScroll: this.stub(),
     trigger: this.stub(),
     subscribers: A()
   });
@@ -129,10 +129,10 @@ test('checkScroll - scroll changed', function (assert) {
   service.subscribe(target, elem, callback);
   scrollTop = 4321;
 
-  service.checkScroll();
+  service._checkScroll();
 
   assert.ok(callback.calledOnce, 'callback called when scrollTop has changed');
   assert.ok(service.trigger.calledOnce, 'trigger called');
   assert.equal(service.trigger.firstCall.args[0], 'scroll', 'scroll event triggered');
-  assert.ok(service.pollScroll.calledOnce, 'pollScroll called to schedule polling');
+  assert.ok(service._pollScroll.calledOnce, '_pollScroll called to schedule polling');
 });

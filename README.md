@@ -128,6 +128,84 @@ export default UserIdleService.extend({
 Note that the `userActive` event is a superset of all events fired from `user-activity`, 
 so in most cases you won't need to change this.
 
+### Scroll Activity Service
+
+This service tracks scrolling within the application by periodically checking 
+(via [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)) 
+for changes in scroll position for the various scrollable elements in the page. By default, it only 
+checks `document`, but the [Scroll Activity Mixin](#scroll-activity-mixin) provides an easy 
+way to register your components as well. Any elements can be subscribed to this service:
+
+```javascript
+this.get('scrollActivity').subscribe(this, this.$());
+```
+
+`subscribe` requires at least two parameters:
+
+* `target` - Usually `this`, target just needs to be a unique identifier/object 
+that can be used to unsubscribe from the service
+* `element` - The scrollable element (can be a DOM or jQuery element)
+
+A third optional parameter can be included:
+
+* `callback` - A callback to execute when scrolling has been detected in the element
+
+Conversely, elements can also be unsubscribed:
+
+```javascript
+this.get('scrollActivity').unsubscribe(this);
+```
+
+`unsubscribe` only requires the `target` parameter that was initially used to `subscribe`.
+
+### Scroll Activity Mixin
+
+This mixin automatically subscribes and unsubscribes a scrollable component to the `scrollActivity` service.
+
+```javascript
+// app/components/my-scroll.js
+import Component from 'ember-component';
+import ScrollActivityMixin from 'ember-user-activity/mixins/scroll-activity';
+
+export default Component.extend(ScrollActivityMixin);
+```
+
+If the component's template itself is not scrollable, but it contains an element 
+(such as a div) that can be scrolled, set the `scrollElement` attribute to the appropriate selector:
+
+```handlebars
+{{! app/templates/components/my-scroll.hbs }}
+<span>Some stuff</span>
+<div class='some-scroll'>...</div>
+```
+
+```javascript
+//app/components/my-scroll.js
+import Component from 'ember-component';
+import ScrollActivityMixin from 'ember-user-activity/mixins/scroll-activity';
+
+export default Component.extend(ScrollActivityMixin, {
+  scrollElement: '.some-scroll'
+});
+```
+
+Do not set `scrollElement` if the component itself (ie `this.$()`) is the scrollable element.
+
+If the component implements a `didScroll` method, that will be used as a callback 
+when scrolling has been detected within the component's DOM.
+
+```javascript
+//app/components/my-scroll.js
+import Component from 'ember-component';
+import ScrollActivityMixin from 'ember-user-activity/mixins/scroll-activity';
+
+export default Component.extend(ScrollActivityMixin, {
+  didScroll() {
+    // do stuff because we scrolled
+  }
+});
+```
+
 ### Cleanup
 
 Please remember that subscribing to events can cause memory leaks if they are not properly cleaned up.

@@ -13,11 +13,14 @@ export default Service.extend(Evented, {
 
   init() {
     this.set('subscribers', A());
-    this.subscribe(document, $(document));
-    this.pollScroll();
+    this.subscribe(document, document);
+    this._pollScroll();
   },
 
   subscribe(target, element, callback = function () {}) {
+    if (!element.scrollTop) { // a DOM element instead of a jQuery object
+      element = $(element);
+    }
     this.get('subscribers').pushObject(EmberObject.create({
       target,
       element,
@@ -30,15 +33,15 @@ export default Service.extend(Evented, {
     this.get('subscribers').removeObject(this.get('subscribers').findBy('target', target));
   },
 
-  pollScroll() {
+  _pollScroll() {
     if (window.requestAnimationFrame) {
-      this._animationFrame = requestAnimationFrame(bind(this, this.checkScroll));
+      this._animationFrame = requestAnimationFrame(bind(this, this._checkScroll));
     } else {
-      this._animationFrame = setTimeout(bind(this, this.checkScroll), 16);
+      this._animationFrame = setTimeout(bind(this, this._checkScroll), 16);
     }
   },
 
-  checkScroll() {
+  _checkScroll() {
     let subscribers = this.get('subscribers');
     if (isPresent(subscribers)) {
       let hasScrolled = false;
@@ -54,7 +57,7 @@ export default Service.extend(Evented, {
         this.trigger('scroll');
       }
     }
-    this.pollScroll();
+    this._pollScroll();
   },
 
   willDestroy() {
