@@ -6,6 +6,8 @@ import { A } from 'ember-array/utils';
 import { isPresent } from 'ember-utils';
 
 export default Service.extend(Evented, {
+  _animationFrame: null,
+
   subscribers: null,
 
   init() {
@@ -23,7 +25,7 @@ export default Service.extend(Evented, {
   },
 
   pollScroll() {
-    requestAnimationFrame(() => {
+    let checkScroll = () => {
       let subscribers = this.get('subscribers');
       if (isPresent(subscribers)) {
         let hasScrolled = false;
@@ -40,6 +42,20 @@ export default Service.extend(Evented, {
         }
       }
       this.pollScroll();
-    });
+    };
+
+    if (window.requestAnimationFrame) {
+      this._animationFrame = requestAnimationFrame(checkScroll);
+    } else {
+      this._animationFrame = setTimeout(checkScroll, 16);
+    }
+  },
+
+  willDestroy() {
+    if (window.requestAnimationFrame) {
+      cancelAnimationFrame(this._animationFrame);
+    } else {
+      clearTimeout(this._animationFrame);
+    }
   }
 });
