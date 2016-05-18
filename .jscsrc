@@ -4,5 +4,21 @@
   "disallowSpacesInFunction": null,
   "disallowSpacesInNamedFunctionExpression": {
     "beforeOpeningRoundBrace": true
-  }
+  },
+  "requireSpaceAfterKeywords": [
+    "do",
+    "for",
+    "if",
+    "else",
+    "switch",
+    "case",
+    "try",
+    "catch",
+    "finally",
+    "void",
+    "while",
+    "with",
+    "return",
+    "function"
+  ]
 }
