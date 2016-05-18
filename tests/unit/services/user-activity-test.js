@@ -4,7 +4,9 @@ import test from 'dummy/tests/ember-sinon-qunit/test';
 
 const { A: emberArray, K: noOp, typeOf } = Ember;
 
-moduleFor('service:user-activity', 'Unit | Service | user activity', {});
+moduleFor('service:user-activity', 'Unit | Service | user activity', {
+  needs: ['service:ember-user-activity@scroll-activity']
+});
 
 test('init', function (assert) {
   let service = this.subject({

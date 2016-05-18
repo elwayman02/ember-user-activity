@@ -1,8 +1,11 @@
 import Ember from 'ember';
+import injectService from 'ember-service/inject';
 
 const { A: emberArray, Evented, Service, isEmpty, run, testing } = Ember;
 
 export default Service.extend(Evented, {
+  scrollActivity: injectService('ember-user-activity@scroll-activity'),
+
   EVENT_THROTTLE: 100,
   defaultEvents: ['keydown', 'mousedown', 'scroll'],
   enabledEvents: null,
@@ -11,8 +14,12 @@ export default Service.extend(Evented, {
   _throttledEventHandlers: null,
 
   _boundEventHandler: null,
-  _eventHandler(event) {
+  handleEvent(event) {
     run.throttle(this, this._throttledEventHandlers[event.type], event, this.get('EVENT_THROTTLE'));
+  },
+
+  _handleScroll() {
+    this.handleEvent({ type: 'scroll' });
   },
 
   _setupListeners() {
@@ -22,10 +29,13 @@ export default Service.extend(Evented, {
   },
 
   _listen(eventName) {
-    if (this.get('_eventsListened').indexOf(eventName) === -1) {
+    if (eventName === 'scroll') {
+      this.get('scrollActivity').on('scroll', this, this._handleScroll);
+    } else if (this.get('_eventsListened').indexOf(eventName) === -1) {
       this.get('_eventsListened').pushObject(eventName);
       window.addEventListener(eventName, this._boundEventHandler, true);
     }
+
   },
 
   init() {
@@ -33,7 +43,7 @@ export default Service.extend(Evented, {
       this.set('EVENT_THROTTLE', 0);
     }
     this.setProperties({
-      _boundEventHandler: this._eventHandler.bind(this),
+      _boundEventHandler: this.handleEvent.bind(this),
       _eventsListened: emberArray(),
       _throttledEventHandlers: {}
     });
@@ -58,6 +68,11 @@ export default Service.extend(Evented, {
   disableEvent(eventName) {
     this.get('enabledEvents').removeObject(eventName);
     this.set(`_throttledEventHandlers.${eventName}`, null);
+    if (eventName === 'scroll') {
+      this.get('scrollActivity').off('scroll', this, this._handleScroll);
+    } else {
+      window.removeEventListener(eventName, this._boundEventHandler, true);
+    }
   },
 
   fireEvent(event) {
@@ -76,7 +91,7 @@ export default Service.extend(Evented, {
 
   willDestroy() {
     this.get('_eventsListened').forEach((eventName) => {
-      window.removeEventListener(eventName, this._boundEventHandler, true);
+      this.disableEvent(eventName);
     });
   }
 });
