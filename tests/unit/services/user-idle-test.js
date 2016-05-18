@@ -3,7 +3,7 @@ import test from 'dummy/tests/ember-sinon-qunit/test';
 import wait from 'ember-test-helpers/wait';
 
 moduleFor('service:user-idle', 'Unit | Service | user idle', {
-  needs: ['service:ember-user-activity@user-activity']
+  needs: ['service:ember-user-activity@user-activity', 'service:ember-user-activity@scroll-activity']
 });
 
 test('init starts timer', function (assert) {

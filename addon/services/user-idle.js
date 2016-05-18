@@ -5,6 +5,8 @@ const { Service, inject, run, testing } = Ember;
 export default Service.extend({
   userActivity: inject.service('ember-user-activity@user-activity'),
 
+  _debouncedTimeout: null,
+
   activeEvents: ['userActive'],
   IDLE_TIMEOUT: 600000, // 10 minutes
   isIdle: false,
@@ -26,11 +28,14 @@ export default Service.extend({
 
   willDestroy() {
     this._setupListeners('off');
+    if (this._debouncedTimeout) {
+      run.cancel(this._debouncedTimeout);
+    }
   },
 
   resetTimeout() {
     this.set('isIdle', false);
-    run.debounce(this, this.setIdle, this.get('IDLE_TIMEOUT'));
+    this._debouncedTimeout = run.debounce(this, this.setIdle, this.get('IDLE_TIMEOUT'));
   },
 
   setIdle() {
