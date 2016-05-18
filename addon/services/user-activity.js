@@ -1,7 +1,12 @@
 import Ember from 'ember';
+import Evented from 'ember-evented';
+import Service from 'ember-service';
 import injectService from 'ember-service/inject';
+import { A } from 'ember-array/utils';
+import { isEmpty } from 'ember-utils';
+import { throttle } from 'ember-runloop';
 
-const { A: emberArray, Evented, Service, isEmpty, run, testing } = Ember;
+const { testing } = Ember;
 
 export default Service.extend(Evented, {
   scrollActivity: injectService('ember-user-activity@scroll-activity'),
@@ -15,7 +20,7 @@ export default Service.extend(Evented, {
 
   _boundEventHandler: null,
   handleEvent(event) {
-    run.throttle(this, this._throttledEventHandlers[event.type], event, this.get('EVENT_THROTTLE'));
+    throttle(this, this._throttledEventHandlers[event.type], event, this.get('EVENT_THROTTLE'));
   },
 
   _handleScroll() {
@@ -44,11 +49,11 @@ export default Service.extend(Evented, {
     }
     this.setProperties({
       _boundEventHandler: this.handleEvent.bind(this),
-      _eventsListened: emberArray(),
+      _eventsListened: A(),
       _throttledEventHandlers: {}
     });
     if (isEmpty(this.get('enabledEvents'))) {
-      this.set('enabledEvents', emberArray());
+      this.set('enabledEvents', A());
     }
     this._setupListeners();
   },
