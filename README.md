@@ -26,7 +26,7 @@ Three `window` events are enabled by default:
 * `keydown` - Fires when a key is pressed
 * `mousedown` - Fires when a mouse is clicked
 * `scroll` - Fires when the user scrolls
-* ~~`mousemove` - Fires when the user moves the mouse~~ [Removed as of v0.2.0]
+* ~~`mousemove` - Fires when the user moves the mouse~~ [Removed as of v0.2.0](https://github.com/elwayman02/ember-user-activity/issues/16)
 
 A custom event, `userActive` is fired for ALL enabled events.
 
