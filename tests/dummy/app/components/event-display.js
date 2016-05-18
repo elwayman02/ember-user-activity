@@ -1,17 +1,17 @@
-import Ember from 'ember';
-
-const { A: emberArray, Component, inject } = Ember;
+import Component from 'ember-component';
+import injectService from 'ember-service/inject';
+import { A } from 'ember-array/utils';
 
 export default Component.extend({
   classNames: ['eventDisplay'],
-  userActivity: inject.service(),
+  userActivity: injectService(),
   eventName: 'userActive',
 
   events: null,
 
   init() {
     this._super(...arguments);
-    this.set('events', emberArray());
+    this.set('events', A());
   },
 
   didInsertElement() {

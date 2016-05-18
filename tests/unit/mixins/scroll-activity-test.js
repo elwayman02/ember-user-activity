@@ -1,5 +1,5 @@
-import Ember from 'ember';
 import ScrollActivityMixin from 'ember-user-activity/mixins/scroll-activity';
+import EmberObject from 'ember-object';
 import { module } from 'qunit';
 import test from 'dummy/tests/ember-sinon-qunit/test';
 
@@ -13,7 +13,7 @@ function setupTests(withCallback) {
     unsubscribe: this.stub()
   };
   elem = 'foo';
-  let ScrollActivityObject = Ember.Object.extend(ScrollActivityMixin, {
+  let ScrollActivityObject = EmberObject.extend(ScrollActivityMixin, {
     scrollActivity,
     $() {
       return elem;

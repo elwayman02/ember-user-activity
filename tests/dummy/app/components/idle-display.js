@@ -1,10 +1,10 @@
-import Ember from 'ember';
-
-const { Component, computed, inject } = Ember;
+import Component from 'ember-component';
+import computed from 'ember-computed';
+import injectService from 'ember-service/inject';
 
 export default Component.extend({
   classNames: ['idleDisplay'],
-  userIdle: inject.service(),
+  userIdle: injectService(),
 
   isIdle: computed.readOnly('userIdle.isIdle'),
 
