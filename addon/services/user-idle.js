@@ -22,6 +22,8 @@ export default Service.extend({
   },
 
   init() {
+    this._super(...arguments);
+
     if (testing) { // Shorter debounce in testing mode
       this.set('IDLE_TIMEOUT', 10);
     }
@@ -34,6 +36,8 @@ export default Service.extend({
     if (this._debouncedTimeout) {
       cancel(this._debouncedTimeout);
     }
+
+    this._super(...arguments);
   },
 
   resetTimeout() {

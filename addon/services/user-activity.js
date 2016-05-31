@@ -44,6 +44,8 @@ export default Service.extend(Evented, {
   },
 
   init() {
+    this._super(...arguments);
+
     if (testing) { // Do not throttle in testing mode
       this.set('EVENT_THROTTLE', 0);
     }
@@ -98,5 +100,7 @@ export default Service.extend(Evented, {
     this.get('_eventsListened').forEach((eventName) => {
       this.disableEvent(eventName);
     });
+
+    this._super(...arguments);
   }
 });

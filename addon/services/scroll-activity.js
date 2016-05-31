@@ -12,6 +12,8 @@ export default Service.extend(Evented, {
   subscribers: null,
 
   init() {
+    this._super(...arguments);
+
     this.set('subscribers', A());
     this.subscribe(document, document);
     this._pollScroll();
@@ -67,5 +69,7 @@ export default Service.extend(Evented, {
       clearTimeout(this._animationFrame);
     }
     this.set('subscribers', null);
+
+    this._super(...arguments);
   }
 });
