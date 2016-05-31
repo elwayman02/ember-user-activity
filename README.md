@@ -132,7 +132,9 @@ This service tracks scrolling within the application by periodically checking
 (via [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)) 
 for changes in scroll position for the various scrollable elements in the page. By default, it only 
 checks `document`, but the [Scroll Activity Mixin](#scroll-activity-mixin) provides an easy 
-way to register your components as well. Any elements can be subscribed to this service:
+way to register your components as well. The [User Activity Service](#user-activity-service) subscribes to these scrolling events by default, so you do not need to do anything to use this service for global scroll events if you are already injecting the user-activity service.
+
+Any elements can be subscribed to this service:
 
 ```javascript
 this.get('scrollActivity').subscribe(this, this.$());
