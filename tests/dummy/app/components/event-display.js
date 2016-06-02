@@ -19,7 +19,7 @@ export default Component.extend({
   },
 
   willDestroyElement() {
-    this.get('userActivity').on(this.get('eventName'), this, this.registerActivity);
+    this.get('userActivity').off(this.get('eventName'), this, this.registerActivity);
   },
 
   registerActivity(event) {
