@@ -12,7 +12,7 @@ export default Service.extend(Evented, {
   scrollActivity: injectService('ember-user-activity@scroll-activity'),
 
   EVENT_THROTTLE: 100,
-  defaultEvents: ['keydown', 'mousedown', 'scroll'],
+  defaultEvents: ['keydown', 'mousedown', 'scroll', 'touchstart'],
   enabledEvents: null,
   _eventsListened: null,
 

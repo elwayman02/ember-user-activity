@@ -19,11 +19,12 @@ Check out the [Demo](http://github.jhawk.co/ember-user-activity/)!
 This service fires events from global window listeners. 
 These listeners trigger on capture, meaning they are not affected by event cancellation. 
 
-Three `window` events are enabled by default:
+These `window` events are enabled by default:
 
 * `keydown` - Fires when a key is pressed
 * `mousedown` - Fires when a mouse is clicked
 * `scroll` - Fires when the user scrolls
+* `touchstart` - Fires when a touch point is placed on the touch surface [Mobile-Friendly]
 * ~~`mousemove` - Fires when the user moves the mouse~~ [Removed as of v0.2.0](https://github.com/elwayman02/ember-user-activity/issues/16)
 
 A custom event, `userActive` is fired for ALL enabled events.
