@@ -1,6 +1,9 @@
+import RSVP from 'rsvp';
 import { module } from 'qunit';
 import startApp from '../helpers/start-app';
 import destroyApp from '../helpers/destroy-app';
+
+const { RSVPPromise } = RSVP;
 
 export default function (name, options = {}) {
   module(name, {
@@ -13,11 +16,8 @@ export default function (name, options = {}) {
     },
 
     afterEach() {
-      if (options.afterEach) {
-        options.afterEach.call(this, ...arguments);
-      }
-
-      destroyApp(this.application);
+      let afterEach = options.afterEach && options.afterEach.call(this, ...arguments);
+      return RSVPPromise.resolve(afterEach).then(() => destroyApp(this.application));
     }
   });
 }
