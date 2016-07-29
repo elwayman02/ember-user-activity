@@ -3,7 +3,7 @@ import { module } from 'qunit';
 import startApp from '../helpers/start-app';
 import destroyApp from '../helpers/destroy-app';
 
-const { RSVPPromise } = RSVP;
+const { Promise } = RSVP;
 
 export default function (name, options = {}) {
   module(name, {
@@ -11,13 +11,13 @@ export default function (name, options = {}) {
       this.application = startApp();
 
       if (options.beforeEach) {
-        options.beforeEach.call(this, ...arguments);
+        return options.beforeEach.call(this, ...arguments);
       }
     },
 
     afterEach() {
       let afterEach = options.afterEach && options.afterEach.call(this, ...arguments);
-      return RSVPPromise.resolve(afterEach).then(() => destroyApp(this.application));
+      return Promise.resolve(afterEach).then(() => destroyApp(this.application));
     }
   });
 }

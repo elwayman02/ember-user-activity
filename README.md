@@ -263,7 +263,7 @@ This section outlines the details of collaborating on this Ember addon.
 
 ### Running
 
-* `ember server`
+* `ember serve`
 * Visit your app at http://localhost:4200.
 
 ### Running Tests
