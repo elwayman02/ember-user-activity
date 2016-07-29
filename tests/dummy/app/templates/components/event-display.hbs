@@ -1,4 +1,5 @@
-<h3 class="title">{{eventName}}</h3>
+<h3 class="eventName">{{eventName}}</h3>
+<span class="close" {{action 'close'}}>x</span>
 <p>Events Fired: {{events.length}}</p>
 <div class="eventList">
   {{#each events as |event|}}
