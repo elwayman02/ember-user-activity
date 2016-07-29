@@ -19,10 +19,19 @@ export default Component.extend({
   },
 
   willDestroyElement() {
-    this.get('userActivity').off(this.get('eventName'), this, this.registerActivity);
+    let userActivity = this.get('userActivity');
+    let eventName = this.get('eventName');
+    userActivity.off(eventName, this, this.registerActivity);
+    userActivity.disableEvent(eventName);
   },
 
   registerActivity(event) {
     this.get('events').unshiftObject(event.type);
+  },
+
+  actions: {
+    close() {
+      this.get('close')(this.get('eventName'));
+    }
   }
 });

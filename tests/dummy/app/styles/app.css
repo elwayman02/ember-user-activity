@@ -10,6 +10,24 @@ p,
   text-align: center;
 }
 
+.eventName {
+  display: inline-block;
+  margin: 5px;
+  text-align: center;
+}
+
+.close {
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+  margin-left: 3px;
+  padding: 2px 5px;
+}
+
+.close:hover {
+  background-color: lightgray;
+}
+
 .badgeInner {
   display: flex;
 }
@@ -25,6 +43,7 @@ p,
 }
 
 .eventDisplay {
+  position: relative;
   margin: 5px;
 }
 

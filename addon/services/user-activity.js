@@ -60,6 +60,11 @@ export default Service.extend(Evented, {
     this._setupListeners();
   },
 
+  on(eventName) {
+    this.enableEvent(eventName);
+    this._super(...arguments);
+  },
+
   enableEvent(eventName) {
     if (!this.isEnabled(eventName)) {
       this.get('enabledEvents').pushObject(eventName);

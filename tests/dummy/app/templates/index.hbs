@@ -14,14 +14,19 @@
   </span>
 </span>
 
+<p>This demo is running EUA version {{app-version}}</p>
+
 <p>Scroll, click, or press keys to see events fire!</p>
+
+<p>
+  Add <a href="https://developer.mozilla.org/en-US/docs/Web/Events" target="_blank">another event</a>:
+  <input value={{newEvent}} oninput={{action (mut newEvent) value='target.value'}} onkeydown={{action 'addEvent' newEvent}}>
+</p>
 
 {{idle-display}}
 
 <div class="flexContainer">
-  {{event-display}}
-  {{event-display eventName='scroll'}}
-  {{event-display eventName='mousedown'}}
-  {{event-display eventName='keydown'}}
-  {{event-display eventName='touchstart'}}
+  {{#each eventNames as |event|}}
+    {{event-display eventName=event close=(action 'removeEvent')}}
+  {{/each}}
 </div>
