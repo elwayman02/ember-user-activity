@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import Evented from 'ember-evented';
-import EmberObject from 'ember-object';
 import Service from 'ember-service';
 import { A } from 'ember-array/utils';
 import { bind } from 'ember-runloop';
@@ -23,12 +22,12 @@ export default Service.extend(Evented, {
     if (!element.scrollTop) { // a DOM element instead of a jQuery object
       element = $(element);
     }
-    this.get('subscribers').pushObject(EmberObject.create({
+    this.get('subscribers').pushObject({
       target,
       element,
       callback,
       scrollTop: element.scrollTop() // get scroll pos
-    }));
+    });
   },
 
   unsubscribe(target) {
@@ -48,11 +47,11 @@ export default Service.extend(Evented, {
     if (isPresent(subscribers)) {
       let hasScrolled = false;
       subscribers.forEach(function (subscriber) {
-        let scrollTop = subscriber.get('element').scrollTop();
-        if (scrollTop !== subscriber.get('scrollTop')) {
+        let scrollTop = subscriber.element.scrollTop();
+        if (scrollTop !== subscriber.scrollTop) {
           hasScrolled = true;
-          subscriber.get('callback')(scrollTop, subscriber.get('scrollTop'));
-          subscriber.set('scrollTop', scrollTop);
+          subscriber.callback(scrollTop, subscriber.scrollTop);
+          subscriber.scrollTop = scrollTop;
         }
       });
       if (hasScrolled) {

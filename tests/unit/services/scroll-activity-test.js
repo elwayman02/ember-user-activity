@@ -11,7 +11,7 @@ test('init', function (assert) {
     _pollScroll: this.stub()
   });
 
-  assert.ok(isEmberArray(service.get('subscribers')), 'sets subscribers to new Ember.A');
+  assert.ok(isEmberArray(service.subscribers), 'sets subscribers to new Ember.A');
   assert.ok(service.subscribe.calledOnce, 'subscribe was called');
   assert.ok(service._pollScroll.calledOnce, '_pollScroll was called');
 });
@@ -34,10 +34,10 @@ test('subscribe - no callback', function (assert) {
   assert.equal(service.get('subscribers.length'), 1, '1 subscriber added');
 
   let sub = service.get('subscribers.firstObject');
-  assert.equal(sub.get('target'), target, 'target added to subscriber object');
-  assert.equal(sub.get('element'), elem, 'element added to subscriber object');
-  assert.equal(typeof(sub.get('callback')), 'function', 'no-op function added when callback not provided');
-  assert.equal(sub.get('scrollTop'), scrollTop, 'scrollTop added to subscriber object');
+  assert.equal(sub.target, target, 'target added to subscriber object');
+  assert.equal(sub.element, elem, 'element added to subscriber object');
+  assert.equal(typeof(sub.callback), 'function', 'no-op function added when callback not provided');
+  assert.equal(sub.scrollTop, scrollTop, 'scrollTop added to subscriber object');
 });
 
 test('subscribe - with callback', function (assert) {
@@ -59,10 +59,10 @@ test('subscribe - with callback', function (assert) {
   assert.equal(service.get('subscribers.length'), 1, '1 subscriber added');
 
   let sub = service.get('subscribers.firstObject');
-  assert.equal(sub.get('target'), target, 'target added to subscriber object');
-  assert.equal(sub.get('element'), elem, 'element added to subscriber object');
-  assert.equal(sub.get('callback'), callback, 'callback added to subscriber object');
-  assert.equal(sub.get('scrollTop'), scrollTop, 'scrollTop added to subscriber object');
+  assert.equal(sub.target, target, 'target added to subscriber object');
+  assert.equal(sub.element, elem, 'element added to subscriber object');
+  assert.equal(sub.callback, callback, 'callback added to subscriber object');
+  assert.equal(sub.scrollTop, scrollTop, 'scrollTop added to subscriber object');
 });
 
 test('unsubscribe', function (assert) {
