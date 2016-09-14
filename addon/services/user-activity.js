@@ -36,8 +36,8 @@ export default Service.extend(Evented, {
   _listen(eventName) {
     if (eventName === 'scroll') {
       this.get('scrollActivity').on('scroll', this, this._handleScroll);
-    } else if (this.get('_eventsListened').indexOf(eventName) === -1) {
-      this.get('_eventsListened').pushObject(eventName);
+    } else if (this._eventsListened.indexOf(eventName) === -1) {
+      this._eventsListened.push(eventName);
       window.addEventListener(eventName, this._boundEventHandler, true);
     }
 
@@ -49,11 +49,11 @@ export default Service.extend(Evented, {
     if (testing) { // Do not throttle in testing mode
       this.set('EVENT_THROTTLE', 0);
     }
-    this.setProperties({
-      _boundEventHandler: this.handleEvent.bind(this),
-      _eventsListened: A(),
-      _throttledEventHandlers: {}
-    });
+
+    this._boundEventHandler = this.handleEvent.bind(this);
+    this._eventsListened = [];
+    this._throttledEventHandlers = {};
+
     if (isEmpty(this.get('enabledEvents'))) {
       this.set('enabledEvents', A());
     }
@@ -79,7 +79,7 @@ export default Service.extend(Evented, {
 
   disableEvent(eventName) {
     this.get('enabledEvents').removeObject(eventName);
-    this.set(`_throttledEventHandlers.${eventName}`, null);
+    this._throttledEventHandlers[eventName] = null;
     if (eventName === 'scroll') {
       this.get('scrollActivity').off('scroll', this, this._handleScroll);
     } else {
@@ -102,9 +102,10 @@ export default Service.extend(Evented, {
   },
 
   willDestroy() {
-    this.get('_eventsListened').forEach((eventName) => {
+    this._eventsListened.forEach((eventName) => {
       this.disableEvent(eventName);
     });
+    this._eventsListened.length = 0;
 
     this._super(...arguments);
   }

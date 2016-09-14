@@ -1,138 +1,162 @@
 import { moduleFor } from 'ember-qunit';
 import test from 'dummy/tests/ember-sinon-qunit/test';
-import { A, isEmberArray } from 'ember-array/utils';
-import { isEmpty } from 'ember-utils';
+import $ from 'jquery';
+
+let wait;
+if (window.requestAnimationFrame) {
+  wait = (cb) => {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(cb);
+      });
+    });
+  }
+} else {
+  wait = (cb) => {
+    window.setTimeout(function() {
+      window.setTimeout(function() {
+        window.setTimeout(cb, 16);
+      }, 16);
+    }, 16);
+  }
+}
 
 moduleFor('service:scroll-activity', 'Unit | Service | scroll activity', {});
 
-test('init', function (assert) {
-  let service = this.subject({
-    subscribe: this.stub(),
-    _pollScroll: this.stub()
-  });
+test('event triggered for window scroll', function (assert) {
+  let done = assert.async();
 
-  assert.ok(isEmberArray(service.subscribers), 'sets subscribers to new Ember.A');
-  assert.ok(service.subscribe.calledOnce, 'subscribe was called');
-  assert.ok(service._pollScroll.calledOnce, '_pollScroll was called');
+  // Create some content to scroll into
+  let fixture = $('#ember-testing');
+  for (let i=0;i<300;i++) {
+    fixture.append('<br>');
+  }
+
+  let service = this.subject();
+
+  let scrollEventCount = 0;
+  service.on('scroll', () => scrollEventCount++);
+
+  assert.equal(scrollEventCount, 0, 'scroll never happened');
+  wait(() => {
+    assert.equal(scrollEventCount, 1, 'scroll happened for initial state');
+    $(window).scrollTop(1);
+    wait(() => {
+      assert.equal(scrollEventCount, 2, 'scroll happened');
+      wait(() => {
+        assert.equal(scrollEventCount, 2, 'scroll did not just happen again');
+        done();
+      });
+    });
+  });
 });
 
-test('subscribe - no callback', function (assert) {
-  let service = this.subject({
-    init: this.stub(),
-    subscribers: A()
-  });
+test('subscribe w/ no callback triggers event', function (assert) {
+  let done = assert.async();
   let scrollTop = 1234;
   let elem = {
-    scrollTop() {
-      return scrollTop;
-    }
+    scrollTop: () => scrollTop
   };
   let target = { elem };
 
+  let service = this.subject();
   service.subscribe(target, elem);
 
-  assert.equal(service.get('subscribers.length'), 1, '1 subscriber added');
+  let scrollEventCount = 0;
+  service.on('scroll', () => scrollEventCount++);
 
-  let sub = service.get('subscribers.firstObject');
-  assert.equal(sub.target, target, 'target added to subscriber object');
-  assert.equal(sub.element, elem, 'element added to subscriber object');
-  assert.equal(typeof(sub.callback), 'function', 'no-op function added when callback not provided');
-  assert.equal(sub.scrollTop, scrollTop, 'scrollTop added to subscriber object');
+  wait(() => {
+    assert.equal(scrollEventCount, 1, 'scroll happened once');
+    wait(() => {
+      assert.equal(scrollEventCount, 1, 'scroll happened once when scrollTop stable');
+      scrollTop++;
+      wait(() => {
+        assert.equal(scrollEventCount, 2, 'scroll happened twice when scrollTop changes');
+        done();
+      });
+    });
+  });
 });
 
-test('subscribe - with callback', function (assert) {
-  let service = this.subject({
-    init: this.stub(),
-    subscribers: A()
-  });
+test('subscribe w/ callback triggers callback and evet', function (assert) {
+  let done = assert.async();
   let scrollTop = 1234;
   let elem = {
-    scrollTop() {
-      return scrollTop;
-    }
+    scrollTop: () => scrollTop
   };
   let target = { elem };
-  let callback = 'foo';
 
-  service.subscribe(target, elem, callback);
+  let service = this.subject();
 
-  assert.equal(service.get('subscribers.length'), 1, '1 subscriber added');
+  let subscribedEventCount = 0;
+  let subscribedScrollTop = null;
+  let subscribedLastScrollTop = null;
+  service.subscribe(target, elem, (scrollTop, lastScrollTop) => {
+    subscribedScrollTop = scrollTop;
+    subscribedLastScrollTop = lastScrollTop;
+    subscribedEventCount++;
+  });
 
-  let sub = service.get('subscribers.firstObject');
-  assert.equal(sub.target, target, 'target added to subscriber object');
-  assert.equal(sub.element, elem, 'element added to subscriber object');
-  assert.equal(sub.callback, callback, 'callback added to subscriber object');
-  assert.equal(sub.scrollTop, scrollTop, 'scrollTop added to subscriber object');
+  let scrollEventCount = 0;
+  service.on('scroll', () => scrollEventCount++);
+
+  wait(() => {
+    assert.equal(scrollEventCount, 1, 'scroll happened once');
+    assert.equal(subscribedEventCount, 1, 'subscription callback fired once');
+    assert.equal(subscribedLastScrollTop, null, 'initial scrollTop is null');
+    assert.equal(subscribedScrollTop, scrollTop, 'new scrolltop is new value');
+    wait(() => {
+      assert.equal(scrollEventCount, 1, 'scroll happened once when scrollTop stable');
+      assert.equal(subscribedEventCount, 1, 'subscription callback fired once');
+      scrollTop++;
+      wait(() => {
+        assert.equal(scrollEventCount, 2, 'scroll happened twice when scrollTop changes');
+        assert.equal(subscribedEventCount, 2, 'subscription callback fired once');
+        assert.equal(subscribedLastScrollTop, scrollTop-1, 'lastScrollTop is previous value');
+        assert.equal(subscribedScrollTop, scrollTop, 'new scrolltop is new value');
+        done();
+      });
+    });
+  });
 });
 
 test('unsubscribe', function (assert) {
-  let service = this.subject({
-    init: this.stub(),
-    subscribers: A()
-  });
+  let done = assert.async();
   let scrollTop = 1234;
   let elem = {
-    scrollTop() {
-      return scrollTop;
-    }
+    scrollTop: () => scrollTop
   };
   let target = { elem };
 
-  service.subscribe(target, elem);
+  let service = this.subject();
 
-  target.foo = 'foo'; // simulate a change to the target object over time
-
-  service.unsubscribe(target);
-
-  assert.ok(isEmpty(service.get('subscribers')), 'subscriber removed');
-});
-
-test('_checkScroll - no change', function (assert) {
-  let service = this.subject({
-    init: this.stub(),
-    _pollScroll: this.stub(),
-    trigger: this.stub(),
-    subscribers: A()
+  let subscribedEventCount = 0;
+  let subscribedScrollTop = null;
+  let subscribedLastScrollTop = null;
+  service.subscribe(target, elem, (scrollTop, lastScrollTop) => {
+    subscribedScrollTop = scrollTop;
+    subscribedLastScrollTop = lastScrollTop;
+    subscribedEventCount++;
   });
-  let scrollTop = 1234;
-  let elem = {
-    scrollTop() {
-      return scrollTop;
-    }
-  };
-  let target = { elem };
-  let callback = this.stub();
-  service.subscribe(target, elem, callback);
 
-  service._checkScroll();
+  let scrollEventCount = 0;
+  service.on('scroll', () => scrollEventCount++);
 
-  assert.notOk(callback.called, 'callback not called when scrollTop has not changed');
-  assert.notOk(service.trigger.called, 'no scroll event triggered');
-  assert.ok(service._pollScroll.calledOnce, '_pollScroll called to schedule polling');
-});
-
-test('_checkScroll - scroll changed', function (assert) {
-  let service = this.subject({
-    init: this.stub(),
-    _pollScroll: this.stub(),
-    trigger: this.stub(),
-    subscribers: A()
+  wait(() => {
+    assert.equal(scrollEventCount, 1, 'scroll happened once');
+    assert.equal(subscribedEventCount, 1, 'subscription callback fired once');
+    assert.equal(subscribedLastScrollTop, null, 'initial scrollTop is null');
+    assert.equal(subscribedScrollTop, scrollTop, 'new scrolltop is new value');
+    wait(() => {
+      assert.equal(scrollEventCount, 1, 'scroll happened once when scrollTop stable');
+      assert.equal(subscribedEventCount, 1, 'subscription callback fired once');
+      scrollTop++;
+      service.unsubscribe(target);
+      wait(() => {
+        assert.equal(scrollEventCount, 1, 'scroll happened twice when scrollTop changes');
+        assert.equal(subscribedEventCount, 1, 'subscription callback fired once');
+        done();
+      });
+    });
   });
-  let scrollTop = 1234;
-  let elem = {
-    scrollTop() {
-      return scrollTop;
-    }
-  };
-  let target = { elem };
-  let callback = this.stub();
-  service.subscribe(target, elem, callback);
-  scrollTop = 4321;
-
-  service._checkScroll();
-
-  assert.ok(callback.calledOnce, 'callback called when scrollTop has changed');
-  assert.ok(service.trigger.calledOnce, 'trigger called');
-  assert.equal(service.trigger.firstCall.args[0], 'scroll', 'scroll event triggered');
-  assert.ok(service._pollScroll.calledOnce, '_pollScroll called to schedule polling');
 });
