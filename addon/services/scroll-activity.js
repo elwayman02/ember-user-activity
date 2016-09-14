@@ -77,11 +77,15 @@ export default Service.extend(Evented, {
         if (subscriber.highPriority || lowPriorityFrame) {
           let scrollTop = subscriber.element.scrollTop();
           if (scrollTop !== subscriber.scrollTop) {
-            if (!hasScrolled) {
-              run.begin();
-              hasScrolled = true;
+            // If the value is changing from an initial null state to a first
+            // time value, do not treat it like a change.
+            if (subscriber.scrollTop !== null) {
+              if (!hasScrolled) {
+                run.begin();
+                hasScrolled = true;
+              }
+              subscriber.callback(scrollTop, subscriber.scrollTop);
             }
-            subscriber.callback(scrollTop, subscriber.scrollTop);
             subscriber.scrollTop = scrollTop;
           }
         }

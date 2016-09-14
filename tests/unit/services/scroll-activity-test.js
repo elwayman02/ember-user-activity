@@ -37,14 +37,14 @@ test('event triggered for window scroll', function (assert) {
   let scrollEventCount = 0;
   service.on('scroll', () => scrollEventCount++);
 
-  assert.equal(scrollEventCount, 0, 'scroll never happened');
+  assert.equal(scrollEventCount, 0, 'precond - no scroll happens');
   wait(() => {
-    assert.equal(scrollEventCount, 1, 'scroll happened for initial state');
+    assert.equal(scrollEventCount, 0, 'no scroll happens for nothing');
     $(window).scrollTop(1);
     wait(() => {
-      assert.equal(scrollEventCount, 2, 'scroll happened');
+      assert.equal(scrollEventCount, 1, 'scroll fires for a body scroll');
       wait(() => {
-        assert.equal(scrollEventCount, 2, 'scroll did not just happen again');
+        assert.equal(scrollEventCount, 1, 'no scroll happens for nothing');
         done();
       });
     });
@@ -66,14 +66,11 @@ test('subscribe w/ no callback triggers event', function (assert) {
   service.on('scroll', () => scrollEventCount++);
 
   wait(() => {
-    assert.equal(scrollEventCount, 1, 'scroll happened once');
+    assert.equal(scrollEventCount, 0, 'precond - no scroll happens');
+    scrollTop++;
     wait(() => {
-      assert.equal(scrollEventCount, 1, 'scroll happened once when scrollTop stable');
-      scrollTop++;
-      wait(() => {
-        assert.equal(scrollEventCount, 2, 'scroll happened twice when scrollTop changes');
-        done();
-      });
+      assert.equal(scrollEventCount, 1, 'scroll happened twice when scrollTop changes');
+      done();
     });
   });
 });
@@ -101,17 +98,15 @@ test('subscribe w/ callback triggers callback and evet', function (assert) {
   service.on('scroll', () => scrollEventCount++);
 
   wait(() => {
-    assert.equal(scrollEventCount, 1, 'scroll happened once');
-    assert.equal(subscribedEventCount, 1, 'subscription callback fired once');
-    assert.equal(subscribedLastScrollTop, null, 'initial scrollTop is null');
-    assert.equal(subscribedScrollTop, scrollTop, 'new scrolltop is new value');
+    assert.equal(scrollEventCount, 0, 'precond - no scroll event');
+    assert.equal(subscribedEventCount, 0, 'precond - no subscription callback');
     wait(() => {
-      assert.equal(scrollEventCount, 1, 'scroll happened once when scrollTop stable');
-      assert.equal(subscribedEventCount, 1, 'subscription callback fired once');
+      assert.equal(scrollEventCount, 0, 'no scroll when nothing happens');
+      assert.equal(subscribedEventCount, 0, 'no subscription callback when nothing happens');
       scrollTop++;
       wait(() => {
-        assert.equal(scrollEventCount, 2, 'scroll happened twice when scrollTop changes');
-        assert.equal(subscribedEventCount, 2, 'subscription callback fired once');
+        assert.equal(scrollEventCount, 1, 'scroll happened when scrollTop changes');
+        assert.equal(subscribedEventCount, 1, 'subscription callback fired once');
         assert.equal(subscribedLastScrollTop, scrollTop-1, 'lastScrollTop is previous value');
         assert.equal(subscribedScrollTop, scrollTop, 'new scrolltop is new value');
         done();
@@ -131,11 +126,7 @@ test('unsubscribe', function (assert) {
   let service = this.subject();
 
   let subscribedEventCount = 0;
-  let subscribedScrollTop = null;
-  let subscribedLastScrollTop = null;
-  service.subscribe(target, elem, (scrollTop, lastScrollTop) => {
-    subscribedScrollTop = scrollTop;
-    subscribedLastScrollTop = lastScrollTop;
+  service.subscribe(target, elem, () => {
     subscribedEventCount++;
   });
 
@@ -143,20 +134,14 @@ test('unsubscribe', function (assert) {
   service.on('scroll', () => scrollEventCount++);
 
   wait(() => {
-    assert.equal(scrollEventCount, 1, 'scroll happened once');
-    assert.equal(subscribedEventCount, 1, 'subscription callback fired once');
-    assert.equal(subscribedLastScrollTop, null, 'initial scrollTop is null');
-    assert.equal(subscribedScrollTop, scrollTop, 'new scrolltop is new value');
+    assert.equal(scrollEventCount, 0, 'precond - no scroll event');
+    assert.equal(subscribedEventCount, 0, 'precond - no subscription callback');
+    scrollTop++;
+    service.unsubscribe(target);
     wait(() => {
-      assert.equal(scrollEventCount, 1, 'scroll happened once when scrollTop stable');
-      assert.equal(subscribedEventCount, 1, 'subscription callback fired once');
-      scrollTop++;
-      service.unsubscribe(target);
-      wait(() => {
-        assert.equal(scrollEventCount, 1, 'scroll happened twice when scrollTop changes');
-        assert.equal(subscribedEventCount, 1, 'subscription callback fired once');
-        done();
-      });
+      assert.equal(scrollEventCount, 0, 'no scroll event');
+      assert.equal(subscribedEventCount, 0, 'no subscription callback');
+      done();
     });
   });
 });
