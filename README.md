@@ -147,9 +147,13 @@ this.get('scrollActivity').subscribe(this, this.$());
 that can be used to unsubscribe from the service
 * `element` - The scrollable element (can be a DOM or jQuery element)
 
-A third optional parameter can be included:
+Two optional parameters may follow:
 
 * `callback` - A callback to execute when scrolling has been detected in the element
+* `highPriority` - A boolean (default `true`) specifying this subscriber should eagerly check
+  scroll positions on each animation frame. When `false`, it will instead
+  use an approximation of idle checking on the UI thread to avoid performing
+  measurements at sensitive times for other work (like rendering).
 
 Conversely, elements can also be unsubscribed:
 
