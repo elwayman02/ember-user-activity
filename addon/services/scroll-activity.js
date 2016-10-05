@@ -19,6 +19,7 @@ export default Service.extend(Evented, {
   init() {
     this._super(...arguments);
 
+	if (!self.document) { return; }
     this._animationFrame = null;
     this._subscribers = [];
     this._lastCheckAt = new Date();
@@ -57,7 +58,8 @@ export default Service.extend(Evented, {
   },
 
   _pollScroll() {
-    if (window.requestAnimationFrame) {
+	if (!self.window.requestAnimationFrame) { return; }
+	if (window.requestAnimationFrame) {
       this._animationFrame = requestAnimationFrame(() => this._checkScroll());
     } else {
       this._animationFrame = setTimeout(() => this._checkScroll(), 16);
@@ -100,6 +102,7 @@ export default Service.extend(Evented, {
   },
 
   willDestroy() {
+	if (!self.window.requestAnimationFrame) { return; }
     if (window.requestAnimationFrame) {
       cancelAnimationFrame(this._animationFrame);
     } else {
