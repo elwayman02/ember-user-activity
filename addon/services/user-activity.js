@@ -34,6 +34,7 @@ export default Service.extend(Evented, {
   },
 
   _listen(eventName) {
+	if (!self.window.addEventListener) { return; }
     if (eventName === 'scroll') {
       this.get('scrollActivity').on('scroll', this, this._handleScroll);
     } else if (this._eventsListened.indexOf(eventName) === -1) {
@@ -78,6 +79,7 @@ export default Service.extend(Evented, {
   },
 
   disableEvent(eventName) {
+	if (!self.window.removeEventListener) { return; }
     this.get('enabledEvents').removeObject(eventName);
     this._throttledEventHandlers[eventName] = null;
     if (eventName === 'scroll') {
