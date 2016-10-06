@@ -1,11 +1,12 @@
 import Ember from 'ember';
+import Evented from 'ember-evented';
 import Service from 'ember-service';
 import injectService from 'ember-service/inject';
 import { cancel, debounce } from 'ember-runloop';
 
 const { testing } = Ember;
 
-export default Service.extend({
+export default Service.extend(Evented, {
   userActivity: injectService('ember-user-activity@user-activity'),
 
   _debouncedTimeout: null,
@@ -42,10 +43,12 @@ export default Service.extend({
 
   resetTimeout() {
     this.set('isIdle', false);
+    this.trigger('idleChanged', false);
     this._debouncedTimeout = debounce(this, this.setIdle, this.get('IDLE_TIMEOUT'));
   },
 
   setIdle() {
     this.set('isIdle', true);
+    this.trigger('idleChanged', true);
   }
 });
