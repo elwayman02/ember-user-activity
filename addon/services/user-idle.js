@@ -42,8 +42,11 @@ export default Service.extend(Evented, {
   },
 
   resetTimeout() {
+    let oldIdle = this.get('isIdle');
     this.set('isIdle', false);
-    this.trigger('idleChanged', false);
+    if (oldIdle) {
+      this.trigger('idleChanged', false);
+    }
     this._debouncedTimeout = debounce(this, this.setIdle, this.get('IDLE_TIMEOUT'));
   },
 
