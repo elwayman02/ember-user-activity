@@ -2,6 +2,7 @@ import $ from 'jquery';
 import Evented from 'ember-evented';
 import Service from 'ember-service';
 import run from 'ember-runloop';
+import FastBootCompatMixin from '../mixins/fastboot-compat';
 
 /*
  * Polling uses rAF and/or a setTimeout at 16ms, however rAF will run in the
@@ -14,12 +15,14 @@ import run from 'ember-runloop';
  */
 const MAX_POLL_PERIOD = 32;
 
-export default Service.extend(Evented, {
+export default Service.extend(Evented, FastBootCompatMixin, {
 
   init() {
     this._super(...arguments);
 
-    this._animationFrame = null;
+    if (this.get('_isFastBoot')) { return; }
+
+	this._animationFrame = null;
     this._subscribers = [];
     this._lastCheckAt = new Date();
     this.subscribe(document, document, () => {}, false);
@@ -57,6 +60,7 @@ export default Service.extend(Evented, {
   },
 
   _pollScroll() {
+	if (this.get('_isFastBoot')) { return; }
     if (window.requestAnimationFrame) {
       this._animationFrame = requestAnimationFrame(() => this._checkScroll());
     } else {
@@ -100,6 +104,7 @@ export default Service.extend(Evented, {
   },
 
   willDestroy() {
+	if (this.get('_isFastBoot')) { return; }
     if (window.requestAnimationFrame) {
       cancelAnimationFrame(this._animationFrame);
     } else {
