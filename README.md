@@ -127,6 +127,17 @@ export default UserIdleService.extend({
 Note that the `userActive` event is a superset of all events fired from `user-activity`, 
 so in most cases you won't need to change this.
 
+The idle service has a `idleChanged` event when `isIdle` gets changed.
+```javascript
+userIdle: injectService(),
+
+init() {
+  this.get('userIdle').on('idleChanged', (isIdle) => {
+    // isIdle is true if idle. False otherwise.
+  })
+}
+```
+
 ### Scroll Activity Service
 
 This service tracks scrolling within the application by periodically checking 
