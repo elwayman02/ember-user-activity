@@ -12,7 +12,7 @@
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "https://github.com/elwayman02/ember-user-activity.git",
+  "repository": "https://github.com/elwayman02/ember-user-activity",
   "engines": {
     "node": ">= 0.10.0"
   },
