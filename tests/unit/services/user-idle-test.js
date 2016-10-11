@@ -28,15 +28,22 @@ test('init sets up event listeners', function (assert) {
 });
 
 test('resetTimeout', function (assert) {
-  assert.expect(2);
+  assert.expect(5);
 
   let service = this.subject({
+    trigger: this.stub(),
     init: this.stub(),
     isIdle: true,
     IDLE_TIMEOUT: 100
   });
 
   service.resetTimeout();
+
+  let stub = service.trigger;
+  assert.ok(stub.calledOnce, 'triggers one event');
+  let { args } = stub.firstCall;
+  assert.equal(args[0], 'idleChanged', 'triggers idleChanged event');
+  assert.equal(args[1], false, 'passes data');
 
   assert.ok(!service.get('isIdle'), 'isIdle is false');
 
@@ -47,10 +54,17 @@ test('resetTimeout', function (assert) {
 
 test('setIdle', function (assert) {
   let service = this.subject({
+    trigger: this.stub(),
     resetTimeout: this.stub()
   });
 
   service.setIdle();
+
+  let stub = service.trigger;
+  assert.ok(stub.calledOnce, 'triggers one event');
+  let { args } = stub.firstCall;
+  assert.equal(args[0], 'idleChanged', 'triggers idleChanged event');
+  assert.equal(args[1], true, 'passes data');
 
   assert.ok(service.get('isIdle'), 'isIdle is true');
 });

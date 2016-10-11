@@ -1,6 +1,6 @@
 {
   "name": "ember-user-activity",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Ember Addon for tracking user activity & idling",
   "directories": {
     "doc": "doc",
@@ -12,7 +12,7 @@
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "https://github.com/elwayman02/ember-user-activity.git",
+  "repository": "https://github.com/elwayman02/ember-user-activity",
   "engines": {
     "node": ">= 0.10.0"
   },
@@ -20,7 +20,7 @@
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
-    "ember-cli": "2.7.0",
+    "ember-cli": "2.8.0",
     "ember-cli-app-version": "^2.0.0",
     "ember-cli-dependency-checker": "^1.2.0",
     "ember-cli-eslint": "~1.8.0",

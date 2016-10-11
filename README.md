@@ -127,6 +127,17 @@ export default UserIdleService.extend({
 Note that the `userActive` event is a superset of all events fired from `user-activity`, 
 so in most cases you won't need to change this.
 
+The idle service has a `idleChanged` event when `isIdle` gets changed.
+```javascript
+userIdle: injectService(),
+
+init() {
+  this.get('userIdle').on('idleChanged', (isIdle) => {
+    // isIdle is true if idle. False otherwise.
+  })
+}
+```
+
 ### Scroll Activity Service
 
 This service tracks scrolling within the application by periodically checking 
@@ -261,7 +272,8 @@ This section outlines the details of collaborating on this Ember addon.
 
 ### Installation
 
-* `git clone` this repository
+* `git clone git@github.com:elwayman02/ember-user-activity.git`
+* `cd ember-user-activity/`
 * `npm install`
 * `bower install`
 
@@ -272,7 +284,7 @@ This section outlines the details of collaborating on this Ember addon.
 
 ### Running Tests
 
-* `npm test` (Runs `ember try:testall` to test your addon against multiple Ember versions)
+* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
 * `ember test`
 * `ember test --server`
 
