@@ -22,7 +22,7 @@ export default Service.extend(Evented, FastBootCompatMixin, {
 
     if (this.get('_isFastBoot')) { return; }
 
-	this._animationFrame = null;
+    this._animationFrame = null;
     this._subscribers = [];
     this._lastCheckAt = new Date();
     this.subscribe(document, document, () => {}, false);
@@ -60,7 +60,7 @@ export default Service.extend(Evented, FastBootCompatMixin, {
   },
 
   _pollScroll() {
-	if (this.get('_isFastBoot')) { return; }
+    if (this.get('_isFastBoot')) { return; }
     if (window.requestAnimationFrame) {
       this._animationFrame = requestAnimationFrame(() => this._checkScroll());
     } else {
@@ -104,7 +104,7 @@ export default Service.extend(Evented, FastBootCompatMixin, {
   },
 
   willDestroy() {
-	if (this.get('_isFastBoot')) { return; }
+    if (this.get('_isFastBoot')) { return; }
     if (window.requestAnimationFrame) {
       cancelAnimationFrame(this._animationFrame);
     } else {
