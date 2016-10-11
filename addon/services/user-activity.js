@@ -39,8 +39,8 @@ export default Service.extend(Evented, FastBootCompatMixin, {
     if (eventName === 'scroll') {
       this.get('scrollActivity').on('scroll', this, this._handleScroll);
     } else if (this._eventsListened.indexOf(eventName) === -1) {
+      if (this.get('_isFastBoot')) { return; }	
       this._eventsListened.push(eventName);
-      if (this.get('_isFastBoot')) { return; }
       window.addEventListener(eventName, this._boundEventHandler, true);
     }
 
