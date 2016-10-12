@@ -1,6 +1,6 @@
 {
   "name": "ember-user-activity",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Ember Addon for tracking user activity & idling",
   "directories": {
     "doc": "doc",
