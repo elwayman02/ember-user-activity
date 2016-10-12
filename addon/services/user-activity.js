@@ -5,10 +5,12 @@ import injectService from 'ember-service/inject';
 import { A } from 'ember-array/utils';
 import { isEmpty } from 'ember-utils';
 import { throttle } from 'ember-runloop';
+import FastBootCompatMixin from '../mixins/fastboot-compat';
+
 
 const { testing } = Ember;
 
-export default Service.extend(Evented, {
+export default Service.extend(Evented, FastBootCompatMixin, {
   scrollActivity: injectService('ember-user-activity@scroll-activity'),
 
   EVENT_THROTTLE: 100,
@@ -37,6 +39,7 @@ export default Service.extend(Evented, {
     if (eventName === 'scroll') {
       this.get('scrollActivity').on('scroll', this, this._handleScroll);
     } else if (this._eventsListened.indexOf(eventName) === -1) {
+      if (this.get('_isFastBoot')) { return; }	
       this._eventsListened.push(eventName);
       window.addEventListener(eventName, this._boundEventHandler, true);
     }
@@ -83,6 +86,7 @@ export default Service.extend(Evented, {
     if (eventName === 'scroll') {
       this.get('scrollActivity').off('scroll', this, this._handleScroll);
     } else {
+      if (this.get('_isFastBoot')) { return; }
       window.removeEventListener(eventName, this._boundEventHandler, true);
     }
   },
