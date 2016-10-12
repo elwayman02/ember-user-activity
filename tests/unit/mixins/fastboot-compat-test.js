@@ -1,18 +1,22 @@
 import Ember from 'ember';
 import FastbootCompatMixin from 'ember-user-activity/mixins/fastboot-compat';
-import { moduleFor, test } from 'ember-qunit';
-const { getOwner } = Ember;
+import { module, test } from 'qunit';
 
-moduleFor('mixin:fastboot-compat', 'Unit | Mixin | fastboot compat', {
-integration: true,
-  subject() {
-    let FastbootCompatObject = Ember.Object.extend(FastbootCompatMixin);
-    this.register('test-container:fastboot-compat-object', FastbootCompatObject);
-    return getOwner(this).lookup('test-container:fastboot-compat-object');
-  }
+module('Unit | Mixin | fastboot compat');
+
+test('mixin fastboot service available - mocked', function(assert) {
+  let FastbootCompatObject = Ember.Service.extend(FastbootCompatMixin,{
+    _fastboot: { isFastBoot: true}
+  });
+  let subject = FastbootCompatObject.create();
+  assert.ok(subject.get('_isFastBoot'), `it should be true`);
 });
 
-test('isFastBoot in the browser', function(assert) {
-  const subject = this.subject();
-  assert.equal(subject.get('_isFastBoot'), undefined, `it should be undefined`);
+
+test('mixin fastboot service not available - mocked', function(assert) {
+  let FastbootCompatObject = Ember.Service.extend(FastbootCompatMixin,{
+    _fastboot: null
+  });
+  let subject = FastbootCompatObject.create();
+  assert.notOk(subject.get('_isFastBoot'), `it should be false`);
 });
