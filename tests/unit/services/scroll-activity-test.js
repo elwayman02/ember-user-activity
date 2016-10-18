@@ -1,5 +1,5 @@
 import { moduleFor } from 'ember-qunit';
-import test from 'dummy/tests/ember-sinon-qunit/test';
+import test from 'ember-sinon-qunit/test-support/test';
 import $ from 'jquery';
 
 let wait;
@@ -24,6 +24,8 @@ if (window.requestAnimationFrame) {
 moduleFor('service:scroll-activity', 'Unit | Service | scroll activity', {});
 
 test('event triggered for window scroll', function (assert) {
+  assert.expect(4);
+
   let done = assert.async();
 
   // Create some content to scroll into
