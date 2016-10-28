@@ -1,7 +1,7 @@
 import ScrollActivityMixin from 'ember-user-activity/mixins/scroll-activity';
 import EmberObject from 'ember-object';
 import { module } from 'qunit';
-import test from 'dummy/tests/ember-sinon-qunit/test';
+import test from 'ember-sinon-qunit/test-support/test';
 
 module('Unit | Mixin | scroll activity');
 

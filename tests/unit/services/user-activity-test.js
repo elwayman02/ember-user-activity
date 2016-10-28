@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import { moduleFor } from 'ember-qunit';
-import test from 'dummy/tests/ember-sinon-qunit/test';
+import test from 'ember-sinon-qunit/test-support/test';
 
 const { A: emberArray, K: noOp, typeOf } = Ember;
 

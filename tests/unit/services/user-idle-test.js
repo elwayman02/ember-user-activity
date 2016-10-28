@@ -1,5 +1,5 @@
 import { moduleFor } from 'ember-qunit';
-import test from 'dummy/tests/ember-sinon-qunit/test';
+import test from 'ember-sinon-qunit/test-support/test';
 import wait from 'ember-test-helpers/wait';
 
 moduleFor('service:user-idle', 'Unit | Service | user idle', {
