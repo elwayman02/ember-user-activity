@@ -1,34 +1,40 @@
 {
   "name": "ember-user-activity",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Ember Addon for tracking user activity & idling",
+  "keywords": [
+    "ember-addon",
+    "user activity",
+    "idle",
+    "idling"
+  ],
+  "license": "MIT",
+  "author": "Jordan Hawker <hawker.jordan@gmail.com> (http://www.JordanHawker.com)",
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
+  "repository": "https://github.com/elwayman02/ember-user-activity",
   "scripts": {
     "build": "ember build",
     "deploy": "ember github-pages:commit --message \"Deploy gh-pages from commit $(git rev-parse HEAD)\"; git push; git checkout -",
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "https://github.com/elwayman02/ember-user-activity",
-  "engines": {
-    "node": ">= 0.10.0"
+  "dependencies": {
+    "ember-cli-babel": "^5.1.7"
   },
-  "author": "Jordan Hawker <hawker.jordan@gmail.com> (http://www.JordanHawker.com)",
-  "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
-    "ember-cli": "2.8.0",
+    "ember-cli": "2.10.0",
     "ember-cli-app-version": "^2.0.0",
-    "ember-cli-dependency-checker": "^1.2.0",
-    "ember-cli-eslint": "~1.8.0",
+    "ember-cli-dependency-checker": "^1.3.0",
+    "ember-cli-eslint": "~3.0.0",
     "ember-cli-github-pages": "~0.1.2",
     "ember-cli-htmlbars": "^1.0.10",
     "ember-cli-htmlbars-inline-precompile": "^0.3.3",
     "ember-cli-inject-live-reload": "^1.4.1",
-    "ember-cli-qunit": "^3.0.0",
+    "ember-cli-qunit": "^3.0.1",
     "ember-cli-release": "1.0.0-beta.1",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-test-loader": "^1.1.0",
@@ -40,16 +46,10 @@
     "ember-resolver": "^2.0.3",
     "ember-sinon": "0.5.1",
     "ember-sinon-qunit": "1.3.5",
-    "loader.js": "^4.0.7"
+    "loader.js": "^4.0.10"
   },
-  "keywords": [
-    "ember-addon",
-    "user activity",
-    "idle",
-    "idling"
-  ],
-  "dependencies": {
-    "ember-cli-babel": "^5.1.7"
+  "engines": {
+    "node": ">= 0.12.0"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
