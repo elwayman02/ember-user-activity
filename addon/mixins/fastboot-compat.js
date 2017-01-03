@@ -1,5 +1,5 @@
 import Mixin from 'ember-metal/mixin';
-import getOwner from 'ember-getowner-polyfill';
+import getOwner from 'ember-owner/get';
 import computed from 'ember-computed';
 
 export default Mixin.create({
