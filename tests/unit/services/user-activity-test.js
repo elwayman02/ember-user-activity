@@ -2,7 +2,10 @@ import Ember from 'ember';
 import { moduleFor } from 'ember-qunit';
 import test from 'ember-sinon-qunit/test-support/test';
 
-const { A: emberArray, K: noOp, typeOf } = Ember;
+const {
+  A: emberArray,
+  typeOf
+} = Ember;
 
 moduleFor('service:user-activity', 'Unit | Service | user activity', {
   needs: ['service:ember-user-activity@scroll-activity']
@@ -79,7 +82,7 @@ test('fireEvent - subscribed to event', function (assert) {
     _setupListeners: this.stub()
   });
 
-  service.on(event.type, this, noOp);
+  service.on(event.type, this, function() {});
 
   service.fireEvent(event);
 
@@ -97,7 +100,7 @@ test('fireEvent - subscribed to userActive', function (assert) {
     _setupListeners: this.stub()
   });
 
-  service.on('userActive', this, noOp);
+  service.on('userActive', this, function() {});
 
   service.fireEvent(event);
 
