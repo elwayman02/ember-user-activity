@@ -2,10 +2,7 @@ import Ember from 'ember';
 import { moduleFor } from 'ember-qunit';
 import test from 'ember-sinon-qunit/test-support/test';
 
-const {
-  A: emberArray,
-  typeOf
-} = Ember;
+const { A: emberArray, typeOf } = Ember;
 
 moduleFor('service:user-activity', 'Unit | Service | user activity', {
   needs: ['service:ember-user-activity@scroll-activity']
