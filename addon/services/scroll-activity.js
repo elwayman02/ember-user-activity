@@ -1,8 +1,8 @@
-import $ from 'jquery';
 import Evented from 'ember-evented';
 import Service from 'ember-service';
 import run from 'ember-runloop';
 import FastBootCompatMixin from '../mixins/fastboot-compat';
+import getScrollTop from '../utils/get-scroll-top';
 
 /*
  * Polling uses rAF and/or a setTimeout at 16ms, however rAF will run in the
@@ -36,9 +36,6 @@ export default Service.extend(Evented, FastBootCompatMixin, {
     callback=() => {},
     highPriority=true
   ) {
-    if (!element.scrollTop) { // a DOM element instead of a jQuery object
-      element = $(element);
-    }
     this._subscribers.push({
       target,
       element,
@@ -79,7 +76,8 @@ export default Service.extend(Evented, FastBootCompatMixin, {
       for (let i=0;i<subscribers.length;i++) {
         let subscriber = subscribers[i];
         if (subscriber.highPriority || lowPriorityFrame) {
-          let scrollTop = subscriber.element.scrollTop();
+          let scrollTop = getScrollTop(subscriber.element);
+          console.log(`Scroll Top: ${scrollTop}`); // eslint-disable-line no-console
           if (scrollTop !== subscriber.scrollTop) {
             // If the value is changing from an initial null state to a first
             // time value, do not treat it like a change.
