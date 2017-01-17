@@ -77,7 +77,6 @@ export default Service.extend(Evented, FastBootCompatMixin, {
         let subscriber = subscribers[i];
         if (subscriber.highPriority || lowPriorityFrame) {
           let scrollTop = getScrollTop(subscriber.element);
-          console.log(`Scroll Top: ${scrollTop}`); // eslint-disable-line no-console
           if (scrollTop !== subscriber.scrollTop) {
             // If the value is changing from an initial null state to a first
             // time value, do not treat it like a change.
