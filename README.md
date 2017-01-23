@@ -149,14 +149,14 @@ way to register your components as well. The [User Activity Service](#user-activ
 Any elements can be subscribed to this service:
 
 ```javascript
-this.get('scrollActivity').subscribe(this, this.$());
+this.get('scrollActivity').subscribe(this, this.get('element'));
 ```
 
 `subscribe` requires at least two parameters:
 
 * `target` - Usually `this`, target just needs to be a unique identifier/object 
 that can be used to unsubscribe from the service
-* `element` - The scrollable element (can be a DOM or jQuery element)
+* `element` - The scrollable element (can be a DOM or jQuery element - jQuery not required!)
 
 Two optional parameters may follow:
 
