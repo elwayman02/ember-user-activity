@@ -15,9 +15,7 @@ function setupTests(withCallback) {
   elem = 'foo';
   let ScrollActivityObject = EmberObject.extend(ScrollActivityMixin, {
     scrollActivity,
-    $() {
-      return elem;
-    }
+    scrollElement: elem
   });
   let subject = ScrollActivityObject.create();
 

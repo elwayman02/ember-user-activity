@@ -10,7 +10,8 @@ export default Mixin.create({
   didScroll() {}, // no-op function
 
   scrollSubscribe: on('didInsertElement', function () {
-    this.get('scrollActivity').subscribe(this, this.$(this.get('scrollElement')), bind(this, this.didScroll));
+    let element = this.get('scrollElement') || this.get('element'); // Fallback to the component's DOM element
+    this.get('scrollActivity').subscribe(this, element, bind(this, this.didScroll));
   }),
 
   scrollUnsubscribe: on('willDestroyElement', function () {
