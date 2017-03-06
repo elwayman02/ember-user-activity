@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import Mixin from 'ember-metal/mixin';
 import computed from 'ember-computed';
 
