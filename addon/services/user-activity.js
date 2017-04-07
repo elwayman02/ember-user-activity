@@ -39,8 +39,8 @@ export default Service.extend(Evented, FastBootCompatMixin, {
     if (eventName === 'scroll') {
       this.get('scrollActivity').on('scroll', this, this._handleScroll);
     } else if (this._eventsListened.indexOf(eventName) === -1) {
-      if (this.get('_isFastBoot')) { return; }	
-      this._eventsListened.push(eventName);
+      if (this.get('_isFastBoot')) { return; }
+      this._eventsListened.pushObject(eventName);
       window.addEventListener(eventName, this._boundEventHandler, true);
     }
 
@@ -54,7 +54,7 @@ export default Service.extend(Evented, FastBootCompatMixin, {
     }
 
     this._boundEventHandler = this.handleEvent.bind(this);
-    this._eventsListened = [];
+    this._eventsListened = A();
     this._throttledEventHandlers = {};
 
     if (isEmpty(this.get('enabledEvents'))) {
@@ -82,6 +82,7 @@ export default Service.extend(Evented, FastBootCompatMixin, {
 
   disableEvent(eventName) {
     this.get('enabledEvents').removeObject(eventName);
+    this.get('_eventsListened').removeObject(eventName);
     this._throttledEventHandlers[eventName] = null;
     if (eventName === 'scroll') {
       this.get('scrollActivity').off('scroll', this, this._handleScroll);

@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { moduleFor } from 'ember-qunit';
 import test from 'ember-sinon-qunit/test-support/test';
+import sinon from 'sinon';
 
 const { A: emberArray, typeOf } = Ember;
 
@@ -58,6 +59,32 @@ test('disableEvent', function (assert) {
   service.disableEvent(event);
 
   assert.ok(!service.get('enabledEvents').includes(event), 'removed event from enabledEvents');
+  assert.notOk(service._eventsListened.includes(event), 'event should not be listed as listened');
+});
+
+test('re-enabled events should fire', function (assert) {
+  let event = 'foo';
+  let service = this.subject({
+    enabledEvents: emberArray(),
+    _setupListeners: this.stub()
+  });
+
+  sinon.stub(window, 'addEventListener');
+
+  assert.notOk(service.get('enabledEvents.length'), 'enabledEvents preserved on init');
+
+  service.enableEvent(event);
+  sinon.assert.called(window.addEventListener);
+  assert.ok(service.get('enabledEvents').includes(event), 'enabledEvents should include added event');
+
+  window.addEventListener.reset();
+  service.disableEvent(event);
+  assert.ok(!service.get('enabledEvents').includes(event), 'removed event from enabledEvents');
+
+  service.enableEvent(event);
+  sinon.assert.called(window.addEventListener);
+  assert.ok(service.get('enabledEvents').includes(event), 'enabledEvents should include added event');
+  window.addEventListener.restore();
 });
 
 test('fireEvent - no subscribers', function (assert) {
