@@ -275,7 +275,6 @@ This section outlines the details of collaborating on this Ember addon.
 * `git clone git@github.com:elwayman02/ember-user-activity.git`
 * `cd ember-user-activity/`
 * `npm install`
-* `bower install`
 
 ### Running
 
