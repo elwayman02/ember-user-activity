@@ -68,7 +68,7 @@ test('re-enabled events should fire', function (assert) {
     _setupListeners: this.stub()
   });
 
-  const addEventListenerStub = this.stub(window, 'addEventListener');
+  let addEventListenerStub = this.stub(window, 'addEventListener');
 
   assert.notOk(service.get('enabledEvents.length'), 'enabledEvents preserved on init');
 
