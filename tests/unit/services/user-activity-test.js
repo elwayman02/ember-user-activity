@@ -58,6 +58,32 @@ test('disableEvent', function (assert) {
   service.disableEvent(event);
 
   assert.ok(!service.get('enabledEvents').includes(event), 'removed event from enabledEvents');
+  assert.notOk(service._eventsListened.includes(event), 'event should not be listed as listened');
+});
+
+test('re-enabled events should fire', function (assert) {
+  let event = 'foo';
+  let service = this.subject({
+    enabledEvents: emberArray(),
+    _setupListeners: this.stub()
+  });
+
+  let addEventListenerStub = this.stub(window, 'addEventListener');
+
+  assert.notOk(service.get('enabledEvents.length'), 'enabledEvents preserved on init');
+
+  service.enableEvent(event);
+  assert.ok(addEventListenerStub.called, 'event was not handled');
+  assert.ok(service.get('enabledEvents').includes(event), 'enabledEvents should include added event');
+
+  window.addEventListener.reset();
+  service.disableEvent(event);
+  assert.ok(!service.get('enabledEvents').includes(event), 'removed event from enabledEvents');
+
+  service.enableEvent(event);
+  assert.ok(window.addEventListener.called, 'event was not handled');
+  assert.ok(service.get('enabledEvents').includes(event), 'enabledEvents should include added event');
+  window.addEventListener.restore();
 });
 
 test('fireEvent - no subscribers', function (assert) {
