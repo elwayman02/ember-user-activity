@@ -3,6 +3,7 @@ import Service from 'ember-service';
 import run from 'ember-runloop';
 import FastBootCompatMixin from '../mixins/fastboot-compat';
 import getScrollTop from '../utils/get-scroll-top';
+import getScrollLeft from '../utils/get-scroll-left';
 
 /*
  * Polling uses rAF and/or a setTimeout at 16ms, however rAF will run in the
@@ -41,7 +42,8 @@ export default Service.extend(Evented, FastBootCompatMixin, {
       element,
       callback,
       highPriority,
-      scrollTop: null
+      scrollTop: null,
+      scrollLeft: null
     });
   },
 
@@ -77,6 +79,7 @@ export default Service.extend(Evented, FastBootCompatMixin, {
         let subscriber = subscribers[i];
         if (subscriber.highPriority || lowPriorityFrame) {
           let scrollTop = getScrollTop(subscriber.element);
+          let scrollLeft = getScrollLeft(subscriber.element);
           if (scrollTop !== subscriber.scrollTop) {
             // If the value is changing from an initial null state to a first
             // time value, do not treat it like a change.
@@ -88,6 +91,17 @@ export default Service.extend(Evented, FastBootCompatMixin, {
               subscriber.callback(scrollTop, subscriber.scrollTop);
             }
             subscriber.scrollTop = scrollTop;
+          } else if (scrollLeft !== subscriber.scrollLeft) {
+            // If the value is changing from an initial null state to a first
+            // time value, do not treat it like a change.
+            if (subscriber.scrollLeft !== null) {
+              if (!hasScrolled) {
+                run.begin();
+                hasScrolled = true;
+              }
+              subscriber.callback(scrollLeft, subscriber.scrollLeft);
+            }
+            subscriber.scrollLeft = scrollLeft;
           }
         }
       }
