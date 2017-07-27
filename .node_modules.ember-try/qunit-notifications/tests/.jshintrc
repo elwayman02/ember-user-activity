@@ -1,7 +1,0 @@
-{
-  "extends": "../.jshintrc",
-  "globals": {
-    "sinon": true,
-    "RSVP": true
-  }
-}

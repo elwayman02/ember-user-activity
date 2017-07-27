@@ -1,6 +1,0 @@
-language: node_js
-sudo: false
-cache:
-  directories:
-    - bower_components
-    - node_modules

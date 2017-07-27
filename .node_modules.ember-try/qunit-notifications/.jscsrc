@@ -1,8 +1,0 @@
-{
-  "preset": "jquery",
-  "excludeFiles": [
-    "bower_components",
-    "node_modules",
-    "tests/coverage"
-  ]
-}
