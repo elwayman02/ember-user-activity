@@ -1,0 +1,33 @@
+{
+  "name": "memory-streams",
+  "description": "Simple implmentation of Stream.Readable and Stream.Writable holding the data in memory.",
+  "version": "0.1.0",
+  "author": "Paul Jackson (http://paulj.me/)",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:paulja/memory-streams-js.git"
+  },
+  "homepage": "https://github.com/paulja/memory-streams-js",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "readable-stream": "~1.0.2"
+  },
+  "devDependencies": {
+    "should": "~1.2.2"
+  },
+  "scripts": {
+    "test": "node ./test/test-readablestream.js && node ./test/test-writablestream.js"
+  },
+  "keywords": [
+    "stream",
+    "string",
+    "memory",
+    "Readable",
+    "Writable"
+  ],
+  "license": "MIT",
+  "readmeFilename": "README.md"
+}

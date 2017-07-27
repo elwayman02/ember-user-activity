@@ -1,0 +1,31 @@
+{
+  "name": "simple-dom",
+  "version": "0.3.2",
+  "description": "A simple JS DOM.",
+  "main": "dist/simple-dom.js",
+  "jsnext:main": "lib/simple-dom.js",
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "node bin/build.js",
+    "test": "testem ci"
+  },
+  "keywords": [
+    "html",
+    "dom",
+    "serializer",
+    "parser"
+  ],
+  "author": "Kris Selden",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ember-fastboot/simple-dom.git"
+  },
+  "devDependencies": {
+    "qunit-extras": "^1.4.1",
+    "qunitjs": "^1.16.0",
+    "rollup": "^0.15.0",
+    "simple-html-tokenizer": "^0.2.0",
+    "testem": "^1.4.0"
+  }
+}

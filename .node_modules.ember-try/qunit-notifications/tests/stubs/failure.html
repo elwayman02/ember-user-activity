@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>QUnit Notification Test Suite - Failed tests example</title>
+  <link rel="stylesheet" href="../../bower_components/qunit/qunit/qunit.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="../../bower_components/qunit/qunit/qunit.js"></script>
+  <script src="../../bower_components/sinon/index.js"></script>
+  <script src="../../bower_components/rsvp/rsvp.min.js"></script>
+  <script src="../../index.js"></script>
+  <script src="mocks.js"></script>
+  <script>
+
+    // Enable QUnit Notifications
+    // --------------------------
+
+    QUnit.notifications();
+
+    // Example tests
+    // -------------
+
+    QUnit.module('Example of successful test');
+
+    QUnit.test('A successful test', function(assert) {
+      assert.expect(1);
+      assert.ok(false, 'This assertion will always fail');
+    });
+
+  </script>
+</body>
+</html>

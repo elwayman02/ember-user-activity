@@ -1,0 +1,58 @@
+{
+  "name": "ember-user-activity",
+  "version": "0.8.0",
+  "description": "Ember Addon for tracking user activity & idling",
+  "keywords": [
+    "ember-addon",
+    "user activity",
+    "idle",
+    "idling"
+  ],
+  "license": "MIT",
+  "author": "Jordan Hawker <hawker.jordan@gmail.com> (http://www.JordanHawker.com)",
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
+  "repository": "https://github.com/elwayman02/ember-user-activity",
+  "scripts": {
+    "build": "ember build",
+    "deploy": "ember github-pages:commit --message \"Deploy gh-pages from commit $(git rev-parse HEAD)\"; git push; git checkout -",
+    "start": "ember server",
+    "test": "ember try:each"
+  },
+  "dependencies": {
+    "ember-cli-babel": "^6.3.0"
+  },
+  "devDependencies": {
+    "broccoli-asset-rev": "^2.5.0",
+    "ember-cli": "~2.14.1",
+    "ember-cli-app-version": "^3.0.0",
+    "ember-cli-dependency-checker": "^1.4.0",
+    "ember-cli-eslint": "^3.1.0",
+    "ember-cli-github-pages": "~0.1.2",
+    "ember-cli-htmlbars": "^2.0.1",
+    "ember-cli-htmlbars-inline-precompile": "^0.4.3",
+    "ember-cli-inject-live-reload": "^1.6.1",
+    "ember-cli-qunit": "^4.0.0",
+    "ember-cli-release": "1.0.0-beta.2",
+    "ember-cli-shims": "^1.1.0",
+    "ember-cli-sri": "^2.1.1",
+    "ember-cli-uglify": "^1.2.0",
+    "ember-disable-prototype-extensions": "^1.1.2",
+    "ember-export-application-global": "^2.0.0",
+    "ember-load-initializers": "^1.0.0",
+    "ember-resolver": "^4.1.0",
+    "ember-sinon": "0.7.0",
+    "ember-sinon-qunit": "1.5.0",
+    "ember-source": "~2.14.1",
+    "loader.js": "^4.4.0"
+  },
+  "engines": {
+    "node": "^4.5 || 6.* || >= 7.*"
+  },
+  "ember-addon": {
+    "configPath": "tests/dummy/config",
+    "demoURL": "http://github.jhawk.co/ember-user-activity/"
+  }
+}

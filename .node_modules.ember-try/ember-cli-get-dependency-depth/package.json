@@ -1,0 +1,23 @@
+{
+  "name": "ember-cli-get-dependency-depth",
+  "version": "1.0.0",
+  "description": "discover the depth of a dependency",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ember-cli/get-dependency-depth.git"
+  },
+  "author": "ember-cli Constributors",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ember-cli/get-dependency-depth/issues"
+  },
+  "homepage": "https://github.com/ember-cli/get-dependency-depth#readme",
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "mocha": "^2.2.5"
+  }
+}
