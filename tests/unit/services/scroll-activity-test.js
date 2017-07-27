@@ -61,7 +61,8 @@ test('event triggered for window scroll', function (assert) {
 test('subscribe w/ no callback triggers event', function (assert) {
   let done = assert.async();
   let scrollTop = 1234;
-  let elem = { scrollTop };
+  let scrollLeft = 1234;
+  let elem = { scrollTop, scrollLeft };
   let target = { elem };
 
   let service = this.subject();
@@ -83,7 +84,8 @@ test('subscribe w/ no callback triggers event', function (assert) {
 test('subscribe w/ callback triggers callback and event', function (assert) {
   let done = assert.async();
   let scrollTop = 1234;
-  let elem = { scrollTop };
+  let scrollLeft = 1234;
+  let elem = { scrollTop, scrollLeft };
   let target = { elem };
 
   let service = this.subject();
@@ -111,7 +113,7 @@ test('subscribe w/ callback triggers callback and event', function (assert) {
         assert.equal(scrollEventCount, 1, 'scroll happened when scrollTop changes');
         assert.equal(subscribedEventCount, 1, 'subscription callback fired once');
         assert.equal(subscribedLastScrollTop, scrollTop, 'lastScrollTop is previous value');
-        assert.equal(subscribedScrollTop, scrollTop + 1, 'new scrolltop is new value');
+        assert.equal(subscribedScrollTop, scrollTop + 1, 'new scrollTop is new value');
         done();
       });
     });
@@ -121,7 +123,8 @@ test('subscribe w/ callback triggers callback and event', function (assert) {
 test('unsubscribe', function (assert) {
   let done = assert.async();
   let scrollTop = 1234;
-  let elem = { scrollTop };
+  let scrollLeft = 1234;
+  let elem = { scrollTop, scrollLeft };
   let target = { elem };
 
   let service = this.subject();
@@ -186,8 +189,9 @@ test('event triggered for horizontal window scroll', function (assert) {
 
 test('subscribe w/ no callback triggers horizontal scroll event', function (assert) {
   let done = assert.async();
+  let scrollTop = 1234;
   let scrollLeft = 1234;
-  let elem = { scrollLeft };
+  let elem = { scrollTop, scrollLeft };
   let target = { elem };
 
   let service = this.subject();
@@ -208,8 +212,9 @@ test('subscribe w/ no callback triggers horizontal scroll event', function (asse
 
 test('subscribe w/ callback triggers callback and horizontal scroll event', function (assert) {
   let done = assert.async();
+  let scrollTop = 1234;
   let scrollLeft = 1234;
-  let elem = { scrollLeft };
+  let elem = { scrollTop, scrollLeft };
   let target = { elem };
 
   let service = this.subject();
@@ -239,6 +244,90 @@ test('subscribe w/ callback triggers callback and horizontal scroll event', func
         assert.equal(subscribedLastScrollLeft, scrollLeft, 'lastScrollLeft is previous value');
         assert.equal(subscribedScrollLeft, scrollLeft + 1, 'new scrollLeft is new value');
         done();
+      });
+    });
+  });
+});
+
+test('subscribe w/ callback triggers callback along with a scrollType parameter', function (assert) {
+  let done = assert.async();
+  let scrollTop = 1234;
+  let scrollLeft = 1234;
+  let elem = { scrollTop, scrollLeft };
+  let target = { elem };
+
+  const SCROLL_EVENT_TYPE_VERTICAL = 'vertical';
+  const SCROLL_EVENT_TYPE_HORIZONTAL = 'horizontal';
+  const SCROLL_EVENT_TYPE_DIAGONAL = 'diagonal';
+
+  let service = this.subject();
+
+  let subscribedEventCount = 0;
+  let subscribedScrollTop = null;
+  let subscribedLastScrollTop = null;
+  let subscribedScrollLeft = null;
+  let subscribedLastScrollLeft = null;
+  let subscribedScrollType = null;
+  service.subscribe(target, elem, (scroll, lastScroll, scrollType, scrollSecondary, lastScrollSecondary) => {
+    if (scrollType === SCROLL_EVENT_TYPE_VERTICAL) {
+      subscribedScrollTop = scroll;
+      subscribedLastScrollTop = lastScroll;
+    } else if (scrollType === SCROLL_EVENT_TYPE_HORIZONTAL) {
+      subscribedScrollLeft = scroll;
+      subscribedLastScrollLeft = lastScroll;
+    } else if (scrollType === SCROLL_EVENT_TYPE_DIAGONAL) {
+      subscribedScrollTop = scroll;
+      subscribedLastScrollTop = lastScroll;
+      subscribedScrollLeft = scrollSecondary;
+      subscribedLastScrollLeft = lastScrollSecondary;
+    } else {
+      throw new Error('Invalid scrollType was returned');
+    }
+
+    subscribedScrollType = scrollType;
+    subscribedEventCount++;
+  });
+
+  let scrollEventCount = 0;
+  service.on('scroll', () => scrollEventCount++);
+
+  wait(() => {
+    assert.equal(scrollEventCount, 0, 'precond - no scroll event');
+    assert.equal(subscribedEventCount, 0, 'precond - no subscription callback');
+    wait(() => {
+      assert.equal(scrollEventCount, 0, 'no scroll when nothing happens');
+      assert.equal(subscribedEventCount, 0, 'no subscription callback when nothing happens');
+      elem.scrollTop++;
+      wait(() => {
+        assert.equal(scrollEventCount, 1, 'scroll happened when scrollTop changes');
+        assert.equal(subscribedEventCount, 1, 'subscription callback fired once');
+        assert.equal(subscribedLastScrollTop, scrollTop, 'lastScrollTop is previous value');
+        assert.equal(subscribedScrollTop, scrollTop + 1, 'new scrollTop is new value');
+        assert.equal(subscribedLastScrollLeft, null, 'lastScrollLeft is unchanged');
+        assert.equal(subscribedScrollLeft, null, 'new scrollLeft is unchanged');
+        assert.equal(subscribedScrollType, SCROLL_EVENT_TYPE_VERTICAL, 'scroll type is vertical for vertical scroll event');
+        elem.scrollLeft++
+        wait(() => {
+          assert.equal(scrollEventCount, 2, 'scroll happened when scrollTop changes');
+          assert.equal(subscribedEventCount, 2, 'subscription callback fired once');
+          assert.equal(subscribedLastScrollTop, scrollTop, 'lastScrollTop is previous value');
+          assert.equal(subscribedScrollTop, scrollTop + 1, 'new scrollTop is unchanged');
+          assert.equal(subscribedLastScrollLeft, scrollLeft, 'lastScrollLeft is previous value');
+          assert.equal(subscribedScrollLeft, scrollLeft + 1, 'new scrollLeft is new value');
+          assert.equal(subscribedScrollType, SCROLL_EVENT_TYPE_HORIZONTAL, 'scroll type is horizontal for horizontal scroll event');
+          elem.scrollTop++
+          elem.scrollLeft++
+          wait(() => {
+            assert.equal(scrollEventCount, 3, 'scroll happened when scrollTop changes');
+            assert.equal(subscribedEventCount, 3, 'subscription callback fired once');
+            assert.equal(subscribedLastScrollTop, scrollTop + 1, 'lastScrollTop is previous value');
+            assert.equal(subscribedScrollTop, scrollTop + 2, 'new scrollTop is new value');
+            assert.equal(subscribedLastScrollLeft, scrollLeft + 1, 'lastScrollLeft is previous value');
+            assert.equal(subscribedScrollLeft, scrollLeft + 2, 'new scrollLeft unchanged');
+            assert.equal(subscribedScrollType, SCROLL_EVENT_TYPE_DIAGONAL, 'scroll type is diagonal for diagonal scroll event');
+            done();
+          });
+        });
       });
     });
   });

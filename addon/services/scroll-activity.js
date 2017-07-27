@@ -15,6 +15,9 @@ import getScrollLeft from '../utils/get-scroll-left';
  * This number show be above the minimum polling period (16ms)
  */
 const MAX_POLL_PERIOD = 32;
+const SCROLL_EVENT_TYPE_VERTICAL = 'vertical';
+const SCROLL_EVENT_TYPE_HORIZONTAL = 'horizontal';
+const SCROLL_EVENT_TYPE_DIAGONAL = 'diagonal';
 
 export default Service.extend(Evented, FastBootCompatMixin, {
 
@@ -80,7 +83,19 @@ export default Service.extend(Evented, FastBootCompatMixin, {
         if (subscriber.highPriority || lowPriorityFrame) {
           let scrollTop = getScrollTop(subscriber.element);
           let scrollLeft = getScrollLeft(subscriber.element);
-          if (scrollTop !== subscriber.scrollTop) {
+          if (scrollTop !== subscriber.scrollTop && scrollLeft !== subscriber.scrollLeft) {
+            // If the values are changing from an initial null state to first
+            // time values, do not treat it like a change.
+            if (subscriber.scrollTop !== null && subscriber.scrollLeft !== null) {
+              if (!hasScrolled) {
+                run.begin();
+                hasScrolled = true;
+              }
+              subscriber.callback(scrollTop, subscriber.scrollTop, SCROLL_EVENT_TYPE_DIAGONAL, scrollLeft, subscriber.scrollLeft);
+            }
+            subscriber.scrollTop = scrollTop;
+            subscriber.scrollLeft = scrollLeft;
+          } else if (scrollTop !== subscriber.scrollTop) {
             // If the value is changing from an initial null state to a first
             // time value, do not treat it like a change.
             if (subscriber.scrollTop !== null) {
@@ -88,9 +103,10 @@ export default Service.extend(Evented, FastBootCompatMixin, {
                 run.begin();
                 hasScrolled = true;
               }
-              subscriber.callback(scrollTop, subscriber.scrollTop);
+              subscriber.callback(scrollTop, subscriber.scrollTop, SCROLL_EVENT_TYPE_VERTICAL);
             }
             subscriber.scrollTop = scrollTop;
+            subscriber.scrollLeft = scrollLeft;
           } else if (scrollLeft !== subscriber.scrollLeft) {
             // If the value is changing from an initial null state to a first
             // time value, do not treat it like a change.
@@ -99,8 +115,9 @@ export default Service.extend(Evented, FastBootCompatMixin, {
                 run.begin();
                 hasScrolled = true;
               }
-              subscriber.callback(scrollLeft, subscriber.scrollLeft);
+              subscriber.callback(scrollLeft, subscriber.scrollLeft, SCROLL_EVENT_TYPE_HORIZONTAL);
             }
+            subscriber.scrollTop = scrollTop;
             subscriber.scrollLeft = scrollLeft;
           }
         }
