@@ -51,6 +51,9 @@ export default Service.extend(Evented, {
   },
 
   setIdle() {
+    if (this.isDestroyed) {
+      return;
+    }
     this.set('isIdle', true);
     this.trigger('idleChanged', true);
   }
