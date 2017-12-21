@@ -7,9 +7,6 @@ import { isEmpty } from 'ember-utils';
 import { throttle } from 'ember-runloop';
 import FastBootCompatMixin from '../mixins/fastboot-compat';
 
-
-const { testing } = Ember;
-
 export default Service.extend(Evented, FastBootCompatMixin, {
   scrollActivity: injectService('ember-user-activity@scroll-activity'),
 
@@ -49,7 +46,7 @@ export default Service.extend(Evented, FastBootCompatMixin, {
   init() {
     this._super(...arguments);
 
-    if (testing) { // Do not throttle in testing mode
+    if (Ember.testing) { // Do not throttle in testing mode
       this.set('EVENT_THROTTLE', 0);
     }
 

@@ -4,8 +4,6 @@ import Service from 'ember-service';
 import injectService from 'ember-service/inject';
 import { cancel, debounce } from 'ember-runloop';
 
-const { testing } = Ember;
-
 export default Service.extend(Evented, {
   userActivity: injectService('ember-user-activity@user-activity'),
 
@@ -25,7 +23,7 @@ export default Service.extend(Evented, {
   init() {
     this._super(...arguments);
 
-    if (testing) { // Shorter debounce in testing mode
+    if (Ember.testing) { // Shorter debounce in testing mode
       this.set('IDLE_TIMEOUT', 10);
     }
     this._setupListeners('on');
