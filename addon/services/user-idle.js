@@ -9,7 +9,6 @@ export default Service.extend(Evented, {
 
   _debouncedTimeout: null,
 
-  activeEvents: ['userActive'],
   IDLE_TIMEOUT: 600000, // 10 minutes
   isIdle: false,
 
@@ -22,6 +21,7 @@ export default Service.extend(Evented, {
 
   init() {
     this._super(...arguments);
+	this.set('activeEvents', ['userActive']);
 
     if (Ember.testing) { // Shorter debounce in testing mode
       this.set('IDLE_TIMEOUT', 10);

@@ -1,5 +1,5 @@
 import Mixin from '@ember/object/mixin';
-import injectService from 'ember-service/inject';
+import { inject as injectService } from '@ember/service';
 import { on } from '@ember/object/evented';
 import { bind } from '@ember/runloop';
 
