@@ -24,17 +24,18 @@ test('init sets up event listeners', function (assert) {
   service.get('userActivity').trigger(event);
 
   let stub = service.get('resetTimeout');
-  assert.ok(stub.calledTwice, 'resetTimeout was called');
+  assert.ok(stub.calledOnce, 'resetTimeout was called');
 });
 
 test('resetTimeout', function (assert) {
   assert.expect(5);
-
+  let event = 'foo';
   let service = this.subject({
     trigger: this.stub(),
     init: this.stub(),
     isIdle: true,
-    IDLE_TIMEOUT: 100
+    IDLE_TIMEOUT: 100,
+	activeEvents: [event],
   });
 
   service.resetTimeout();
