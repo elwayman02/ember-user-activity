@@ -1,6 +1,6 @@
-import Evented from 'ember-evented';
-import Service from 'ember-service';
-import run from 'ember-runloop';
+import Evented from '@ember/object/evented';
+import Service from '@ember/service';
+import { run } from '@ember/runloop';
 import FastBootCompatMixin from '../mixins/fastboot-compat';
 import getScrollTop from '../utils/get-scroll-top';
 import getScrollLeft from '../utils/get-scroll-left';

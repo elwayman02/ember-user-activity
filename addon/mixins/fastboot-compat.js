@@ -1,6 +1,7 @@
-import Mixin from 'ember-metal/mixin';
-import getOwner from 'ember-owner/get';
-import computed from 'ember-computed';
+import { readOnly } from '@ember/object/computed';
+import Mixin from '@ember/object/mixin'
+import { getOwner } from '@ember/application';
+import { computed } from "@ember/object";
 
 export default Mixin.create({
     _fastboot: computed(function() {
@@ -8,5 +9,5 @@ export default Mixin.create({
       return owner.lookup('service:fastboot');
     }),
 
-    _isFastBoot: computed.readOnly('_fastboot.isFastBoot')
+    _isFastBoot: readOnly('_fastboot.isFastBoot')
 });
