@@ -6,10 +6,10 @@ module('Unit | Mixin | fastboot compat');
 
 test('mixin fastboot service available - mocked', function(assert) {
   let FastbootCompatObject = Service.extend(FastbootCompatMixin,{
-	init(){
-		this._super(...arguments);
-		this.set('_fastboot', { isFastBoot: true });
-	}
+    init(){
+      this._super(...arguments);
+      this.set('_fastboot', { isFastBoot: true });
+    }
   });
   let subject = FastbootCompatObject.create();
   assert.ok(subject.get('_isFastBoot'), `it should be true`);

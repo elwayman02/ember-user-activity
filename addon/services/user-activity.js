@@ -44,7 +44,7 @@ export default Service.extend(Evented, FastBootCompatMixin, {
 
   init() {
     this._super(...arguments);
-	this.set('defaultEvents', ['keydown', 'mousedown', 'scroll', 'touchstart']);
+    this.set('defaultEvents', ['keydown', 'mousedown', 'scroll', 'touchstart']);
 
     if (Ember.testing) { // Do not throttle in testing mode
       this.set('EVENT_THROTTLE', 0);

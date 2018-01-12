@@ -21,7 +21,7 @@ export default Service.extend(Evented, {
 
   init() {
     this._super(...arguments);
-	this.set('activeEvents', ['userActive']);
+    this.set('activeEvents', ['userActive']);
 
     if (Ember.testing) { // Shorter debounce in testing mode
       this.set('IDLE_TIMEOUT', 10);
