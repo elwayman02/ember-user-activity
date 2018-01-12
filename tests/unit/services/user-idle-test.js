@@ -35,7 +35,7 @@ test('resetTimeout', function (assert) {
     init: this.stub(),
     isIdle: true,
     IDLE_TIMEOUT: 100,
-	activeEvents: [event],
+    activeEvents: [event],
   });
 
   service.resetTimeout();
