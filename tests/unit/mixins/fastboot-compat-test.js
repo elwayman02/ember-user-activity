@@ -1,3 +1,4 @@
+/* eslint-disable ember/avoid-leaking-state-in-ember-objects */
 import Service from '@ember/service';
 import FastbootCompatMixin from 'ember-user-activity/mixins/fastboot-compat';
 import { module, test } from 'qunit';
@@ -6,10 +7,7 @@ module('Unit | Mixin | fastboot compat');
 
 test('mixin fastboot service available - mocked', function(assert) {
   let FastbootCompatObject = Service.extend(FastbootCompatMixin,{
-    init(){
-      this._super(...arguments);
-      this.set('_fastboot', { isFastBoot: true });
-    }
+    _fastboot: { isFastBoot: true}
   });
   let subject = FastbootCompatObject.create();
   assert.ok(subject.get('_isFastBoot'), `it should be true`);
