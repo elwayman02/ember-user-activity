@@ -1,10 +1,11 @@
+/* eslint-disable ember/avoid-leaking-state-in-ember-objects */
 import Ember from 'ember';
-import Evented from 'ember-evented';
-import Service from 'ember-service';
-import injectService from 'ember-service/inject';
-import { A } from 'ember-array/utils';
-import { isEmpty } from 'ember-utils';
-import { throttle } from 'ember-runloop';
+import Evented from '@ember/object/evented';
+import Service from '@ember/service';
+import { inject as injectService } from '@ember/service';
+import { A } from '@ember/array'
+import { isEmpty } from '@ember/utils';
+import { throttle } from '@ember/runloop'
 import FastBootCompatMixin from '../mixins/fastboot-compat';
 
 export default Service.extend(Evented, FastBootCompatMixin, {

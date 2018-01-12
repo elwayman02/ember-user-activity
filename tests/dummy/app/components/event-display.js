@@ -1,6 +1,6 @@
-import Component from 'ember-component';
-import injectService from 'ember-service/inject';
-import { A } from 'ember-array/utils';
+import Component from '@ember/component';
+import { inject as injectService } from '@ember/service';
+import { A } from '@ember/array';
 
 export default Component.extend({
   classNames: ['eventDisplay'],
