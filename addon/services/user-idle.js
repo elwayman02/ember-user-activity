@@ -1,8 +1,8 @@
 import Ember from 'ember';
-import Evented from 'ember-evented';
-import Service from 'ember-service';
-import injectService from 'ember-service/inject';
-import { cancel, debounce } from 'ember-runloop';
+import Evented from '@ember/object/evented';
+import Service from '@ember/service';
+import { inject as injectService } from '@ember/service';
+import { cancel, debounce } from '@ember/runloop'
 
 export default Service.extend(Evented, {
   userActivity: injectService('ember-user-activity@user-activity'),

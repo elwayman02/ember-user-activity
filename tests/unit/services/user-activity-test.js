@@ -1,8 +1,7 @@
-import Ember from 'ember';
+import { A as emberArray } from '@ember/array';
+import { typeOf } from '@ember/utils';
 import { moduleFor } from 'ember-qunit';
 import test from 'ember-sinon-qunit/test-support/test';
-
-const { A: emberArray, typeOf } = Ember;
 
 moduleFor('service:user-activity', 'Unit | Service | user activity', {
   needs: ['service:ember-user-activity@scroll-activity']

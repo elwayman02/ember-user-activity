@@ -1,7 +1,7 @@
-import Mixin from 'ember-metal/mixin';
-import injectService from 'ember-service/inject';
-import on from 'ember-evented/on';
-import { bind } from 'ember-runloop';
+import Mixin from '@ember/object/mixin';
+import { inject as injectService } from '@ember/service';
+import { on } from '@ember/object/evented';
+import { bind } from '@ember/runloop';
 
 export default Mixin.create({
   scrollActivity: injectService(),
