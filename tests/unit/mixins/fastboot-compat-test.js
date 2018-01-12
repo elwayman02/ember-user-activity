@@ -8,7 +8,7 @@ test('mixin fastboot service available - mocked', function(assert) {
   let FastbootCompatObject = Service.extend(FastbootCompatMixin,{
 	init(){
 		this._super(...arguments);
-		this._fastboot = { isFastBoot: true}
+		this.set('_fastboot', { isFastBoot: true });
 	}
   });
   let subject = FastbootCompatObject.create();
