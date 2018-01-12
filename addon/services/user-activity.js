@@ -1,3 +1,4 @@
+/* eslint-disable ember/avoid-leaking-state-in-ember-objects */
 import Ember from 'ember';
 import Evented from '@ember/object/evented';
 import Service from '@ember/service';
@@ -11,6 +12,7 @@ export default Service.extend(Evented, FastBootCompatMixin, {
   scrollActivity: injectService('ember-user-activity@scroll-activity'),
 
   EVENT_THROTTLE: 100,
+  defaultEvents: ['keydown', 'mousedown', 'scroll', 'touchstart'],
   enabledEvents: null,
   _eventsListened: null,
 
@@ -44,7 +46,6 @@ export default Service.extend(Evented, FastBootCompatMixin, {
 
   init() {
     this._super(...arguments);
-    this.set('defaultEvents', ['keydown', 'mousedown', 'scroll', 'touchstart']);
 
     if (Ember.testing) { // Do not throttle in testing mode
       this.set('EVENT_THROTTLE', 0);
