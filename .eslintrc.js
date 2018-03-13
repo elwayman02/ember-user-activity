@@ -29,7 +29,7 @@ module.exports = {
       excludedFiles: [
         'app/**',
         'addon/**',
-		'tests/dummy/app/**'
+        'tests/dummy/app/**'
       ],
       parserOptions: {
         sourceType: 'script',
@@ -43,15 +43,6 @@ module.exports = {
       rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
         // add your custom rules and overrides for node files here
       })
-    },
-
-    // test files
-    {
-      files: ['tests/**/*.js'],
-      excludedFiles: ['tests/dummy/**/*.js'],
-      env: {
-        embertest: true
-      }
     }
   ]
 };
