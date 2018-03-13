@@ -1,4 +1,5 @@
-# Ember User Activity
+Ember User Activity
+==============================================================================
 
 [![Build Status](https://travis-ci.org/elwayman02/ember-user-activity.svg?branch=master)](https://travis-ci.org/elwayman02/ember-user-activity)
 [![Ember Observer Score](https://emberobserver.com/badges/ember-user-activity.svg)](https://emberobserver.com/addons/ember-user-activity)
@@ -8,11 +9,15 @@ This addon provides services for detecting user activity & idling across the ent
 
 Check out the [Demo](http://github.jhawk.co/ember-user-activity/)!
 
-## Installation
+Installation
+------------------------------------------------------------------------------
 
-`ember install ember-user-activity`
+```
+ember install ember-user-activity
+```
 
-## Usage
+Usage
+------------------------------------------------------------------------------
 
 ### User Activity Service
 
@@ -266,9 +271,8 @@ merging the `app/` directory trees. This can be accomplished by modifying your a
 See the [Ember CLI docs](http://ember-cli.com/extending/#configuring-your-ember-addon-properties) 
 for more information on configuring your addon properties.
 
-## Contributing
-
-This section outlines the details of collaborating on this Ember addon.
+Contributing
+------------------------------------------------------------------------------
 
 ### Installation
 
@@ -276,19 +280,25 @@ This section outlines the details of collaborating on this Ember addon.
 * `cd ember-user-activity/`
 * `npm install`
 
-### Running
+### Linting
+
+* `npm run lint:js`
+* `npm run lint:js -- --fix`
+
+### Running tests
+
+* `ember test` – Runs the test suite on the current Ember version
+* `ember test --server` – Runs the test suite in "watch mode"
+* `npm test` – Runs `ember try:each` to test your addon against multiple Ember versions
+
+### Running the dummy application
 
 * `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
-
-### Running Tests
-
-* `yarn test` (Runs `ember try:each` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
-
-### Building
-
-* `ember build`
+* Visit the dummy application at [http://localhost:4200](http://localhost:4200).
 
 For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
+
+License
+------------------------------------------------------------------------------
+
+This project is licensed under the [MIT License](LICENSE.md).
