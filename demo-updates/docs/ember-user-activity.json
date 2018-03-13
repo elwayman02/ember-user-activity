@@ -1,0 +1,1 @@
+{"jsonapi":{"version":"1.0"},"data":{"type":"project","id":"ember-user-activity","attributes":{"name":"ember-user-activity","version":"0.10.0","navigationIndex":{}},"relationships":{"modules":{"data":[]}}}}
