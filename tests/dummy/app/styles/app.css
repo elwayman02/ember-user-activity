@@ -1,13 +1,26 @@
-body,
-.badges {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
+/*body,*/
+/*.badges {*/
+  /*align-items: center;*/
+  /*display: flex;*/
+  /*flex-direction: column;*/
+/*}*/
+.description p {
+  padding-bottom: 5px;
 }
 
-p,
-.title {
-  text-align: center;
+.version {
+  padding-bottom: 0;
+}
+
+.badges {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 400px;
+}
+
+.screenshot {
+  width: 100%;
 }
 
 .eventName {
@@ -28,16 +41,8 @@ p,
   background-color: lightgray;
 }
 
-.badgeInner {
-  display: flex;
-}
-
-.badgeInner a {
-  margin-left: 5px;
-}
-
 .flexContainer {
-  align-items: top;
+  align-items: flex-start;
   display: flex;
   flex-direction: row;
 }

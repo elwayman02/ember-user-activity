@@ -1,32 +1,46 @@
-<h1 class="title"><a href="https://github.com/elwayman02/ember-user-activity" target="_blank">Ember User Activity Demo</a></h1>
+{{#docs-hero
+  slimHeading='Ember'
+  strongHeading='User Activity'
+  byline='Tracking Services for User Actions & Idling'
+  yieldMultiple=true
+as |yieldType|
+}}
+  {{#if yieldType.isLogo}}
+    <span class='docs-hero__logo'>
+      {{docs-logo logo='ember'}}
+    </span>
+  {{else if yieldType.isBottom}}
+    <span class="badges">
+      <a href="https://travis-ci.org/elwayman02/ember-user-activity" target="_blank">
+        <img src="https://travis-ci.org/elwayman02/ember-user-activity.svg?branch=master" />
+      </a>
+      <a href="https://emberobserver.com/addons/ember-user-activity" target="_blank">
+        <img src="https://emberobserver.com/badges/ember-user-activity.svg" />
+      </a>
+      <a href="https://codeclimate.com/github/elwayman02/ember-user-activity" target="_blank">
+        <img src="https://codeclimate.com/github/elwayman02/ember-user-activity/badges/gpa.svg" />
+      </a>
+    </span>
 
-<span class="badges">
-  <span class="badgeInner">
-    <a href="https://travis-ci.org/elwayman02/ember-user-activity" target="_blank">
-      <img src="https://travis-ci.org/elwayman02/ember-user-activity.svg?branch=master" />
-    </a>
-    <a href="https://emberobserver.com/addons/ember-user-activity" target="_blank">
-      <img src="https://emberobserver.com/badges/ember-user-activity.svg" />
-    </a>
-    <a href="https://codeclimate.com/github/elwayman02/ember-user-activity" target="_blank">
-      <img src="https://codeclimate.com/github/elwayman02/ember-user-activity/badges/gpa.svg" />
-    </a>
-  </span>
-</span>
+    <p class="version">Version {{app-version}}</p>
+  {{/if}}
+{{/docs-hero}}
 
-<p>This demo is running EUA {{app-version}}</p>
+<div class="docs-container">
+  <div class="description">
+    <p>Scroll, click, or press keys to see events fire!</p>
 
-<p>Scroll, click, or press keys to see events fire!</p>
+    <p>
+      Add <a href="https://developer.mozilla.org/en-US/docs/Web/Events" target="_blank">another event</a>:
+      <input value={{newEvent}} oninput={{action (mut newEvent) value='target.value'}} onkeydown={{action 'addEvent' newEvent}}>
+    </p>
+  </div>
 
-<p>
-  Add <a href="https://developer.mozilla.org/en-US/docs/Web/Events" target="_blank">another event</a>:
-  <input value={{newEvent}} oninput={{action (mut newEvent) value='target.value'}} onkeydown={{action 'addEvent' newEvent}}>
-</p>
+  {{idle-display}}
 
-{{idle-display}}
-
-<div class="flexContainer">
-  {{#each eventNames as |event|}}
-    {{event-display eventName=event close=(action 'removeEvent')}}
-  {{/each}}
+  <div class="flexContainer">
+    {{#each eventNames as |event|}}
+      {{event-display eventName=event close=(action 'removeEvent')}}
+    {{/each}}
+  </div>
 </div>
