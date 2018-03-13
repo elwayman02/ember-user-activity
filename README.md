@@ -1,5 +1,5 @@
-Ember User Activity
-==============================================================================
+![Ember User Activity](docs/hero-logo.png)
+==========================================
 
 [![Build Status](https://travis-ci.org/elwayman02/ember-user-activity.svg?branch=master)](https://travis-ci.org/elwayman02/ember-user-activity)
 [![Ember Observer Score](https://emberobserver.com/badges/ember-user-activity.svg)](https://emberobserver.com/addons/ember-user-activity)
