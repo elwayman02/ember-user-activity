@@ -2,8 +2,7 @@ import Evented from '@ember/object/evented';
 import Service from '@ember/service';
 import { run } from '@ember/runloop';
 import FastBootCompatMixin from '../mixins/fastboot-compat';
-import getScrollTop from '../utils/get-scroll-top';
-import getScrollLeft from '../utils/get-scroll-left';
+import getScroll from '../utils/get-scroll';
 
 /*
  * Polling uses rAF and/or a setTimeout at 16ms, however rAF will run in the
@@ -81,8 +80,8 @@ export default Service.extend(Evented, FastBootCompatMixin, {
       for (let i=0;i<subscribers.length;i++) {
         let subscriber = subscribers[i];
         if (subscriber.highPriority || lowPriorityFrame) {
-          let scrollTop = getScrollTop(subscriber.element);
-          let scrollLeft = getScrollLeft(subscriber.element);
+          let scrollTop = getScroll(subscriber.element);
+          let scrollLeft = getScroll(subscriber.element, 'left');
           if (scrollTop !== subscriber.scrollTop && scrollLeft !== subscriber.scrollLeft) {
             // If the values are changing from an initial null state to first
             // time values, do not treat it like a change.
