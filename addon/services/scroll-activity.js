@@ -70,64 +70,88 @@ export default Service.extend(Evented, FastBootCompatMixin, {
   },
 
   _checkScroll() {
-    let {
-      _subscribers: subscribers,
-      _lastCheckAt: lastCheckAt } = this;
+    let { _subscribers: subscribers } = this;
     let now = new Date();
     if (subscribers.length) {
-      let lowPriorityFrame = (now - lastCheckAt) < MAX_POLL_PERIOD;
-      let hasScrolled = false;
-      for (let i=0;i<subscribers.length;i++) {
-        let subscriber = subscribers[i];
-        if (subscriber.highPriority || lowPriorityFrame) {
-          let scrollTop = getScroll(subscriber.element);
-          let scrollLeft = getScroll(subscriber.element, 'left');
-          if (scrollTop !== subscriber.scrollTop && scrollLeft !== subscriber.scrollLeft) {
-            // If the values are changing from an initial null state to first
-            // time values, do not treat it like a change.
-            if (subscriber.scrollTop !== null && subscriber.scrollLeft !== null) {
-              if (!hasScrolled) {
-                run.begin();
-                hasScrolled = true;
-              }
-              subscriber.callback(scrollTop, subscriber.scrollTop, SCROLL_EVENT_TYPE_DIAGONAL, scrollLeft, subscriber.scrollLeft);
-            }
-            subscriber.scrollTop = scrollTop;
-            subscriber.scrollLeft = scrollLeft;
-          } else if (scrollTop !== subscriber.scrollTop) {
-            // If the value is changing from an initial null state to a first
-            // time value, do not treat it like a change.
-            if (subscriber.scrollTop !== null) {
-              if (!hasScrolled) {
-                run.begin();
-                hasScrolled = true;
-              }
-              subscriber.callback(scrollTop, subscriber.scrollTop, SCROLL_EVENT_TYPE_VERTICAL);
-            }
-            subscriber.scrollTop = scrollTop;
-            subscriber.scrollLeft = scrollLeft;
-          } else if (scrollLeft !== subscriber.scrollLeft) {
-            // If the value is changing from an initial null state to a first
-            // time value, do not treat it like a change.
-            if (subscriber.scrollLeft !== null) {
-              if (!hasScrolled) {
-                run.begin();
-                hasScrolled = true;
-              }
-              subscriber.callback(scrollLeft, subscriber.scrollLeft, SCROLL_EVENT_TYPE_HORIZONTAL);
-            }
-            subscriber.scrollTop = scrollTop;
-            subscriber.scrollLeft = scrollLeft;
-          }
-        }
-      }
-      if (hasScrolled) {
+      if (this._hasScrolled(now)) {
         this.trigger('scroll');
         run.end();
       }
     }
     this._lastCheckAt = now;
     this._pollScroll();
+  },
+
+  _updateScroll(subscriber) {
+    subscriber.scrollTop = getScroll(subscriber.element);
+    subscriber.scrollLeft = getScroll(subscriber.element, 'left');
+  },
+
+  _hasScrolled(now) {
+    let {
+      _subscribers: subscribers,
+      _lastCheckAt: lastCheckAt } = this;
+    let lowPriorityFrame = (now - lastCheckAt) < MAX_POLL_PERIOD;
+    let hasScrolled = false;
+    for (let i=0;i<subscribers.length;i++) {
+      let subscriber = subscribers[i];
+      if (subscriber.highPriority || lowPriorityFrame) {
+        let scrollTop = getScroll(subscriber.element);
+        let scrollLeft = getScroll(subscriber.element, 'left');
+        if (scrollTop !== subscriber.scrollTop && scrollLeft !== subscriber.scrollLeft) {
+          hasScrolled = this._handleAllScrollChanged(subscriber, hasScrolled);
+        } else if (scrollTop !== subscriber.scrollTop) {
+          hasScrolled = this._handleScrollTopChanged(subscriber, hasScrolled);
+        } else if (scrollLeft !== subscriber.scrollLeft) {
+          hasScrolled = this._handleScrollLeftChanged(subscriber, hasScrolled);
+        }
+      }
+    }
+    return hasScrolled;
+  },
+
+  _handleAllScrollChanged(subscriber, hasScrolled) {
+    // If the values are changing from an initial null state to first-time values, do not treat it like a change.
+    if (subscriber.scrollTop !== null && subscriber.scrollLeft !== null) {
+      if (!hasScrolled) {
+        run.begin();
+        hasScrolled = true;
+      }
+
+      let scrollTop = getScroll(subscriber.element);
+      let scrollLeft = getScroll(subscriber.element, 'left');
+      subscriber.callback(scrollTop, subscriber.scrollTop, SCROLL_EVENT_TYPE_DIAGONAL, scrollLeft, subscriber.scrollLeft);
+    }
+    this._updateScroll(subscriber);
+    return hasScrolled;
+  },
+
+  _handleScrollLeftChanged(subscriber, hasScrolled) {
+    // If the value is changing from an initial null state to a first
+    // time value, do not treat it like a change.
+    if (subscriber.scrollLeft !== null) {
+      if (!hasScrolled) {
+        run.begin();
+        hasScrolled = true;
+      }
+      subscriber.callback(getScroll(subscriber.element, 'left'), subscriber.scrollLeft, SCROLL_EVENT_TYPE_HORIZONTAL);
+    }
+    this._updateScroll(subscriber);
+    return hasScrolled;
+  },
+
+  _handleScrollTopChanged(subscriber, hasScrolled) {
+    // If the value is changing from an initial null state to a first
+    // time value, do not treat it like a change.
+    if (subscriber.scrollTop !== null) {
+      if (!hasScrolled) {
+        run.begin();
+        hasScrolled = true;
+      }
+      subscriber.callback(getScroll(subscriber.element), subscriber.scrollTop, SCROLL_EVENT_TYPE_VERTICAL);
+    }
+    this._updateScroll(subscriber);
+    return hasScrolled;
   },
 
   willDestroy() {
