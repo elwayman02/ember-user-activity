@@ -7,7 +7,7 @@
 
 This addon provides services for detecting user activity & idling across the entire application.
 
-Check out the [Demo](http://github.jhawk.co/ember-user-activity/)!
+Check out the [Demo](http://jhawk.co/e-user-activity)!
 
 Installation
 ------------------------------------------------------------------------------
