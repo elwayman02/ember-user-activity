@@ -9,6 +9,15 @@ This addon provides services for detecting user activity & idling across the ent
 
 Check out the [Demo](http://jhawk.co/e-user-activity)!
 
+
+Compatibility
+------------------------------------------------------------------------------
+
+* Ember.js v3.4 or above
+* Ember CLI v2.13 or above
+* Node.js v8 or above
+
+
 Installation
 ------------------------------------------------------------------------------
 
@@ -21,8 +30,8 @@ Usage
 
 ### User Activity Service
 
-This service fires events from global window listeners. 
-These listeners trigger on capture, meaning they are not affected by event cancellation. 
+This service fires events from global window listeners.
+These listeners trigger on capture, meaning they are not affected by event cancellation.
 
 These `window` events are enabled by default:
 
@@ -47,7 +56,7 @@ activeHandler(event) {
 }
 ```
 
-Each event handler will receive the standard DOM `event` object 
+Each event handler will receive the standard DOM `event` object
 (ex: [mousemove](https://developer.mozilla.org/en-US/docs/Web/Events/mousemove)).
 
 If you would like to listen to a different set of events, extend the service in your app:
@@ -68,8 +77,8 @@ this.get('userActivity').enableEvent('keyup');
 this.get('userActivity').disableEvent('mousedown');
 ```
 
-Event names must be from the [DOM Event](https://developer.mozilla.org/en-US/docs/Web/Events) list. 
-Custom events are not currently supported. If you enable an event name 
+Event names must be from the [DOM Event](https://developer.mozilla.org/en-US/docs/Web/Events) list.
+Custom events are not currently supported. If you enable an event name
 that was not set up by default, a new listener will be created automatically.
 
 You can find out if an event is currently enabled:
@@ -79,8 +88,8 @@ this.get('userActivity').isEnabled('foo'); // false
 this.get('userActivity').isEnabled('keydown'); // true
 ```
 
-Each individual event is throttled by 100ms for performance reasons, 
-to avoid clogging apps with a firehose of activity events. The length of 
+Each individual event is throttled by 100ms for performance reasons,
+to avoid clogging apps with a firehose of activity events. The length of
 the throttling can be configured by setting `EVENT_THROTTLE` on the activity service.
 
 ```javascript
@@ -92,13 +101,13 @@ export default UserActivityService.extend({
 });
 ```
 
-Setting `EVENT_THROTTLE` to 0 will enable the full firehose of events. 
-This may cause performance issues in your application if non-trivial 
+Setting `EVENT_THROTTLE` to 0 will enable the full firehose of events.
+This may cause performance issues in your application if non-trivial
 amounts of code are being executed for each event being fired.
 
 ### User Idle Service
 
-This service tracks user activity to decide when a user has gone idle by 
+This service tracks user activity to decide when a user has gone idle by
 not interacting with the page for a set amount of time.
 
 ```javascript
@@ -107,7 +116,7 @@ isIdle: Ember.computed.readOnly('userIdle.isIdle')
 ```
 
 The default timeout is set for 10 minutes but can be overridden by extending the service:
- 
+
 ```javascript
 // app/services/user-idle.js
 import UserIdleService from 'ember-user-activity/services/user-idle';
@@ -117,7 +126,7 @@ export default UserIdleService.extend({
 });
 ```
 
-By default, the idle service listens to the `userActive` event, but it can be 
+By default, the idle service listens to the `userActive` event, but it can be
 configured to listen to a custom set of events from the `user-activity` service:
 
 ```javascript
@@ -129,7 +138,7 @@ export default UserIdleService.extend({
 });
 ```
 
-Note that the `userActive` event is a superset of all events fired from `user-activity`, 
+Note that the `userActive` event is a superset of all events fired from `user-activity`,
 so in most cases you won't need to change this.
 
 The idle service has a `idleChanged` event when `isIdle` gets changed.
@@ -145,10 +154,10 @@ init() {
 
 ### Scroll Activity Service
 
-This service tracks scrolling within the application by periodically checking 
-(via [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)) 
-for changes in scroll position for the various scrollable elements in the page. By default, it only 
-checks `document`, but the [Scroll Activity Mixin](#scroll-activity-mixin) provides an easy 
+This service tracks scrolling within the application by periodically checking
+(via [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame))
+for changes in scroll position for the various scrollable elements in the page. By default, it only
+checks `document`, but the [Scroll Activity Mixin](#scroll-activity-mixin) provides an easy
 way to register your components as well. The [User Activity Service](#user-activity-service) subscribes to these scrolling events by default, so you do not need to do anything to use this service for global scroll events if you are already injecting the user-activity service.
 
 Any elements can be subscribed to this service:
@@ -159,7 +168,7 @@ this.get('scrollActivity').subscribe(this, this.get('element'));
 
 `subscribe` requires at least two parameters:
 
-* `target` - Usually `this`, target just needs to be a unique identifier/object 
+* `target` - Usually `this`, target just needs to be a unique identifier/object
 that can be used to unsubscribe from the service
 * `element` - The scrollable element (can be a DOM or jQuery element - jQuery not required!)
 
@@ -191,7 +200,7 @@ import ScrollActivityMixin from 'ember-user-activity/mixins/scroll-activity';
 export default Component.extend(ScrollActivityMixin);
 ```
 
-If the component's template itself is not scrollable, but it contains an element 
+If the component's template itself is not scrollable, but it contains an element
 (such as a div) that can be scrolled, set the `scrollElement` attribute to the appropriate selector:
 
 ```handlebars
@@ -212,7 +221,7 @@ export default Component.extend(ScrollActivityMixin, {
 
 Do not set `scrollElement` if the component itself (ie `this.$()`) is the scrollable element.
 
-If the component implements a `didScroll` method, that will be used as a callback 
+If the component implements a `didScroll` method, that will be used as a callback
 when scrolling has been detected within the component's DOM.
 
 ```javascript
@@ -241,12 +250,12 @@ willDestroyElement() {
 
 ### Using in an Addon
 
-Building your own addon to extend Ember User Activity? No problem! 
+Building your own addon to extend Ember User Activity? No problem!
 Depending on what you need to do, there are two paths forward:
 
-If you'd like the base services from EUA to still be available in the 
-consuming app, then import them into your own `addon/` service and 
-export under a different name. Otherwise, make sure to export the 
+If you'd like the base services from EUA to still be available in the
+consuming app, then import them into your own `addon/` service and
+export under a different name. Otherwise, make sure to export the
 modified service in your addon's `app/` directory:
 
 ```javascript
@@ -258,7 +267,7 @@ export default UserIdleService.extend({
 });
 ```
 
-Make sure that your addon gets loaded *after* EUA, to prevent conflicts when 
+Make sure that your addon gets loaded *after* EUA, to prevent conflicts when
 merging the `app/` directory trees. This can be accomplished by modifying your addon's `package.json`
 
 ```json
@@ -268,35 +277,14 @@ merging the `app/` directory trees. This can be accomplished by modifying your a
 }
 ```
 
-See the [Ember CLI docs](http://ember-cli.com/extending/#configuring-your-ember-addon-properties) 
+See the [Ember CLI docs](http://ember-cli.com/extending/#configuring-your-ember-addon-properties)
 for more information on configuring your addon properties.
 
 Contributing
 ------------------------------------------------------------------------------
 
-### Installation
+See the [Contributing](CONTRIBUTING.md) guide for details.
 
-* `git clone git@github.com:elwayman02/ember-user-activity.git`
-* `cd ember-user-activity/`
-* `npm install`
-
-### Linting
-
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
-
-### Running tests
-
-* `ember test` – Runs the test suite on the current Ember version
-* `ember test --server` – Runs the test suite in "watch mode"
-* `ember try:each` – Runs the test suite against multiple Ember versions
-
-### Running the dummy application
-
-* `ember serve`
-* Visit the dummy application at [http://localhost:4200](http://localhost:4200).
-
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
 
 License
 ------------------------------------------------------------------------------
