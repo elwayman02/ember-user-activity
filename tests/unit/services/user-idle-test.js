@@ -32,7 +32,6 @@ test('resetTimeout', function (assert) {
 
   let service = this.subject({
     trigger: this.stub(),
-    init: this.stub(),
     isIdle: true,
     IDLE_TIMEOUT: 100
   });
