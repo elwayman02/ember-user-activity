@@ -2,28 +2,20 @@
   slimHeading="User"
   strongHeading="Activity"
   byline="Tracking Services for User Actions & Idling"
-  yieldMultiple=true
-as |yieldType|
 }}
-  {{#if yieldType.isLogo}}
-    <span class="docs-hero__logo">
-      {{docs-logo logo="ember"}}
-    </span>
-  {{else if yieldType.isBottom}}
-    <span class="badges">
-      <a href="https://travis-ci.org/elwayman02/ember-user-activity" target="_blank" rel="noopener">
-        <img src="https://travis-ci.org/elwayman02/ember-user-activity.svg?branch=master" alt="Travis">
-      </a>
-      <a href="https://emberobserver.com/addons/ember-user-activity" target="_blank" rel="noopener">
-        <img src="https://emberobserver.com/badges/ember-user-activity.svg" alt="EmberObserver">
-      </a>
-      <a href="https://codeclimate.com/github/elwayman02/ember-user-activity" target="_blank" rel="noopener">
-        <img src="https://codeclimate.com/github/elwayman02/ember-user-activity/badges/gpa.svg" alt="Codeclimate">
-      </a>
-    </span>
+  <span class="badges">
+    <a href="https://travis-ci.org/elwayman02/ember-user-activity" target="_blank" rel="noopener">
+      <img src="https://travis-ci.org/elwayman02/ember-user-activity.svg?branch=master" alt="Travis">
+    </a>
+    <a href="https://emberobserver.com/addons/ember-user-activity" target="_blank" rel="noopener">
+      <img src="https://emberobserver.com/badges/ember-user-activity.svg" alt="EmberObserver">
+    </a>
+    <a href="https://codeclimate.com/github/elwayman02/ember-user-activity" target="_blank" rel="noopener">
+      <img src="https://codeclimate.com/github/elwayman02/ember-user-activity/badges/gpa.svg" alt="Codeclimate">
+    </a>
+  </span>
 
-    <p class="version">Version {{app-version hideSha=true}}</p>
-  {{/if}}
+  <p class="version">Version {{app-version hideSha=true}}</p>
 {{/docs-hero}}
 
 <div class="docs-container">
