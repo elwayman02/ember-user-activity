@@ -105,10 +105,9 @@ export default Service.extend(Evented, FastBootCompatMixin, {
   },
 
   willDestroy() {
-    this._eventsListened.forEach((eventName) => {
-      this.disableEvent(eventName);
-    });
-    this._eventsListened.length = 0;
+    while (this._eventsListened.length > 0) {
+      this.disableEvent(this._eventsListened[0]);
+    }
 
     this._super(...arguments);
   }
