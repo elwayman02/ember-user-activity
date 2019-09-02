@@ -143,4 +143,19 @@ module('Unit | Service | user activity', function(hooks) {
     assert.ok(service.isEnabled(event), 'event is enabled');
     assert.ok(!service.isEnabled('bar'), 'other events are not enabled');
   });
+
+  test('unsubscribe from events', function(assert) {
+    this.spy(window, 'addEventListener');
+    this.spy(window, 'removeEventListener');
+
+    const service = this.owner.factoryFor('service:user-activity').create();
+
+    assert.equal(window.addEventListener.callCount, 3, 'Subscribed to 3 window events');
+
+    service.willDestroy();
+    assert.equal(window.removeEventListener.callCount, 3, 'Unsubscribed from 3 window events');
+
+    window.addEventListener.restore();
+    window.removeEventListener.restore();
+  });
 });
