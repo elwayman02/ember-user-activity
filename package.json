@@ -21,7 +21,8 @@
     "lint:js": "eslint .",
     "start": "ember serve",
     "test": "ember test",
-    "test:all": "ember try:each"
+    "test:all": "ember try:each",
+    "release": "release-it"
   },
   "dependencies": {
     "ember-cli-babel": "^7.7.3"
@@ -60,7 +61,9 @@
     "eslint-plugin-ember": "^7.0.0",
     "eslint-plugin-node": "^9.0.1",
     "loader.js": "^4.7.0",
-    "qunit-dom": "^0.9.0"
+    "qunit-dom": "^0.9.0",
+    "release-it": "^12.4.3",
+    "release-it-lerna-changelog": "^1.0.3"
   },
   "engines": {
     "node": "8.* || >= 10.*"
@@ -68,5 +71,18 @@
   "ember-addon": {
     "configPath": "tests/dummy/config",
     "demoURL": "http://jhawk.co/e-user-activity"
+  },
+  "release-it": {
+    "plugins": {
+      "release-it-lerna-changelog": {
+        "infile": "CHANGELOG.md"
+      }
+    },
+    "git": {
+      "tagName": "v${version}"
+    },
+    "github": {
+      "release": true
+    }
   }
 }
