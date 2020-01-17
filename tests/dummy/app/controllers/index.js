@@ -6,7 +6,7 @@ export default Controller.extend({
 
   init() {
     this._super(...arguments);
-    this.set('eventNames', A(['userActive', 'scroll', 'mousedown', 'keydown', 'touchstart']));
+    this.set('eventNames', A(['userActive', 'scroll', 'mousedown', 'keydown', 'touchstart', 'storage']));
   },
 
   actions: {

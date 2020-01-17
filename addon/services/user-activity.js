@@ -7,19 +7,24 @@ import { A } from '@ember/array'
 import { isEmpty } from '@ember/utils';
 import { throttle } from '@ember/runloop'
 import FastBootCompatMixin from '../mixins/fastboot-compat';
+import storageAvailable from '../utils/storage-available';
 
 export default Service.extend(Evented, FastBootCompatMixin, {
   scrollActivity: injectService('ember-user-activity@scroll-activity'),
 
   EVENT_THROTTLE: 100,
-  defaultEvents: ['keydown', 'mousedown', 'scroll', 'touchstart'],
+  defaultEvents: ['keydown', 'mousedown', 'scroll', 'touchstart', 'storage'],
   enabledEvents: null,
+  localStorageKey: 'ember-user-activity',
+
   _eventsListened: null,
-
   _throttledEventHandlers: null,
-
   _boundEventHandler: null,
+
   handleEvent(event) {
+    if(event.type === 'storage' && event.key !== this.localStorageKey) {
+      return;
+    }
     throttle(this, this._throttledEventHandlers[event.type], event, this.get('EVENT_THROTTLE'));
   },
 
@@ -98,6 +103,9 @@ export default Service.extend(Evented, FastBootCompatMixin, {
     if (this.has('userActive')) {
       this.trigger('userActive', event);
     }
+    if(this._eventsListened.indexOf('storage') > -1 && storageAvailable('localStorage')) {
+      localStorage.setItem(this.localStorageKey, new Date());
+    }
   },
 
   isEnabled(eventName) {
@@ -107,6 +115,10 @@ export default Service.extend(Evented, FastBootCompatMixin, {
   willDestroy() {
     while (this._eventsListened.length > 0) {
       this.disableEvent(this._eventsListened[0]);
+    }
+
+    if(this.localStorageKey && storageAvailable('localStorage')) {
+      localStorage.removeItem(this.localStorageKey);
     }
 
     this._super(...arguments);

@@ -150,10 +150,10 @@ module('Unit | Service | user activity', function(hooks) {
 
     const service = this.owner.factoryFor('service:user-activity').create();
 
-    assert.equal(window.addEventListener.callCount, 3, 'Subscribed to 3 window events');
+    assert.equal(window.addEventListener.callCount, 4, 'Subscribed to 4 window events');
 
     service.willDestroy();
-    assert.equal(window.removeEventListener.callCount, 3, 'Unsubscribed from 3 window events');
+    assert.equal(window.removeEventListener.callCount, 4, 'Unsubscribed from 4 window events');
 
     window.addEventListener.restore();
     window.removeEventListener.restore();
