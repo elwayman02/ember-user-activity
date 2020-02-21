@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { A } from '@ember/array';
+import { action } from '@ember/object';
 
 export default Controller.extend({
   eventNames: null,
@@ -9,15 +10,15 @@ export default Controller.extend({
     this.set('eventNames', A(['userActive', 'scroll', 'mousedown', 'keydown', 'touchstart']));
   },
 
-  actions: {
-    addEvent(eventName, event) {
-      if (event.which === 13 && !this.get('eventNames').includes(eventName)) { // enter key pressed
-        this.get('eventNames').pushObject(eventName);
-      }
-    },
-
-    removeEvent(eventName) {
-      this.get('eventNames').removeObject(eventName);
+  @action
+  addEvent(eventName) {
+    if (!this.get('eventNames').includes(eventName)) {
+      this.get('eventNames').pushObject(eventName);
     }
+  },
+
+  @action
+  removeEvent(eventName) {
+    this.get('eventNames').removeObject(eventName);
   }
 });

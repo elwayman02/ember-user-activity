@@ -1,3 +1,7 @@
+body {
+  background: white !important;
+}
+
 .description p {
   padding-bottom: 5px;
 }
@@ -14,7 +18,8 @@
   max-width: 400px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .screenshot {
@@ -57,4 +62,9 @@
 
 .idleDisplay .idleStatus {
   font-weight: bold;
+}
+
+.eventInput {
+  border: 1px solid gray;
+  border-radius: 2px;
 }
