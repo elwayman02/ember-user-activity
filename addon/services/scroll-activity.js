@@ -1,7 +1,9 @@
+import { getOwner } from '@ember/application';
+import { computed } from '@ember/object';
+import { readOnly } from '@ember/object/computed';
 import Evented from '@ember/object/evented';
-import Service from '@ember/service';
 import { run } from '@ember/runloop';
-import FastBootCompatMixin from '../mixins/fastboot-compat';
+import Service from '@ember/service';
 import getScroll from '../utils/get-scroll';
 
 /*
@@ -18,7 +20,14 @@ const SCROLL_EVENT_TYPE_VERTICAL = 'vertical';
 const SCROLL_EVENT_TYPE_HORIZONTAL = 'horizontal';
 const SCROLL_EVENT_TYPE_DIAGONAL = 'diagonal';
 
-export default Service.extend(Evented, FastBootCompatMixin, {
+export default Service.extend(Evented, {
+  // Fastboot Compatibility
+  _fastboot: computed(function() {
+    let owner = getOwner(this);
+    return owner.lookup('service:fastboot');
+  }),
+
+  _isFastBoot: readOnly('_fastboot.isFastBoot'),
 
   init() {
     this._super(...arguments);
