@@ -1,14 +1,15 @@
 /* eslint-disable ember/avoid-leaking-state-in-ember-objects */
 import Ember from 'ember';
-import Evented from '@ember/object/evented';
-import Service from '@ember/service';
-import { inject as injectService } from '@ember/service';
+import { getOwner } from '@ember/application';
 import { A } from '@ember/array'
-import { isEmpty } from '@ember/utils';
+import { computed } from '@ember/object';
+import { readOnly } from '@ember/object/computed';
+import Evented from '@ember/object/evented';
 import { throttle } from '@ember/runloop'
-import FastBootCompatMixin from '../mixins/fastboot-compat';
+import { default as Service, inject as injectService } from '@ember/service';
+import { isEmpty } from '@ember/utils';
 
-export default Service.extend(Evented, FastBootCompatMixin, {
+export default Service.extend(Evented, {
   scrollActivity: injectService('ember-user-activity@scroll-activity'),
 
   EVENT_THROTTLE: 100,
@@ -17,6 +18,14 @@ export default Service.extend(Evented, FastBootCompatMixin, {
   _eventsListened: null,
 
   _throttledEventHandlers: null,
+
+  // Fastboot compatibility
+  _fastboot: computed(function() {
+    let owner = getOwner(this);
+    return owner.lookup('service:fastboot');
+  }),
+
+  _isFastBoot: readOnly('_fastboot.isFastBoot'),
 
   _boundEventHandler: null,
   handleEvent(event) {
