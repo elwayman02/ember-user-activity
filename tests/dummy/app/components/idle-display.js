@@ -6,7 +6,7 @@ import { classNames } from '@ember-decorators/component';
 
 @classNames('idleDisplay')
 export default class IdleDisplay extends Component {
-  @injectService
+  @injectService('ember-user-activity@user-idle')
   userIdle
 
   @readOnly('userIdle.isIdle')

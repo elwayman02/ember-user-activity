@@ -7,7 +7,7 @@ module('Unit | Service | user idle', function(hooks) {
   setupTest(hooks);
 
   test('init starts timer', function (assert) {
-    let service = this.owner.factoryFor('service:user-idle').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-idle').create({
       resetTimeout: this.stub()
     });
 
@@ -16,7 +16,7 @@ module('Unit | Service | user idle', function(hooks) {
 
   test('init sets up event listeners', function (assert) {
     let event = 'foo';
-    let service = this.owner.factoryFor('service:user-idle').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-idle').create({
       activeEvents: [event],
       resetTimeout: this.stub()
     });
@@ -30,7 +30,7 @@ module('Unit | Service | user idle', function(hooks) {
   test('resetTimeout', function (assert) {
     assert.expect(5);
 
-    let service = this.owner.factoryFor('service:user-idle').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-idle').create({
       trigger: this.stub(),
       isIdle: true,
       IDLE_TIMEOUT: 100
@@ -52,7 +52,7 @@ module('Unit | Service | user idle', function(hooks) {
   });
 
   test('setIdle', function (assert) {
-    let service = this.owner.factoryFor('service:user-idle').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-idle').create({
       trigger: this.stub(),
       resetTimeout: this.stub()
     });

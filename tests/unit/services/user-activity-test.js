@@ -8,7 +8,7 @@ module('Unit | Service | user activity', function(hooks) {
   setupTest(hooks);
 
   test('init', function (assert) {
-    let service = this.owner.factoryFor('service:user-activity').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       enableEvent: this.stub()
     });
 
@@ -19,7 +19,7 @@ module('Unit | Service | user activity', function(hooks) {
 
   test('enableEvent', function (assert) {
     let event = 'foo';
-    let service = this.owner.factoryFor('service:user-activity').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       _listen: this.stub(),
       _setupListeners: this.stub()
     });
@@ -34,7 +34,7 @@ module('Unit | Service | user activity', function(hooks) {
 
   test('enableEvent - already enabled', function (assert) {
     let event = 'foo';
-    let service = this.owner.factoryFor('service:user-activity').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       enabledEvents: emberArray([event]),
       _listen: this.stub(),
       _setupListeners: this.stub()
@@ -47,7 +47,7 @@ module('Unit | Service | user activity', function(hooks) {
 
   test('disableEvent', function (assert) {
     let event = 'foo';
-    let service = this.owner.factoryFor('service:user-activity').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       enabledEvents: emberArray([event]),
       _setupListeners: this.stub()
     });
@@ -62,7 +62,7 @@ module('Unit | Service | user activity', function(hooks) {
 
   test('re-enabled events should fire', function (assert) {
     let event = 'foo';
-    let service = this.owner.factoryFor('service:user-activity').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       enabledEvents: emberArray(),
       _setupListeners: this.stub()
     });
@@ -87,7 +87,7 @@ module('Unit | Service | user activity', function(hooks) {
 
   test('fireEvent - no subscribers', function (assert) {
     let event = { type: 'foo' };
-    let service = this.owner.factoryFor('service:user-activity').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       trigger: this.stub(),
       _setupListeners: this.stub()
     });
@@ -99,7 +99,7 @@ module('Unit | Service | user activity', function(hooks) {
 
   test('fireEvent - subscribed to event', function (assert) {
     let event = { type: 'foo' };
-    let service = this.owner.factoryFor('service:user-activity').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       trigger: this.stub(),
       _setupListeners: this.stub()
     });
@@ -117,7 +117,7 @@ module('Unit | Service | user activity', function(hooks) {
 
   test('fireEvent - subscribed to userActive', function (assert) {
     let event = { type: 'foo' };
-    let service = this.owner.factoryFor('service:user-activity').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       trigger: this.stub(),
       _setupListeners: this.stub()
     });
@@ -135,7 +135,7 @@ module('Unit | Service | user activity', function(hooks) {
 
   test('isEnabled', function (assert) {
     let event = 'foo';
-    let service = this.owner.factoryFor('service:user-activity').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       enabledEvents: emberArray([event]),
       _setupListeners: this.stub()
     });
@@ -148,7 +148,7 @@ module('Unit | Service | user activity', function(hooks) {
     this.spy(window, 'addEventListener');
     this.spy(window, 'removeEventListener');
 
-    const service = this.owner.factoryFor('service:user-activity').create();
+    const service = this.owner.factoryFor('service:ember-user-activity@user-activity').create();
 
     assert.equal(window.addEventListener.callCount, 3, 'Subscribed to 3 window events');
 

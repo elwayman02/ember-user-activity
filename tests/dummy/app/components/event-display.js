@@ -9,7 +9,7 @@ export default class EventDisplay extends Component {
   eventName = 'userActive';
   events = null;
 
-  @injectService
+  @injectService('ember-user-activity@user-activity')
   userActivity
 
   init() {
