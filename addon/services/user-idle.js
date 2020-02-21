@@ -1,35 +1,36 @@
-/* eslint-disable ember/avoid-leaking-state-in-ember-objects */
+import classic from 'ember-classic-decorator';
 import Ember from 'ember';
 import Evented from '@ember/object/evented';
 import Service from '@ember/service';
 import { inject as injectService } from '@ember/service';
 import { cancel, debounce } from '@ember/runloop'
 
-export default Service.extend(Evented, {
-  userActivity: injectService('ember-user-activity@user-activity'),
+@classic
+export default class UserIdleService extends Service.extend(Evented) {
+  @injectService('ember-user-activity@user-activity')
+  userActivity;
 
-  _debouncedTimeout: null,
-
-  activeEvents: ['userActive'],
-  IDLE_TIMEOUT: 600000, // 10 minutes
-  isIdle: false,
+  _debouncedTimeout = null;
+  activeEvents = ['userActive'];
+  IDLE_TIMEOUT = 600000; // 10 minutes
+  isIdle = false;
 
   _setupListeners(method) {
     let userActivity = this.get('userActivity');
     this.get('activeEvents').forEach((event) => {
       userActivity[method](event, this, this.resetTimeout);
     });
-  },
+  }
 
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
 
     if (Ember.testing) { // Shorter debounce in testing mode
       this.set('IDLE_TIMEOUT', 10);
     }
     this._setupListeners('on');
     this.resetTimeout();
-  },
+  }
 
   willDestroy() {
     this._setupListeners('off');
@@ -37,8 +38,8 @@ export default Service.extend(Evented, {
       cancel(this._debouncedTimeout);
     }
 
-    this._super(...arguments);
-  },
+    super.willDestroy(...arguments);
+  }
 
   resetTimeout() {
     let oldIdle = this.get('isIdle');
@@ -47,7 +48,7 @@ export default Service.extend(Evented, {
       this.trigger('idleChanged', false);
     }
     this._debouncedTimeout = debounce(this, this.setIdle, this.get('IDLE_TIMEOUT'));
-  },
+  }
 
   setIdle() {
     if (this.isDestroyed) {
@@ -56,4 +57,4 @@ export default Service.extend(Evented, {
     this.set('isIdle', true);
     this.trigger('idleChanged', true);
   }
-});
+}

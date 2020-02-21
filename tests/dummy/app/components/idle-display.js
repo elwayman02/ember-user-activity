@@ -2,14 +2,18 @@ import { readOnly } from '@ember/object/computed';
 import Component from '@ember/component';
 import { computed } from '@ember/object'
 import { inject as injectService } from '@ember/service';
+import { classNames } from '@ember-decorators/component';
 
-export default Component.extend({
-  classNames: ['idleDisplay'],
-  userIdle: injectService(),
+@classNames('idleDisplay')
+export default class IdleDisplay extends Component {
+  @injectService
+  userIdle
 
-  isIdle: readOnly('userIdle.isIdle'),
+  @readOnly('userIdle.isIdle')
+  isIdle
 
-  status: computed('isIdle', function () {
-    return this.get('isIdle') ? 'idle' : 'not idle';
-  })
-});
+  @computed('isIdle')
+  get status () {
+    return this.isIdle ? 'idle' : 'not idle';
+  }
+}

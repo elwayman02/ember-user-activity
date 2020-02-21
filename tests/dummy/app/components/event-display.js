@@ -2,36 +2,36 @@ import Component from '@ember/component';
 import { inject as injectService } from '@ember/service';
 import { A } from '@ember/array';
 import { action } from '@ember/object';
+import { classNames } from '@ember-decorators/component';
 
-export default Component.extend({
-  classNames: ['eventDisplay'],
-  userActivity: injectService(),
-  eventName: 'userActive',
+@classNames('eventDisplay')
+export default class EventDisplay extends Component {
+  eventName = 'userActive';
+  events = null;
 
-  events: null,
+  @injectService
+  userActivity
 
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     this.set('events', A());
-  },
+  }
 
   didInsertElement() {
-    this.get('userActivity').on(this.get('eventName'), this, this.registerActivity);
-  },
+    this.userActivity.on(this.eventName, this, this.registerActivity);
+  }
 
   willDestroyElement() {
-    let userActivity = this.get('userActivity');
-    let eventName = this.get('eventName');
-    userActivity.off(eventName, this, this.registerActivity);
-    userActivity.disableEvent(eventName);
-  },
+    this.userActivity.off(this.eventName, this, this.registerActivity);
+    this.userActivity.disableEvent(this.eventName);
+  }
 
   registerActivity(event) {
-    this.get('events').unshiftObject(event.type);
-  },
+    this.events.unshiftObject(event.type);
+  }
 
   @action
   closeDisplay() {
-    this.close(this.get('eventName'));
+    this.close(this.eventName);
   }
-});
+}

@@ -1,5 +1,5 @@
-import UserIdleService from 'ember-user-activity/services/user-idle';
+import BaseUserIdleService from 'ember-user-activity/services/user-idle';
 
-export default UserIdleService.extend({
-  IDLE_TIMEOUT: 10000
-});
+export default class UserIdleService extends BaseUserIdleService {
+  IDLE_TIMEOUT = 10000
+}
