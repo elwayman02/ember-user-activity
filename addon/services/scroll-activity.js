@@ -1,7 +1,7 @@
 import { getOwner } from '@ember/application';
 import { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
-import Evented from '@ember/object/evented';
+import { addListener, removeListener, sendEvent } from '@ember/object/events';
 import { run } from '@ember/runloop';
 import Service from '@ember/service';
 import getScroll from '../utils/get-scroll';
@@ -20,7 +20,7 @@ const SCROLL_EVENT_TYPE_VERTICAL = 'vertical';
 const SCROLL_EVENT_TYPE_HORIZONTAL = 'horizontal';
 const SCROLL_EVENT_TYPE_DIAGONAL = 'diagonal';
 
-export default Service.extend(Evented, {
+export default Service.extend({
   // Fastboot Compatibility
   _fastboot: computed(function() {
     let owner = getOwner(this);
@@ -28,6 +28,21 @@ export default Service.extend(Evented, {
   }),
 
   _isFastBoot: readOnly('_fastboot.isFastBoot'),
+
+  // Evented Implementation: https://github.com/emberjs/ember.js/blob/v3.16.1/packages/%40ember/-internals/runtime/lib/mixins/evented.js#L13
+  on(name, target, method) {
+    addListener(this, name, target, method);
+    return this;
+  },
+
+  off(name, target, method) {
+    removeListener(this, name, target, method);
+    return this;
+  },
+
+  trigger(name, ...args) {
+    sendEvent(this, name, args);
+  },
 
   init() {
     this._super(...arguments);

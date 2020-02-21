@@ -59,6 +59,14 @@ activeHandler(event) {
 Each event handler will receive the standard DOM `event` object
 (ex: [mousemove](https://developer.mozilla.org/en-US/docs/Web/Events/mousemove)).
 
+Unsubscribe from any event by calling `off`:
+
+```javascript
+this.get('userActivity').off('userActive', this, this.activeHandler);
+```
+
+#### Event Configuration
+
 If you would like to listen to a different set of events, extend the service in your app:
 
 ```javascript
@@ -87,6 +95,8 @@ You can find out if an event is currently enabled:
 this.get('userActivity').isEnabled('foo'); // false
 this.get('userActivity').isEnabled('keydown'); // true
 ```
+
+#### Performance Configuration
 
 Each individual event is throttled by 100ms for performance reasons,
 to avoid clogging apps with a firehose of activity events. The length of

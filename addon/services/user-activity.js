@@ -4,20 +4,22 @@ import { getOwner } from '@ember/application';
 import { A } from '@ember/array'
 import { computed } from '@ember/object';
 import { readOnly } from '@ember/object/computed';
-import Evented from '@ember/object/evented';
+import { addListener, removeListener, sendEvent } from '@ember/object/events';
 import { throttle } from '@ember/runloop'
 import { default as Service, inject as injectService } from '@ember/service';
 import { isEmpty } from '@ember/utils';
 
-export default Service.extend(Evented, {
+export default Service.extend({
   scrollActivity: injectService('ember-user-activity@scroll-activity'),
 
   EVENT_THROTTLE: 100,
   defaultEvents: ['keydown', 'mousedown', 'scroll', 'touchstart'],
   enabledEvents: null,
   _eventsListened: null,
+  _eventSubscriberCount: null,
 
   _throttledEventHandlers: null,
+  _boundEventHandler: null,
 
   // Fastboot compatibility
   _fastboot: computed(function() {
@@ -27,7 +29,56 @@ export default Service.extend(Evented, {
 
   _isFastBoot: readOnly('_fastboot.isFastBoot'),
 
-  _boundEventHandler: null,
+  init() {
+    this._super(...arguments);
+
+    if (Ember.testing) { // Do not throttle in testing mode
+      this.set('EVENT_THROTTLE', 0);
+    }
+
+    this._boundEventHandler = this.handleEvent.bind(this);
+    this._eventsListened = A();
+    this._eventSubscriberCount = {};
+    this._throttledEventHandlers = {};
+
+    if (isEmpty(this.get('enabledEvents'))) {
+      this.set('enabledEvents', A());
+    }
+    this._setupListeners();
+  },
+
+  // Evented Implementation: https://github.com/emberjs/ember.js/blob/v3.16.1/packages/%40ember/-internals/runtime/lib/mixins/evented.js#L13
+  on(eventName, target, method) {
+    this.enableEvent(eventName);
+    if (this._eventSubscriberCount[eventName]) {
+      this._eventSubscriberCount[eventName]++;
+    } else {
+      this._eventSubscriberCount[eventName] = 1;
+    }
+
+    addListener(this, eventName, target, method);
+    return this;
+  },
+
+  off(eventName, target, method) {
+    if (this._eventSubscriberCount[eventName]) {
+      this._eventSubscriberCount[eventName]--;
+    } else {
+      delete this._eventSubscriberCount[eventName];
+    }
+
+    removeListener(this, eventName, target, method);
+    return this;
+  },
+
+  trigger(eventName, ...args) {
+    sendEvent(this, eventName, args);
+  },
+
+  has(eventName) {
+    return this._eventSubscriberCount[eventName] && this._eventSubscriberCount[eventName] > 0;
+  },
+
   handleEvent(event) {
     throttle(this, this._throttledEventHandlers[event.type], event, this.get('EVENT_THROTTLE'));
   },
@@ -51,28 +102,6 @@ export default Service.extend(Evented, {
       window.addEventListener(eventName, this._boundEventHandler, true);
     }
 
-  },
-
-  init() {
-    this._super(...arguments);
-
-    if (Ember.testing) { // Do not throttle in testing mode
-      this.set('EVENT_THROTTLE', 0);
-    }
-
-    this._boundEventHandler = this.handleEvent.bind(this);
-    this._eventsListened = A();
-    this._throttledEventHandlers = {};
-
-    if (isEmpty(this.get('enabledEvents'))) {
-      this.set('enabledEvents', A());
-    }
-    this._setupListeners();
-  },
-
-  on(eventName) {
-    this.enableEvent(eventName);
-    this._super(...arguments);
   },
 
   enableEvent(eventName) {
@@ -117,6 +146,9 @@ export default Service.extend(Evented, {
     while (this._eventsListened.length > 0) {
       this.disableEvent(this._eventsListened[0]);
     }
+    this._eventsListened = A();
+    this._eventSubscriberCount = {};
+    this._throttledEventHandlers = {};
 
     this._super(...arguments);
   }
