@@ -1,10 +1,7 @@
 import classic from 'ember-classic-decorator';
-import { computed } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
-import { getOwner } from '@ember/application';
+import FastBootAwareService from './-private/fastboot-aware'
 import { addListener, removeListener, sendEvent } from '@ember/object/events';
 import { run } from '@ember/runloop';
-import Service from '@ember/service';
 import getScroll from '../utils/get-scroll';
 
 /*
@@ -22,16 +19,7 @@ const SCROLL_EVENT_TYPE_HORIZONTAL = 'horizontal';
 const SCROLL_EVENT_TYPE_DIAGONAL = 'diagonal';
 
 @classic
-export default class ScrollActivityService extends Service {
-  // Fastboot Compatibility
-  @computed
-  get _fastboot() {
-    let owner = getOwner(this);
-    return owner.lookup('service:fastboot');
-  }
-
-  @readOnly('_fastboot.isFastBoot')
-  _isFastBoot;
+export default class ScrollActivityService extends FastBootAwareService {
 
   // Evented Implementation: https://github.com/emberjs/ember.js/blob/v3.16.1/packages/%40ember/-internals/runtime/lib/mixins/evented.js#L13
   on(name, target, method) {

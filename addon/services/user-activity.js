@@ -1,16 +1,14 @@
 import classic from 'ember-classic-decorator';
-import { computed } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
+import FastBootAwareService from './-private/fastboot-aware'
 import Ember from 'ember';
-import { getOwner } from '@ember/application';
 import { A } from '@ember/array'
 import { addListener, removeListener, sendEvent } from '@ember/object/events';
 import { throttle } from '@ember/runloop'
-import { default as Service, inject as injectService } from '@ember/service';
+import { inject as injectService } from '@ember/service';
 import { isEmpty } from '@ember/utils';
 
 @classic
-export default class UserActivityService extends Service {
+export default class UserActivityService extends FastBootAwareService {
   @injectService('ember-user-activity@scroll-activity')
   scrollActivity;
 
@@ -21,16 +19,6 @@ export default class UserActivityService extends Service {
   _eventSubscriberCount = null;
   _throttledEventHandlers = null;
   _boundEventHandler = null;
-
-  // Fastboot compatibility
-  @computed
-  get _fastboot() {
-    let owner = getOwner(this);
-    return owner.lookup('service:fastboot');
-  }
-
-  @readOnly('_fastboot.isFastBoot')
-  _isFastBoot;
 
   init() {
     super.init(...arguments);
@@ -44,7 +32,7 @@ export default class UserActivityService extends Service {
     this._eventSubscriberCount = {};
     this._throttledEventHandlers = {};
 
-    if (isEmpty(this.get('enabledEvents'))) {
+    if (isEmpty(this.enabledEvents)) {
       this.set('enabledEvents', A());
     }
     this._setupListeners();
@@ -83,7 +71,7 @@ export default class UserActivityService extends Service {
   }
 
   handleEvent(event) {
-    throttle(this, this._throttledEventHandlers[event.type], event, this.get('EVENT_THROTTLE'));
+    throttle(this, this._throttledEventHandlers[event.type], event, this.EVENT_THROTTLE);
   }
 
   _handleScroll() {
@@ -91,16 +79,16 @@ export default class UserActivityService extends Service {
   }
 
   _setupListeners() {
-    this.get('defaultEvents').forEach((eventName) => {
+    this.defaultEvents.forEach((eventName) => {
       this.enableEvent(eventName);
     });
   }
 
   _listen(eventName) {
     if (eventName === 'scroll') {
-      this.get('scrollActivity').on('scroll', this, this._handleScroll);
+      this.scrollActivity.on('scroll', this, this._handleScroll);
     } else if (this._eventsListened.indexOf(eventName) === -1) {
-      if (this.get('_isFastBoot')) { return; }
+      if (this._isFastBoot) { return; }
       this._eventsListened.pushObject(eventName);
       window.addEventListener(eventName, this._boundEventHandler, true);
     }
@@ -109,7 +97,7 @@ export default class UserActivityService extends Service {
 
   enableEvent(eventName) {
     if (!this.isEnabled(eventName)) {
-      this.get('enabledEvents').pushObject(eventName);
+      this.enabledEvents.pushObject(eventName);
       this._throttledEventHandlers[eventName] = function fireEnabledEvent(event) {
         if (this.isEnabled(event.type)) {
           this.fireEvent(event);
@@ -120,11 +108,11 @@ export default class UserActivityService extends Service {
   }
 
   disableEvent(eventName) {
-    this.get('enabledEvents').removeObject(eventName);
-    this.get('_eventsListened').removeObject(eventName);
+    this.enabledEvents.removeObject(eventName);
+    this._eventsListened.removeObject(eventName);
     this._throttledEventHandlers[eventName] = null;
     if (eventName === 'scroll') {
-      this.get('scrollActivity').off('scroll', this, this._handleScroll);
+      this.scrollActivity.off('scroll', this, this._handleScroll);
     } else {
       if (this.get('_isFastBoot')) { return; }
       window.removeEventListener(eventName, this._boundEventHandler, true);
