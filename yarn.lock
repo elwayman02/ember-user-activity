@@ -5566,7 +5566,7 @@ elliptic@^6.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
-ember-angle-bracket-invocation-polyfill@^2.0.1, ember-angle-bracket-invocation-polyfill@^2.0.2:
+ember-angle-bracket-invocation-polyfill@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/ember-angle-bracket-invocation-polyfill/-/ember-angle-bracket-invocation-polyfill-2.0.2.tgz#117ab5238305f11046a2eb3a5bc026c98d2cf5c1"
   integrity sha512-HkG0xyTHtAhWVjU0Q5V/i4xe4FRvNIOaiUEgIvN815F3TIUboV/J0xhYgivm0uDZp9lAYUVF+U5PI1sCnlC3Og==
@@ -5760,7 +5760,7 @@ ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.10.0, ember-cli-babel@^6.11.0,
     ember-cli-version-checker "^2.1.2"
     semver "^5.5.0"
 
-ember-cli-babel@^7.1.0, ember-cli-babel@^7.1.2, ember-cli-babel@^7.1.3, ember-cli-babel@^7.1.4, ember-cli-babel@^7.10.0, ember-cli-babel@^7.11.0, ember-cli-babel@^7.11.1, ember-cli-babel@^7.12.0, ember-cli-babel@^7.13.2, ember-cli-babel@^7.17.2, ember-cli-babel@^7.7.3, ember-cli-babel@^7.8.0:
+ember-cli-babel@^7.1.0, ember-cli-babel@^7.1.2, ember-cli-babel@^7.1.3, ember-cli-babel@^7.1.4, ember-cli-babel@^7.10.0, ember-cli-babel@^7.11.0, ember-cli-babel@^7.11.1, ember-cli-babel@^7.12.0, ember-cli-babel@^7.13.2, ember-cli-babel@^7.18.0, ember-cli-babel@^7.7.3, ember-cli-babel@^7.8.0:
   version "7.18.0"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-7.18.0.tgz#e979b73eee00cd93f63452c6170d045e8832f29c"
   integrity sha512-OLPfYD8wSfCrmGHcUf8zEfySSvbAL+5Qp2RWLycJIMaBZhg+SncKj5kVkL3cPJR5n2hVHPdfmKTQIYjOYl6FnQ==
@@ -5814,10 +5814,10 @@ ember-cli-dependency-checker@^3.2.0:
     resolve "^1.5.0"
     semver "^5.3.0"
 
-ember-cli-deploy-build@^1.1.1:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/ember-cli-deploy-build/-/ember-cli-deploy-build-1.1.2.tgz#396b665e5673b91c472f710069bb6de5b7eacd74"
-  integrity sha512-D5rjlSXfwt9BAeaGD1OLegF30Fr96dLrDYEB4DT5XVTrHWBcQp5cg5PVkFfp7Ov3AYx4xOyugxQVMy0FqrQAkA==
+ember-cli-deploy-build@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-deploy-build/-/ember-cli-deploy-build-2.0.0.tgz#20d14836f5e8e1325a5b2c3d43367354783d2008"
+  integrity sha512-o6TCCKVLC85KYkk3TV8PCmEPfUI9R0qYzb7Sda+SIq9f5oR+vOoTsQmjUPyMB5Qou2sBVreUTjgNEaJBzvLtLg==
   dependencies:
     chalk "^1.0.0"
     ember-cli-deploy-plugin "^0.2.1"
@@ -5833,7 +5833,7 @@ ember-cli-deploy-git-ci@^1.0.1:
     execa "^0.7.0"
     fs-extra "^4.0.0"
 
-ember-cli-deploy-git@^1.3.3:
+ember-cli-deploy-git@^1.3.4:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/ember-cli-deploy-git/-/ember-cli-deploy-git-1.3.4.tgz#918905df863eb867d23a323ff0b80d1336cfa05d"
   integrity sha512-ESLyVY7yLM+hS31/7rXIpQnA5skKkpQx+TRn+GVRPp6g6XSApUrmWAmmeBIYhDLsxMZRLgD98DhDF50ogOoU7A==
@@ -6048,7 +6048,7 @@ ember-cli-string-utils@^1.0.0, ember-cli-string-utils@^1.1.0:
   resolved "https://registry.yarnpkg.com/ember-cli-string-utils/-/ember-cli-string-utils-1.1.0.tgz#39b677fc2805f55173735376fcef278eaa4452a1"
   integrity sha1-ObZ3/CgF9VFzc1N2/O8njqpEUqE=
 
-ember-cli-template-lint@^1.0.0-beta.3:
+ember-cli-template-lint@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/ember-cli-template-lint/-/ember-cli-template-lint-1.0.0.tgz#8ca8f5f05fdcad35c13f26b65fb93c016196bdc9"
   integrity sha512-acWyJUvRFo2aA/0kqeUxfCPwLtPk3ckZ/1I0BzBX9qW/Gi8qWqYnwnI/vEotIqmsQl+npbl0/SXeQHFrUdyB0g==
@@ -6349,7 +6349,7 @@ ember-composable-helpers@^2.3.1:
     ember-cli-typescript "^3.1.3"
     ember-inflector "^3.0.1"
 
-ember-decorators-polyfill@^1.1.1:
+ember-decorators-polyfill@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/ember-decorators-polyfill/-/ember-decorators-polyfill-1.1.3.tgz#2ffd7b5a4d45cb2a0dc7fce9cb132719a1134d13"
   integrity sha512-38cVtAryDo0Dlv96wLQHJk273UUxU8UPKQenN4T0wlXqqifTldZ/brLK9Jp4gE99g2swHeG9EVvcTGPCwmCXmg==
@@ -6582,15 +6582,16 @@ ember-router-service-polyfill@^1.0.2:
   dependencies:
     ember-cli-babel "^6.8.2"
 
-ember-sinon-qunit@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/ember-sinon-qunit/-/ember-sinon-qunit-3.4.0.tgz#6c6ea96273572825e8789c7214e3fd3d9ef4c376"
-  integrity sha512-Xn8+GEkxBNngtfOYy3qo5Mw1m0o3PJgd1/veGU2BdixxWrEd2U5ZolYFxd6vNHM1/EVx5urlDqWl6jeedJr/Xw==
+ember-sinon-qunit@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/ember-sinon-qunit/-/ember-sinon-qunit-4.0.1.tgz#7b8e2fde612406de9a49b13bd85aa8b6997b2074"
+  integrity sha512-qOmcT4InAYOJJ/ypoSYjDJZmTIZpSbTiCHly3U0pE85aPu8PBcNY2ppAXN8ymyZRUV5h5mA956MZZO97kqNjbA==
   dependencies:
-    ember-cli-babel "^7.1.2"
-    ember-sinon "~3.1.0"
+    broccoli-funnel "^2.0.2"
+    ember-cli-babel "^7.7.3"
+    ember-sinon "^4.1.1"
 
-ember-sinon@^4.0.0:
+ember-sinon@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/ember-sinon/-/ember-sinon-4.1.1.tgz#ff6db9e3b9548e269386d9efe1c381e165f03ba5"
   integrity sha512-CmLjy7LGcTw2uP0WdFSPuXYbI7rwB4U/5EOtVU5h2jXtItrnspLIXBL50kigDzwv+lgE8XhfDVPbJ1QMrIXWXg==
@@ -6599,16 +6600,6 @@ ember-sinon@^4.0.0:
     broccoli-merge-trees "^3.0.0"
     ember-cli-babel "^7.7.3"
     sinon "^7.4.2"
-
-ember-sinon@~3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/ember-sinon/-/ember-sinon-3.1.0.tgz#76733aae1cc32c9426202bdc0f5b61552753a7df"
-  integrity sha512-/UARfA4UBlhhmtvk6Vcvj3CH2foThqCORbXiUiQUBISNxqtZFdwGpnJMt4vY8etyArmop18B33UTmZzNKbfhmg==
-  dependencies:
-    broccoli-funnel "^2.0.0"
-    broccoli-merge-trees "^3.0.0"
-    ember-cli-babel "^7.1.3"
-    sinon "^7.1.1"
 
 ember-source-channel-url@^1.0.1:
   version "1.2.0"
@@ -6974,7 +6965,7 @@ escodegen@^1.11.0, escodegen@^1.11.1:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-plugin-ember@^7.7.2:
+eslint-plugin-ember@^7.8.1:
   version "7.8.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-ember/-/eslint-plugin-ember-7.8.1.tgz#9b2d0526bb6b697f3f18e5c7d3fcf64e447813af"
   integrity sha512-74Whm5MHV+llWv0LA/4b4IaLQxMTj5Jc1zoK11gYEPQbPIAviTF4JsRuzPM/x7QMo5pQZyTdfGYF5zVMbgQ2RA==
@@ -12665,10 +12656,45 @@ release-it-lerna-changelog@^1.0.3:
     lerna-changelog "^0.8.2"
     release-it "^12.0.1"
 
-release-it@^12.0.1, release-it@^12.4.3:
+release-it@^12.0.1:
   version "12.6.0"
   resolved "https://registry.yarnpkg.com/release-it/-/release-it-12.6.0.tgz#5b86870e84badb4b5992a54ba0f821719c2c66e2"
   integrity sha512-5Q8cb1Md7CcBwMEARpTXPJdsAV6AGnxYMrURK4L91+vEQ5LK7MBn3LTijvcrhhLnvf7Lti7kUp3DmRiN790geg==
+  dependencies:
+    "@iarna/toml" "2.2.3"
+    "@octokit/rest" "16.43.1"
+    async-retry "1.3.1"
+    chalk "3.0.0"
+    cosmiconfig "5.2.1"
+    debug "4.1.1"
+    deprecated-obj "1.0.1"
+    detect-repo-changelog "1.0.1"
+    find-up "4.1.0"
+    form-data "3.0.0"
+    git-url-parse "11.1.2"
+    globby "10.0.2"
+    got "9.6.0"
+    import-cwd "3.0.0"
+    inquirer "7.0.4"
+    is-ci "2.0.0"
+    lodash "4.17.15"
+    mime-types "2.1.26"
+    ora "4.0.3"
+    os-name "3.1.0"
+    semver "7.1.3"
+    shell-quote "1.7.2"
+    shelljs "0.8.3"
+    supports-color "7.1.0"
+    update-notifier "4.1.0"
+    url-join "4.0.1"
+    uuid "3.4.0"
+    window-size "1.1.1"
+    yargs-parser "17.0.0"
+
+release-it@^12.6.1:
+  version "12.6.1"
+  resolved "https://registry.yarnpkg.com/release-it/-/release-it-12.6.1.tgz#85136c07751308d67225da16c4dc6ff5db9b683f"
+  integrity sha512-6sXt4TkmYuOnp2IY3DUKW2L/XEy+Xh9ylLtqmRWe5SIimvDLufGwQ1iPVjUvEaOdLrUV/mnGT5Vvuf6TcfgDQw==
   dependencies:
     "@iarna/toml" "2.2.3"
     "@octokit/rest" "16.43.1"
@@ -13342,7 +13368,7 @@ simple-html-tokenizer@^0.5.8, simple-html-tokenizer@^0.5.9:
   resolved "https://registry.yarnpkg.com/simple-html-tokenizer/-/simple-html-tokenizer-0.5.9.tgz#1a83fe97f5a3e39b335fddf71cfe9b0263b581c2"
   integrity sha512-w/3FEDN94r4JQ9WoYrIr8RqDIPZdyNkdpbK9glFady1CAEyD97XWCv8HFetQO21w81e7h7Nh59iYTyG1mUJftg==
 
-sinon@^7.1.1, sinon@^7.4.2:
+sinon@^7.4.2:
   version "7.5.0"
   resolved "https://registry.yarnpkg.com/sinon/-/sinon-7.5.0.tgz#e9488ea466070ea908fd44a3d6478fd4923c67ec"
   integrity sha512-AoD0oJWerp0/rY9czP/D6hDTTUYGpObhZjMpd7Cl/A6+j0xBE+ayL/ldfggkBXUs0IkvIiM1ljM8+WkOc5k78Q==

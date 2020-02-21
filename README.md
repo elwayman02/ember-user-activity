@@ -1,5 +1,4 @@
-![Ember User Activity](docs/hero-logo.png)
-==========================================
+# ![Ember User Activity](docs/hero-logo.png)
 
 [![Build Status](https://travis-ci.org/elwayman02/ember-user-activity.svg?branch=master)](https://travis-ci.org/elwayman02/ember-user-activity)
 [![Ember Observer Score](https://emberobserver.com/badges/ember-user-activity.svg)](https://emberobserver.com/addons/ember-user-activity)
@@ -9,24 +8,19 @@ This addon provides services for detecting user activity & idling across the ent
 
 Check out the [Demo](http://jhawk.co/e-user-activity)!
 
-
-Compatibility
-------------------------------------------------------------------------------
+## Compatibility
 
 * Ember.js v3.12 or above
 * Ember CLI v2.13 or above
 * Node.js v10 or above
 
+## Installation
 
-Installation
-------------------------------------------------------------------------------
-
-```
+```bash
 ember install ember-user-activity
 ```
 
-Usage
-------------------------------------------------------------------------------
+## Usage
 
 ### User Activity Service
 
@@ -152,6 +146,7 @@ Note that the `userActive` event is a superset of all events fired from `user-ac
 so in most cases you won't need to change this.
 
 The idle service has a `idleChanged` event when `isIdle` gets changed.
+
 ```javascript
 userIdle: injectService(),
 
@@ -242,13 +237,10 @@ merging the `app/` directory trees. This can be accomplished by modifying your a
 See the [Ember CLI docs](http://ember-cli.com/extending/#configuring-your-ember-addon-properties)
 for more information on configuring your addon properties.
 
-Contributing
-------------------------------------------------------------------------------
+## Contributing
 
 See the [Contributing](CONTRIBUTING.md) guide for details.
 
-
-License
-------------------------------------------------------------------------------
+## License
 
 This project is licensed under the [MIT License](LICENSE.md).
