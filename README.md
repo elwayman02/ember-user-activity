@@ -21,7 +21,7 @@ Compatibility
 Installation
 ------------------------------------------------------------------------------
 
-```
+```bash
 ember install ember-user-activity
 ```
 
