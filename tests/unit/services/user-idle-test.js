@@ -11,7 +11,7 @@ module('Unit | Service | user idle', function(hooks) {
       resetTimeout: this.stub()
     });
 
-    assert.ok(service.get('resetTimeout').calledOnce, 'resetTimeout was called');
+    assert.ok(service.resetTimeout.calledOnce, 'resetTimeout was called');
   });
 
   test('init sets up event listeners', function (assert) {
@@ -21,9 +21,9 @@ module('Unit | Service | user idle', function(hooks) {
       resetTimeout: this.stub()
     });
 
-    service.get('userActivity').trigger(event);
+    service.userActivity.trigger(event);
 
-    let stub = service.get('resetTimeout');
+    let stub = service.resetTimeout;
     assert.ok(stub.calledTwice, 'resetTimeout was called');
   });
 
@@ -44,10 +44,10 @@ module('Unit | Service | user idle', function(hooks) {
     assert.equal(args[0], 'idleChanged', 'triggers idleChanged event');
     assert.equal(args[1], false, 'passes data');
 
-    assert.ok(!service.get('isIdle'), 'isIdle is false');
+    assert.ok(!service.isIdle, 'isIdle is false');
 
     return settled().then(function () {
-      assert.ok(service.get('isIdle'), 'isIdle is set to true after timeout');
+      assert.ok(service.isIdle, 'isIdle is set to true after timeout');
     });
   });
 
@@ -65,6 +65,6 @@ module('Unit | Service | user idle', function(hooks) {
     assert.equal(args[0], 'idleChanged', 'triggers idleChanged event');
     assert.equal(args[1], true, 'passes data');
 
-    assert.ok(service.get('isIdle'), 'isIdle is true');
+    assert.ok(service.isIdle, 'isIdle is true');
   });
 });
