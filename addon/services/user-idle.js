@@ -16,9 +16,8 @@ export default class UserIdleService extends Service.extend(Evented) {
   isIdle = false;
 
   _setupListeners(method) {
-    let userActivity = this.get('userActivity');
-    this.get('activeEvents').forEach((event) => {
-      userActivity[method](event, this, this.resetTimeout);
+    this.activeEvents.forEach((event) => {
+      this.userActivity[method](event, this, this.resetTimeout);
     });
   }
 
@@ -42,12 +41,12 @@ export default class UserIdleService extends Service.extend(Evented) {
   }
 
   resetTimeout() {
-    let oldIdle = this.get('isIdle');
+    let oldIdle = this.isIdle;
     this.set('isIdle', false);
     if (oldIdle) {
       this.trigger('idleChanged', false);
     }
-    this._debouncedTimeout = debounce(this, this.setIdle, this.get('IDLE_TIMEOUT'));
+    this._debouncedTimeout = debounce(this, this.setIdle, this.IDLE_TIMEOUT);
   }
 
   setIdle() {

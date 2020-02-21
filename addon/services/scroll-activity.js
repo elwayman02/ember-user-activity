@@ -39,7 +39,7 @@ export default class ScrollActivityService extends FastBootAwareService {
   init() {
     super.init(...arguments);
 
-    if (this.get('_isFastBoot')) { return; }
+    if (this._isFastBoot) { return; }
 
     this._animationFrame = null;
     this._subscribers = [];
@@ -72,7 +72,7 @@ export default class ScrollActivityService extends FastBootAwareService {
   }
 
   _pollScroll() {
-    if (this.get('_isFastBoot')) { return; }
+    if (this._isFastBoot) { return; }
     if (window.requestAnimationFrame) {
       this._animationFrame = requestAnimationFrame(() => this._checkScroll());
     } else {
@@ -166,7 +166,7 @@ export default class ScrollActivityService extends FastBootAwareService {
   }
 
   willDestroy() {
-    if (this.get('_isFastBoot')) { return; }
+    if (this._isFastBoot) { return; }
     if (window.requestAnimationFrame) {
       cancelAnimationFrame(this._animationFrame);
     } else {

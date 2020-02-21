@@ -114,7 +114,7 @@ export default class UserActivityService extends FastBootAwareService {
     if (eventName === 'scroll') {
       this.scrollActivity.off('scroll', this, this._handleScroll);
     } else {
-      if (this.get('_isFastBoot')) { return; }
+      if (this._isFastBoot) { return; }
       window.removeEventListener(eventName, this._boundEventHandler, true);
     }
   }
@@ -130,7 +130,7 @@ export default class UserActivityService extends FastBootAwareService {
   }
 
   isEnabled(eventName) {
-    return this.get('enabledEvents').indexOf(eventName) !== -1;
+    return this.enabledEvents.includes(eventName);
   }
 
   willDestroy() {
