@@ -39,6 +39,7 @@ These `window` events are enabled by default:
 * `mousedown` - Fires when a mouse is clicked
 * `scroll` - Fires when the user scrolls
 * `touchstart` - Fires when a touch point is placed on the touch surface [Mobile-Friendly]
+* `storage` - Fires when any activity event is triggered on another tab of the same website. This avoids problems when a user opens up serveral tabs to the same application.
 * ~~`mousemove` - Fires when the user moves the mouse~~ [Removed as of v0.2.0](https://github.com/elwayman02/ember-user-activity/issues/16)
 
 A custom event, `userActive` is fired for ALL enabled events.
