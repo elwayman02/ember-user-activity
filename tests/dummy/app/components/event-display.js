@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { inject as injectService } from '@ember/service';
 import { A } from '@ember/array';
+import { action } from '@ember/object';
 
 export default Component.extend({
   classNames: ['eventDisplay'],
@@ -29,9 +30,8 @@ export default Component.extend({
     this.get('events').unshiftObject(event.type);
   },
 
-  actions: {
-    close() {
-      this.get('close')(this.get('eventName'));
-    }
+  @action
+  closeDisplay() {
+    this.close(this.get('eventName'));
   }
 });

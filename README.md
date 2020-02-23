@@ -13,9 +13,9 @@ Check out the [Demo](http://jhawk.co/e-user-activity)!
 Compatibility
 ------------------------------------------------------------------------------
 
-* Ember.js v3.4 or above
+* Ember.js v3.12 or above
 * Ember CLI v2.13 or above
-* Node.js v8 or above
+* Node.js v10 or above
 
 
 Installation
@@ -59,6 +59,14 @@ activeHandler(event) {
 Each event handler will receive the standard DOM `event` object
 (ex: [mousemove](https://developer.mozilla.org/en-US/docs/Web/Events/mousemove)).
 
+Unsubscribe from any event by calling `off`:
+
+```javascript
+this.get('userActivity').off('userActive', this, this.activeHandler);
+```
+
+#### Event Configuration
+
 If you would like to listen to a different set of events, extend the service in your app:
 
 ```javascript
@@ -87,6 +95,8 @@ You can find out if an event is currently enabled:
 this.get('userActivity').isEnabled('foo'); // false
 this.get('userActivity').isEnabled('keydown'); // true
 ```
+
+#### Performance Configuration
 
 Each individual event is throttled by 100ms for performance reasons,
 to avoid clogging apps with a firehose of activity events. The length of
@@ -163,7 +173,7 @@ way to register your components as well. The [User Activity Service](#user-activ
 Any elements can be subscribed to this service:
 
 ```javascript
-this.get('scrollActivity').subscribe(this, this.get('element'));
+this.get('scrollActivity').subscribe(this, element);
 ```
 
 `subscribe` requires at least two parameters:
@@ -187,54 +197,6 @@ this.get('scrollActivity').unsubscribe(this);
 ```
 
 `unsubscribe` only requires the `target` parameter that was initially used to `subscribe`.
-
-### Scroll Activity Mixin
-
-This mixin automatically subscribes and unsubscribes a scrollable component to the `scrollActivity` service.
-
-```javascript
-// app/components/my-scroll.js
-import Component from 'ember-component';
-import ScrollActivityMixin from 'ember-user-activity/mixins/scroll-activity';
-
-export default Component.extend(ScrollActivityMixin);
-```
-
-If the component's template itself is not scrollable, but it contains an element
-(such as a div) that can be scrolled, set the `scrollElement` attribute to the appropriate selector:
-
-```handlebars
-{{! app/templates/components/my-scroll.hbs }}
-<span>Some stuff</span>
-<div class='some-scroll'>...</div>
-```
-
-```javascript
-//app/components/my-scroll.js
-import Component from 'ember-component';
-import ScrollActivityMixin from 'ember-user-activity/mixins/scroll-activity';
-
-export default Component.extend(ScrollActivityMixin, {
-  scrollElement: '.some-scroll'
-});
-```
-
-Do not set `scrollElement` if the component itself (ie `this.$()`) is the scrollable element.
-
-If the component implements a `didScroll` method, that will be used as a callback
-when scrolling has been detected within the component's DOM.
-
-```javascript
-//app/components/my-scroll.js
-import Component from 'ember-component';
-import ScrollActivityMixin from 'ember-user-activity/mixins/scroll-activity';
-
-export default Component.extend(ScrollActivityMixin, {
-  didScroll() {
-    // do stuff because we scrolled
-  }
-});
-```
 
 ### Cleanup
 

@@ -1,8 +1,8 @@
-<h3 class="eventName">{{eventName}}</h3>
-<span class="close" role="button" {{action "close"}}>x</span>
-<p>Events Fired: {{events.length}}</p>
+<h3 class="eventName">{{this.eventName}}</h3>
+<span class="close" role="button" {{on "click" this.closeDisplay}}>x</span>
+<p>Events Fired: {{this.events.length}}</p>
 <div class="eventList">
-  {{#each events as |event|}}
+  {{#each this.events as |event|}}
     <div>
       {{event}}
     </div>
