@@ -83,7 +83,7 @@ export default Service.extend({
   },
 
   handleEvent(event) {
-    if(event.type === 'storage' && event.key !== this.localStorageKey) {
+    if (event.type === 'storage' && event.key !== this.localStorageKey) {
       return;
     }
     throttle(this, this._throttledEventHandlers[event.type], event, this.get('EVENT_THROTTLE'));
@@ -142,7 +142,7 @@ export default Service.extend({
     if (this.has('userActive')) {
       this.trigger('userActive', event);
     }
-    if(this._eventsListened.indexOf('storage') > -1 && storageAvailable('localStorage')) {
+    if (this._eventsListened.indexOf('storage') > -1 && storageAvailable('localStorage')) {
       localStorage.setItem(this.localStorageKey, new Date());
     }
   },
@@ -159,7 +159,7 @@ export default Service.extend({
     this._eventSubscriberCount = {};
     this._throttledEventHandlers = {};
 
-    if(this.localStorageKey && storageAvailable('localStorage')) {
+    if (this.localStorageKey && storageAvailable('localStorage')) {
       localStorage.removeItem(this.localStorageKey);
     }
 
