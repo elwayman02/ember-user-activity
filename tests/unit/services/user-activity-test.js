@@ -8,25 +8,25 @@ module('Unit | Service | user activity', function(hooks) {
   setupTest(hooks);
 
   test('init', function (assert) {
-    let service = this.owner.factoryFor('service:user-activity').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       enableEvent: this.stub()
     });
 
-    assert.equal(typeOf(service.get('_boundEventHandler')), 'function', 'bound event handler initialized');
-    assert.equal(typeOf(service.get('enabledEvents')), 'array', 'enabledEvents set to empty array');
-    assert.equal(service.enableEvent.callCount, service.get('defaultEvents.length'), 'Events enabled by default');
+    assert.equal(typeOf(service._boundEventHandler), 'function', 'bound event handler initialized');
+    assert.equal(typeOf(service.enabledEvents), 'array', 'enabledEvents set to empty array');
+    assert.equal(service.enableEvent.callCount, service.defaultEvents.length, 'Events enabled by default');
   });
 
   test('enableEvent', function (assert) {
     let event = 'foo';
-    let service = this.owner.factoryFor('service:user-activity').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       _listen: this.stub(),
       _setupListeners: this.stub()
     });
 
     service.enableEvent(event);
 
-    assert.ok(service.get('enabledEvents').includes(event), 'adds event name to enabled events');
+    assert.ok(service.enabledEvents.includes(event), 'adds event name to enabled events');
     let stub = service._listen;
     assert.ok(stub.calledOnce, 'sets up listener');
     assert.equal(stub.firstCall.args[0], event, 'passes event name to _listen');
@@ -34,7 +34,7 @@ module('Unit | Service | user activity', function(hooks) {
 
   test('enableEvent - already enabled', function (assert) {
     let event = 'foo';
-    let service = this.owner.factoryFor('service:user-activity').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       enabledEvents: emberArray([event]),
       _listen: this.stub(),
       _setupListeners: this.stub()
@@ -47,47 +47,47 @@ module('Unit | Service | user activity', function(hooks) {
 
   test('disableEvent', function (assert) {
     let event = 'foo';
-    let service = this.owner.factoryFor('service:user-activity').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       enabledEvents: emberArray([event]),
       _setupListeners: this.stub()
     });
 
-    assert.ok(service.get('enabledEvents').includes(event), 'enabledEvents preserved on init');
+    assert.ok(service.enabledEvents.includes(event), 'enabledEvents preserved on init');
 
     service.disableEvent(event);
 
-    assert.ok(!service.get('enabledEvents').includes(event), 'removed event from enabledEvents');
+    assert.ok(!service.enabledEvents.includes(event), 'removed event from enabledEvents');
     assert.notOk(service._eventsListened.includes(event), 'event should not be listed as listened');
   });
 
   test('re-enabled events should fire', function (assert) {
     let event = 'foo';
-    let service = this.owner.factoryFor('service:user-activity').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       enabledEvents: emberArray(),
       _setupListeners: this.stub()
     });
 
     let addEventListenerStub = this.stub(window, 'addEventListener');
 
-    assert.notOk(service.get('enabledEvents.length'), 'enabledEvents preserved on init');
+    assert.notOk(service.enabledEvents.length, 'enabledEvents preserved on init');
 
     service.enableEvent(event);
     assert.ok(addEventListenerStub.called, 'event was not handled');
-    assert.ok(service.get('enabledEvents').includes(event), 'enabledEvents should include added event');
+    assert.ok(service.enabledEvents.includes(event), 'enabledEvents should include added event');
 
     window.addEventListener.reset();
     service.disableEvent(event);
-    assert.ok(!service.get('enabledEvents').includes(event), 'removed event from enabledEvents');
+    assert.ok(!service.enabledEvents.includes(event), 'removed event from enabledEvents');
 
     service.enableEvent(event);
     assert.ok(window.addEventListener.called, 'event was not handled');
-    assert.ok(service.get('enabledEvents').includes(event), 'enabledEvents should include added event');
+    assert.ok(service.enabledEvents.includes(event), 'enabledEvents should include added event');
     window.addEventListener.restore();
   });
 
   test('fireEvent - no subscribers', function (assert) {
     let event = { type: 'foo' };
-    let service = this.owner.factoryFor('service:user-activity').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       trigger: this.stub(),
       _setupListeners: this.stub()
     });
@@ -99,7 +99,7 @@ module('Unit | Service | user activity', function(hooks) {
 
   test('fireEvent - subscribed to event', function (assert) {
     let event = { type: 'foo' };
-    let service = this.owner.factoryFor('service:user-activity').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       trigger: this.stub(),
       _setupListeners: this.stub()
     });
@@ -117,7 +117,7 @@ module('Unit | Service | user activity', function(hooks) {
 
   test('fireEvent - subscribed to userActive', function (assert) {
     let event = { type: 'foo' };
-    let service = this.owner.factoryFor('service:user-activity').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       trigger: this.stub(),
       _setupListeners: this.stub()
     });
@@ -135,7 +135,7 @@ module('Unit | Service | user activity', function(hooks) {
 
   test('isEnabled', function (assert) {
     let event = 'foo';
-    let service = this.owner.factoryFor('service:user-activity').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       enabledEvents: emberArray([event]),
       _setupListeners: this.stub()
     });
@@ -148,7 +148,7 @@ module('Unit | Service | user activity', function(hooks) {
     this.spy(window, 'addEventListener');
     this.spy(window, 'removeEventListener');
 
-    const service = this.owner.factoryFor('service:user-activity').create();
+    const service = this.owner.factoryFor('service:ember-user-activity@user-activity').create();
 
     assert.equal(window.addEventListener.callCount, 3, 'Subscribed to 3 window events');
 

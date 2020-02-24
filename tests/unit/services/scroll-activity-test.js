@@ -35,7 +35,7 @@ module('Unit | Service | scroll activity', function(hooks) {
       fixture.appendChild(document.createElement('br'));
     }
 
-    let service = this.owner.lookup('service:scroll-activity');
+    let service = this.owner.lookup('service:ember-user-activity@scroll-activity');
 
     let scrollEventCount = 0;
     service.on('scroll', () => scrollEventCount++);
@@ -67,7 +67,7 @@ module('Unit | Service | scroll activity', function(hooks) {
     let elem = { scrollTop, scrollLeft };
     let target = { elem };
 
-    let service = this.owner.lookup('service:scroll-activity');
+    let service = this.owner.lookup('service:ember-user-activity@scroll-activity');
     service.subscribe(target, elem);
 
     let scrollEventCount = 0;
@@ -90,7 +90,7 @@ module('Unit | Service | scroll activity', function(hooks) {
     let elem = { scrollTop, scrollLeft };
     let target = { elem };
 
-    let service = this.owner.lookup('service:scroll-activity');
+    let service = this.owner.lookup('service:ember-user-activity@scroll-activity');
 
     let subscribedEventCount = 0;
     let subscribedScrollTop = null;
@@ -129,7 +129,7 @@ module('Unit | Service | scroll activity', function(hooks) {
     let elem = { scrollTop, scrollLeft };
     let target = { elem };
 
-    let service = this.owner.lookup('service:scroll-activity');
+    let service = this.owner.lookup('service:ember-user-activity@scroll-activity');
 
     let subscribedEventCount = 0;
     service.subscribe(target, elem, () => {
@@ -164,7 +164,7 @@ module('Unit | Service | scroll activity', function(hooks) {
       fixture.appendChild(document.createElement('br'));
     }
 
-    let service = this.owner.lookup('service:scroll-activity');
+    let service = this.owner.lookup('service:ember-user-activity@scroll-activity');
 
     let scrollEventCount = 0;
     service.on('scroll', () => scrollEventCount++);
@@ -196,7 +196,7 @@ module('Unit | Service | scroll activity', function(hooks) {
     let elem = { scrollTop, scrollLeft };
     let target = { elem };
 
-    let service = this.owner.lookup('service:scroll-activity');
+    let service = this.owner.lookup('service:ember-user-activity@scroll-activity');
     service.subscribe(target, elem);
 
     let scrollEventCount = 0;
@@ -219,7 +219,7 @@ module('Unit | Service | scroll activity', function(hooks) {
     let elem = { scrollTop, scrollLeft };
     let target = { elem };
 
-    let service = this.owner.lookup('service:scroll-activity');
+    let service = this.owner.lookup('service:ember-user-activity@scroll-activity');
 
     let subscribedEventCount = 0;
     let subscribedScrollLeft = null;
@@ -262,7 +262,7 @@ module('Unit | Service | scroll activity', function(hooks) {
     const SCROLL_EVENT_TYPE_HORIZONTAL = 'horizontal';
     const SCROLL_EVENT_TYPE_DIAGONAL = 'diagonal';
 
-    let service = this.owner.lookup('service:scroll-activity');
+    let service = this.owner.lookup('service:ember-user-activity@scroll-activity');
 
     let subscribedEventCount = 0;
     let subscribedScrollTop = null;

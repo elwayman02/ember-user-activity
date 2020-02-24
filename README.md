@@ -21,7 +21,7 @@ Compatibility
 Installation
 ------------------------------------------------------------------------------
 
-```
+```bash
 ember install ember-user-activity
 ```
 
@@ -46,10 +46,26 @@ A custom event, `userActive` is fired for ALL enabled events.
 To catch these events, simply inject the service and subscribe to the events you care about:
 
 ```javascript
+import { inject as injectService } from '@ember/service';
+
 // any file where services can be injected
-userActivity: Ember.inject.service(),
+// Classic
+userActivity: injectService('ember-user-activity@user-activity'),
+
 setupListeners() {
-  this.get('userActivity').on('userActive', this, this.activeHandler);
+  this.userActivity.on('userActive', this, this.activeHandler);
+},
+activeHandler(event) {
+  // do stuff
+}
+
+
+// Octane
+@injectService('ember-user-activity@user-activity')
+userActivity
+
+setupListeners() {
+  this.userActivity.on('userActive', this, this.activeHandler);
 },
 activeHandler(event) {
   // do stuff
@@ -62,7 +78,7 @@ Each event handler will receive the standard DOM `event` object
 Unsubscribe from any event by calling `off`:
 
 ```javascript
-this.get('userActivity').off('userActive', this, this.activeHandler);
+this.userActivity.off('userActive', this, this.activeHandler);
 ```
 
 #### Event Configuration
@@ -73,16 +89,23 @@ If you would like to listen to a different set of events, extend the service in 
 // app/services/user-activity.js
 import UserActivityService from 'ember-user-activity/services/user-activity';
 
+// Classic
 export default UserActivityService.extend({
   defaultEvents: ['keypress', 'mouseenter', 'mousemove']
 });
+
+
+// Octane
+export default class UserActivity extends UserActivityService {
+  defaultEvents = ['keypress', 'mouseenter', 'mousemove']
+}
 ```
 
 Additionally, you can enable/disable events after the service has been initialized.
 
 ```javascript
-this.get('userActivity').enableEvent('keyup');
-this.get('userActivity').disableEvent('mousedown');
+this.userActivity.enableEvent('keyup');
+this.userActivity.disableEvent('mousedown');
 ```
 
 Event names must be from the [DOM Event](https://developer.mozilla.org/en-US/docs/Web/Events) list.
@@ -92,8 +115,8 @@ that was not set up by default, a new listener will be created automatically.
 You can find out if an event is currently enabled:
 
 ```javascript
-this.get('userActivity').isEnabled('foo'); // false
-this.get('userActivity').isEnabled('keydown'); // true
+this.userActivity.isEnabled('foo'); // false
+this.userActivity.isEnabled('keydown'); // true
 ```
 
 #### Performance Configuration
@@ -106,9 +129,16 @@ the throttling can be configured by setting `EVENT_THROTTLE` on the activity ser
 // app/services/user-activity.js
 import UserActivityService from 'ember-user-activity/services/user-activity';
 
+// Classic
 export default UserActivityService.extend({
   EVENT_THROTTLE: 200 // 200 ms
 });
+
+// Octane
+export default class UserActivity extends UserActivityService {
+  EVENT_THROTTLE = 200 // 200 ms
+}
+
 ```
 
 Setting `EVENT_THROTTLE` to 0 will enable the full firehose of events.
@@ -121,8 +151,20 @@ This service tracks user activity to decide when a user has gone idle by
 not interacting with the page for a set amount of time.
 
 ```javascript
-userIdle: Ember.inject.service(),
-isIdle: Ember.computed.readOnly('userIdle.isIdle')
+import { inject as injectService } from '@ember/service';
+import { readOnly } from '@ember/object/computed'
+
+// Classic
+userIdle: injectService('ember-user-activity@user-idle')
+isIdle: readOnly('userIdle.isIdle')
+
+
+// Octane
+@injectService('ember-user-activity@user-idle')
+userIdle
+
+@readOnly('userIdle.isIdle')
+isIdle
 ```
 
 The default timeout is set for 10 minutes but can be overridden by extending the service:
@@ -131,8 +173,14 @@ The default timeout is set for 10 minutes but can be overridden by extending the
 // app/services/user-idle.js
 import UserIdleService from 'ember-user-activity/services/user-idle';
 
+// Classic
 export default UserIdleService.extend({
   IDLE_TIMEOUT: 300000 // 5 minutes
+});
+
+// Octane
+export default class UserIdle extends UserIdleService {
+  IDLE_TIMEOUT = 300000 // 5 minutes
 });
 ```
 
@@ -143,20 +191,40 @@ configured to listen to a custom set of events from the `user-activity` service:
 // app/services/user-idle.js
 import UserIdleService from 'ember-user-activity/services/user-idle';
 
+// Classic
 export default UserIdleService.extend({
   activeEvents: ['mousedown', 'keydown']
 });
+
+// Octane
+export default class UserIdle extends UserIdleService {
+  activeEvents = ['mousedown', 'keydown']
+};
 ```
 
 Note that the `userActive` event is a superset of all events fired from `user-activity`,
 so in most cases you won't need to change this.
 
 The idle service has a `idleChanged` event when `isIdle` gets changed.
+
 ```javascript
-userIdle: injectService(),
+import { inject as injectService } from '@ember/service';
+
+// Classic
+userIdle: injectService('ember-user-activity@user-idle'),
 
 init() {
-  this.get('userIdle').on('idleChanged', (isIdle) => {
+  this.userIdle.on('idleChanged', (isIdle) => {
+    // isIdle is true if idle. False otherwise.
+  })
+}
+
+// Octane
+@injectService('ember-user-activity@user-idle')
+userIdle
+
+init() {
+  this.userIdle.on('idleChanged', (isIdle) => {
     // isIdle is true if idle. False otherwise.
   })
 }
@@ -173,7 +241,7 @@ way to register your components as well. The [User Activity Service](#user-activ
 Any elements can be subscribed to this service:
 
 ```javascript
-this.get('scrollActivity').subscribe(this, element);
+this.scrollActivity.subscribe(this, element);
 ```
 
 `subscribe` requires at least two parameters:
@@ -193,7 +261,7 @@ Two optional parameters may follow:
 Conversely, elements can also be unsubscribed:
 
 ```javascript
-this.get('scrollActivity').unsubscribe(this);
+this.scrollActivity.unsubscribe(this);
 ```
 
 `unsubscribe` only requires the `target` parameter that was initially used to `subscribe`.
@@ -206,7 +274,7 @@ Make sure to remove any listeners before destroying their parent objects.
 ```javascript
 // app/components/foo-bar.js
 willDestroyElement() {
-  this.get('userActivity').off('keydown', this, this.keydownHandler);
+  this.userActivity.off('keydown', this, this.keydownHandler);
 }
 ```
 
@@ -224,9 +292,15 @@ modified service in your addon's `app/` directory:
 // app/services/user-idle.js
 import UserIdleService from 'ember-user-activity/services/user-idle';
 
+// Classic
 export default UserIdleService.extend({
   IDLE_TIMEOUT: 3000 // 3 minutes
 });
+
+// Octane
+export default class UserIdle extends UserIdleService {
+  IDLE_TIMEOUT = 3000 // 3 minutes
+};
 ```
 
 Make sure that your addon gets loaded *after* EUA, to prevent conflicts when
