@@ -1,9 +1,7 @@
-import { getOwner } from '@ember/application';
-import { computed } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
+import classic from 'ember-classic-decorator';
+import FastBootAwareService from './-private/fastboot-aware'
 import { addListener, removeListener, sendEvent } from '@ember/object/events';
 import { run } from '@ember/runloop';
-import Service from '@ember/service';
 import getScroll from '../utils/get-scroll';
 
 /*
@@ -20,34 +18,28 @@ const SCROLL_EVENT_TYPE_VERTICAL = 'vertical';
 const SCROLL_EVENT_TYPE_HORIZONTAL = 'horizontal';
 const SCROLL_EVENT_TYPE_DIAGONAL = 'diagonal';
 
-export default Service.extend({
-  // Fastboot Compatibility
-  _fastboot: computed(function() {
-    let owner = getOwner(this);
-    return owner.lookup('service:fastboot');
-  }),
-
-  _isFastBoot: readOnly('_fastboot.isFastBoot'),
+@classic
+export default class ScrollActivityService extends FastBootAwareService {
 
   // Evented Implementation: https://github.com/emberjs/ember.js/blob/v3.16.1/packages/%40ember/-internals/runtime/lib/mixins/evented.js#L13
   on(name, target, method) {
     addListener(this, name, target, method);
     return this;
-  },
+  }
 
   off(name, target, method) {
     removeListener(this, name, target, method);
     return this;
-  },
+  }
 
   trigger(name, ...args) {
     sendEvent(this, name, args);
-  },
+  }
 
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
 
-    if (this.get('_isFastBoot')) { return; }
+    if (this._isFastBoot) { return; }
 
     this._animationFrame = null;
     this._subscribers = [];
@@ -55,14 +47,9 @@ export default Service.extend({
     this.subscribe(document, document, () => {}, false);
 
     this._pollScroll();
-  },
+  }
 
-  subscribe(
-    target,
-    element,
-    callback=() => {},
-    highPriority=true
-  ) {
+  subscribe(target, element, callback=() => {}, highPriority=true) {
     this._subscribers.push({
       target,
       element,
@@ -71,7 +58,7 @@ export default Service.extend({
       scrollTop: null,
       scrollLeft: null
     });
-  },
+  }
 
   unsubscribe(target) {
     let { _subscribers: subscribers } = this;
@@ -82,16 +69,16 @@ export default Service.extend({
         break;
       }
     }
-  },
+  }
 
   _pollScroll() {
-    if (this.get('_isFastBoot')) { return; }
+    if (this._isFastBoot) { return; }
     if (window.requestAnimationFrame) {
       this._animationFrame = requestAnimationFrame(() => this._checkScroll());
     } else {
       this._animationFrame = setTimeout(() => this._checkScroll(), 16);
     }
-  },
+  }
 
   _checkScroll() {
     let { _subscribers: subscribers } = this;
@@ -104,12 +91,12 @@ export default Service.extend({
     }
     this._lastCheckAt = now;
     this._pollScroll();
-  },
+  }
 
   _updateScroll(subscriber) {
     subscriber.scrollTop = getScroll(subscriber.element);
     subscriber.scrollLeft = getScroll(subscriber.element, 'left');
-  },
+  }
 
   _hasScrolled(now) {
     let {
@@ -132,7 +119,7 @@ export default Service.extend({
       }
     }
     return hasScrolled;
-  },
+  }
 
   _handleAllScrollChanged(subscriber, hasScrolled) {
     // If the values are changing from an initial null state to first-time values, do not treat it like a change.
@@ -148,7 +135,7 @@ export default Service.extend({
     }
     this._updateScroll(subscriber);
     return hasScrolled;
-  },
+  }
 
   _handleScrollLeftChanged(subscriber, hasScrolled) {
     // If the value is changing from an initial null state to a first
@@ -162,7 +149,7 @@ export default Service.extend({
     }
     this._updateScroll(subscriber);
     return hasScrolled;
-  },
+  }
 
   _handleScrollTopChanged(subscriber, hasScrolled) {
     // If the value is changing from an initial null state to a first
@@ -176,10 +163,10 @@ export default Service.extend({
     }
     this._updateScroll(subscriber);
     return hasScrolled;
-  },
+  }
 
   willDestroy() {
-    if (this.get('_isFastBoot')) { return; }
+    if (this._isFastBoot) { return; }
     if (window.requestAnimationFrame) {
       cancelAnimationFrame(this._animationFrame);
     } else {
@@ -187,6 +174,6 @@ export default Service.extend({
     }
     this._subscribers.length = 0;
 
-    this._super(...arguments);
+    super.willDestroy(...arguments);
   }
-});
+}

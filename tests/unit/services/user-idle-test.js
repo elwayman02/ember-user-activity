@@ -7,30 +7,30 @@ module('Unit | Service | user idle', function(hooks) {
   setupTest(hooks);
 
   test('init starts timer', function (assert) {
-    let service = this.owner.factoryFor('service:user-idle').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-idle').create({
       resetTimeout: this.stub()
     });
 
-    assert.ok(service.get('resetTimeout').calledOnce, 'resetTimeout was called');
+    assert.ok(service.resetTimeout.calledOnce, 'resetTimeout was called');
   });
 
   test('init sets up event listeners', function (assert) {
     let event = 'foo';
-    let service = this.owner.factoryFor('service:user-idle').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-idle').create({
       activeEvents: [event],
       resetTimeout: this.stub()
     });
 
-    service.get('userActivity').trigger(event);
+    service.userActivity.trigger(event);
 
-    let stub = service.get('resetTimeout');
+    let stub = service.resetTimeout;
     assert.ok(stub.calledTwice, 'resetTimeout was called');
   });
 
   test('resetTimeout', function (assert) {
     assert.expect(5);
 
-    let service = this.owner.factoryFor('service:user-idle').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-idle').create({
       trigger: this.stub(),
       isIdle: true,
       IDLE_TIMEOUT: 100
@@ -44,15 +44,15 @@ module('Unit | Service | user idle', function(hooks) {
     assert.equal(args[0], 'idleChanged', 'triggers idleChanged event');
     assert.equal(args[1], false, 'passes data');
 
-    assert.ok(!service.get('isIdle'), 'isIdle is false');
+    assert.ok(!service.isIdle, 'isIdle is false');
 
     return settled().then(function () {
-      assert.ok(service.get('isIdle'), 'isIdle is set to true after timeout');
+      assert.ok(service.isIdle, 'isIdle is set to true after timeout');
     });
   });
 
   test('setIdle', function (assert) {
-    let service = this.owner.factoryFor('service:user-idle').create({
+    let service = this.owner.factoryFor('service:ember-user-activity@user-idle').create({
       trigger: this.stub(),
       resetTimeout: this.stub()
     });
@@ -65,6 +65,6 @@ module('Unit | Service | user idle', function(hooks) {
     assert.equal(args[0], 'idleChanged', 'triggers idleChanged event');
     assert.equal(args[1], true, 'passes data');
 
-    assert.ok(service.get('isIdle'), 'isIdle is true');
+    assert.ok(service.isIdle, 'isIdle is true');
   });
 });
