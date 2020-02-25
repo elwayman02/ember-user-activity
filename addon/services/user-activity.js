@@ -133,6 +133,7 @@ export default class UserActivityService extends FastBootAwareService {
       this.trigger('userActive', event);
     }
     if (this._eventsListened.indexOf('storage') > -1 && storageAvailable('localStorage')) {
+      // We store a date here since we have to update the storage with a new value
       localStorage.setItem(this.localStorageKey, new Date());
     }
   }
