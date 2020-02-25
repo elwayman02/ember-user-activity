@@ -158,4 +158,30 @@ module('Unit | Service | user activity', function(hooks) {
     window.addEventListener.restore();
     window.removeEventListener.restore();
   });
+
+  test('localStorage is updated when subscribed to storage event and other registered event is fired', function (assert) {
+    let event = { type: 'foo' };
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
+      defaultEvents: ['foo', 'storage']
+    });
+
+    localStorage.removeItem(service.localStorageKey);
+
+    service.fireEvent(event);
+
+    assert.ok(!!localStorage.getItem(service.localStorageKey), '');
+  });
+
+  test('localStorage is not updated when not subscribed to storage event and other registered event is fired', function (assert) {
+    let event = { type: 'foo' };
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
+      defaultEvents: ['foo']
+    });
+
+    localStorage.removeItem(service.localStorageKey);
+
+    service.fireEvent(event);
+
+    assert.notOk(!!localStorage.getItem(service.localStorageKey), '');
+  });
 });
