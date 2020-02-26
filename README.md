@@ -81,6 +81,10 @@ Unsubscribe from any event by calling `off`:
 this.userActivity.off('userActive', this, this.activeHandler);
 ```
 
+Note: While our event dispatch system mirrors Ember.Evented, it does not include the `one` method. 
+Only `on`, `off`, and `trigger` have been implemented. If you feel `one` is necessary for you, 
+we're happy to accept PRs!
+
 #### Event Configuration
 
 If you would like to listen to a different set of events, extend the service in your app:
