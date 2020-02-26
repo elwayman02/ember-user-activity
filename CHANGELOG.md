@@ -1,5 +1,7 @@
 Must provide GITHUB_AUTH
 
+Must provide GITHUB_AUTH
+
 ## v2.0.0 (2019-12-16)
 
 #### :boom: Breaking Change
