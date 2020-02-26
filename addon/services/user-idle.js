@@ -1,12 +1,11 @@
 import classic from 'ember-classic-decorator';
 import Ember from 'ember';
-import Evented from '@ember/object/evented';
-import Service from '@ember/service';
+import EventManagerService from 'ember-user-activity/services/-private/event-manager';
 import { inject as injectService } from '@ember/service';
 import { cancel, debounce } from '@ember/runloop'
 
 @classic
-export default class UserIdleService extends Service.extend(Evented) {
+export default class UserIdleService extends EventManagerService {
   @injectService('ember-user-activity@user-activity')
   userActivity;
 
