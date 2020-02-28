@@ -10,7 +10,7 @@ import getScroll from '../utils/get-scroll';
  * below a reasonable number, we can be reasonably sure the main UI
  * thread didn't just do a lot of work.
  *
- * This number show be above the minimum polling period (16ms)
+ * This number should be above the minimum polling period (16ms)
  */
 const MAX_POLL_PERIOD = 32;
 const SCROLL_EVENT_TYPE_VERTICAL = 'vertical';
