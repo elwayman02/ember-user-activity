@@ -82,7 +82,7 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
-    "demoURL": "http://jhawk.co/e-user-activity"
+    "demoURL": "https://ember-user-activity.jhawk.co"
   },
   "release-it": {
     "plugins": {
