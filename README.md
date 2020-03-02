@@ -82,6 +82,10 @@ Unsubscribe from any event by calling `off`:
 this.userActivity.off('userActive', this, this.activeHandler);
 ```
 
+Note: While our event dispatch system mirrors Ember.Evented, it does not include the `one` method. 
+Only `on`, `off`, and `trigger` have been implemented. If you feel `one` is necessary for you, 
+we're happy to accept PRs!
+
 #### Event Configuration
 
 If you would like to listen to a different set of events, extend the service in your app:
@@ -282,15 +286,9 @@ willDestroyElement() {
 ### Using in an Addon
 
 Building your own addon to extend Ember User Activity? No problem!
-Depending on what you need to do, there are two paths forward:
-
-If you'd like the base services from EUA to still be available in the
-consuming app, then import them into your own `addon/` service and
-export under a different name. Otherwise, make sure to export the
-modified service in your addon's `app/` directory:
 
 ```javascript
-// app/services/user-idle.js
+// my-addon/addon/services/user-idle.js
 import UserIdleService from 'ember-user-activity/services/user-idle';
 
 // Classic
@@ -303,19 +301,6 @@ export default class UserIdle extends UserIdleService {
   IDLE_TIMEOUT = 3000 // 3 minutes
 };
 ```
-
-Make sure that your addon gets loaded *after* EUA, to prevent conflicts when
-merging the `app/` directory trees. This can be accomplished by modifying your addon's `package.json`
-
-```json
-"ember-addon": {
-  "configPath": "tests/dummy/config",
-  "after": "ember-user-activity"
-}
-```
-
-See the [Ember CLI docs](http://ember-cli.com/extending/#configuring-your-ember-addon-properties)
-for more information on configuring your addon properties.
 
 Contributing
 ------------------------------------------------------------------------------

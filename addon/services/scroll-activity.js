@@ -1,8 +1,7 @@
 import classic from 'ember-classic-decorator';
-import FastBootAwareService from './-private/fastboot-aware'
-import { addListener, removeListener, sendEvent } from '@ember/object/events';
+import FastBootAwareEventManagerService from 'ember-user-activity/services/-private/fastboot-aware-event-manager';
 import { run } from '@ember/runloop';
-import getScroll from '../utils/get-scroll';
+import getScroll from 'ember-user-activity/utils/get-scroll';
 
 /*
  * Polling uses rAF and/or a setTimeout at 16ms, however rAF will run in the
@@ -11,7 +10,7 @@ import getScroll from '../utils/get-scroll';
  * below a reasonable number, we can be reasonably sure the main UI
  * thread didn't just do a lot of work.
  *
- * This number show be above the minimum polling period (16ms)
+ * This number should be above the minimum polling period (16ms)
  */
 const MAX_POLL_PERIOD = 32;
 const SCROLL_EVENT_TYPE_VERTICAL = 'vertical';
@@ -19,23 +18,7 @@ const SCROLL_EVENT_TYPE_HORIZONTAL = 'horizontal';
 const SCROLL_EVENT_TYPE_DIAGONAL = 'diagonal';
 
 @classic
-export default class ScrollActivityService extends FastBootAwareService {
-
-  // Evented Implementation: https://github.com/emberjs/ember.js/blob/v3.16.1/packages/%40ember/-internals/runtime/lib/mixins/evented.js#L13
-  on(name, target, method) {
-    addListener(this, name, target, method);
-    return this;
-  }
-
-  off(name, target, method) {
-    removeListener(this, name, target, method);
-    return this;
-  }
-
-  trigger(name, ...args) {
-    sendEvent(this, name, args);
-  }
-
+export default class ScrollActivityService extends FastBootAwareEventManagerService {
   init() {
     super.init(...arguments);
 

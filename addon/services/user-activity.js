@@ -1,15 +1,14 @@
 import classic from 'ember-classic-decorator';
-import FastBootAwareService from './-private/fastboot-aware'
+import FastBootAwareEventManagerService from 'ember-user-activity/services/-private/fastboot-aware-event-manager'
 import Ember from 'ember';
 import { A } from '@ember/array'
-import { addListener, removeListener, sendEvent } from '@ember/object/events';
 import { throttle } from '@ember/runloop'
 import { inject as injectService } from '@ember/service';
 import { isEmpty } from '@ember/utils';
 import storageAvailable from '../utils/storage-available';
 
 @classic
-export default class UserActivityService extends FastBootAwareService {
+export default class UserActivityService extends FastBootAwareEventManagerService {
   @injectService('ember-user-activity@scroll-activity')
   scrollActivity;
 
@@ -40,8 +39,7 @@ export default class UserActivityService extends FastBootAwareService {
     this._setupListeners();
   }
 
-  // Evented Implementation: https://github.com/emberjs/ember.js/blob/v3.16.1/packages/%40ember/-internals/runtime/lib/mixins/evented.js#L13
-  on(eventName, target, method) {
+  on(eventName) {
     this.enableEvent(eventName);
     if (this._eventSubscriberCount[eventName]) {
       this._eventSubscriberCount[eventName]++;
@@ -49,23 +47,17 @@ export default class UserActivityService extends FastBootAwareService {
       this._eventSubscriberCount[eventName] = 1;
     }
 
-    addListener(this, eventName, target, method);
-    return this;
+    return super.on(...arguments);
   }
 
-  off(eventName, target, method) {
+  off(eventName) {
     if (this._eventSubscriberCount[eventName]) {
       this._eventSubscriberCount[eventName]--;
     } else {
       delete this._eventSubscriberCount[eventName];
     }
 
-    removeListener(this, eventName, target, method);
-    return this;
-  }
-
-  trigger(eventName, ...args) {
-    sendEvent(this, eventName, args);
+    return super.off(...arguments);
   }
 
   has(eventName) {
