@@ -49,7 +49,7 @@ npm install --global release-it
     * `GITHUB_TOKEN` ([for release-it](https://github.com/release-it/release-it#github-releases))
     * `GITHUB_AUTH` ([for lerna](https://github.com/lerna/lerna-changelog#github-token))
 
-* Third, ensure that you have installed your projects dependencies:
+* Third, ensure that you have installed your project's dependencies:
 
 ```
 # using yarn
