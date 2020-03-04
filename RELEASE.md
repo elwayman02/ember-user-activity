@@ -44,7 +44,12 @@ yarn global add release-it
 npm install --global release-it
 ```
 
-* Second, ensure that you have installed your projects dependencies:
+* Second, ensure that you're exporting github access tokens locally:
+
+    * `GITHUB_TOKEN` ([for release-it](https://github.com/release-it/release-it#github-releases))
+    * `GITHUB_AUTH` ([for lerna](https://github.com/lerna/lerna-changelog#github-token))
+
+* Third, ensure that you have installed your projects dependencies:
 
 ```
 # using yarn
