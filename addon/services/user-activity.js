@@ -124,7 +124,7 @@ export default class UserActivityService extends FastBootAwareEventManagerServic
     if (this.has('userActive')) {
       this.trigger('userActive', event);
     }
-    if (this._eventsListened.indexOf('storage') > -1 && storageAvailable('localStorage')) {
+    if (this._eventsListened.includes('storage')  && storageAvailable('localStorage')) {
       // We store a date here since we have to update the storage with a new value
       localStorage.setItem(this.localStorageKey, new Date());
     }
