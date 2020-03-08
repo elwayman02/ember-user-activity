@@ -150,12 +150,38 @@ module('Unit | Service | user activity', function(hooks) {
 
     const service = this.owner.factoryFor('service:ember-user-activity@user-activity').create();
 
-    assert.equal(window.addEventListener.callCount, 3, 'Subscribed to 3 window events');
+    assert.equal(window.addEventListener.callCount, 4, 'Subscribed to 4 window events');
 
     service.willDestroy();
-    assert.equal(window.removeEventListener.callCount, 3, 'Unsubscribed from 3 window events');
+    assert.equal(window.removeEventListener.callCount, 4, 'Unsubscribed from 4 window events');
 
     window.addEventListener.restore();
     window.removeEventListener.restore();
+  });
+
+  test('localStorage is updated when subscribed to storage event and other registered event is fired', function (assert) {
+    let event = { type: 'foo' };
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
+      defaultEvents: ['foo', 'storage']
+    });
+
+    localStorage.removeItem(service.localStorageKey);
+
+    service.fireEvent(event);
+
+    assert.ok(!!localStorage.getItem(service.localStorageKey), '');
+  });
+
+  test('localStorage is not updated when not subscribed to storage event and other registered event is fired', function (assert) {
+    let event = { type: 'foo' };
+    let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
+      defaultEvents: ['foo']
+    });
+
+    localStorage.removeItem(service.localStorageKey);
+
+    service.fireEvent(event);
+
+    assert.notOk(!!localStorage.getItem(service.localStorageKey), '');
   });
 });

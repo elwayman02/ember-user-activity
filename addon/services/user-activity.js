@@ -5,6 +5,7 @@ import { A } from '@ember/array'
 import { throttle } from '@ember/runloop'
 import { inject as injectService } from '@ember/service';
 import { isEmpty } from '@ember/utils';
+import storageAvailable from '../utils/storage-available';
 
 @classic
 export default class UserActivityService extends FastBootAwareEventManagerService {
@@ -12,12 +13,13 @@ export default class UserActivityService extends FastBootAwareEventManagerServic
   scrollActivity;
 
   EVENT_THROTTLE = 100;
-  defaultEvents = ['keydown', 'mousedown', 'scroll', 'touchstart'];
+  defaultEvents = ['keydown', 'mousedown', 'scroll', 'touchstart', 'storage'];
   enabledEvents = null;
   _eventsListened = null;
   _eventSubscriberCount = null;
   _throttledEventHandlers = null;
   _boundEventHandler = null;
+  localStorageKey = 'ember-user-activity';
 
   init() {
     super.init(...arguments);
@@ -63,6 +65,9 @@ export default class UserActivityService extends FastBootAwareEventManagerServic
   }
 
   handleEvent(event) {
+    if (event.type === 'storage' && event.key !== this.localStorageKey) {
+      return;
+    }
     throttle(this, this._throttledEventHandlers[event.type], event, this.EVENT_THROTTLE);
   }
 
@@ -119,6 +124,10 @@ export default class UserActivityService extends FastBootAwareEventManagerServic
     if (this.has('userActive')) {
       this.trigger('userActive', event);
     }
+    if (this._eventsListened.includes('storage')  && storageAvailable('localStorage')) {
+      // We store a date here since we have to update the storage with a new value
+      localStorage.setItem(this.localStorageKey, new Date());
+    }
   }
 
   isEnabled(eventName) {
@@ -132,6 +141,10 @@ export default class UserActivityService extends FastBootAwareEventManagerServic
     this._eventsListened = A();
     this._eventSubscriberCount = {};
     this._throttledEventHandlers = {};
+
+    if (this.localStorageKey && storageAvailable('localStorage')) {
+      localStorage.removeItem(this.localStorageKey);
+    }
 
     super.willDestroy(...arguments);
   }

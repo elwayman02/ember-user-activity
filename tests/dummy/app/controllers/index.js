@@ -7,7 +7,7 @@ export default class IndexController extends Controller {
 
   init() {
     super.init(...arguments);
-    this.set('eventNames', A(['userActive', 'scroll', 'mousedown', 'keydown', 'touchstart']));
+    this.set('eventNames', A(['userActive', 'scroll', 'mousedown', 'keydown', 'touchstart', 'storage']));
   }
 
   @action
