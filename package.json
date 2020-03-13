@@ -71,7 +71,7 @@
     "eslint-plugin-node": "^11.0.0",
     "loader.js": "^4.7.0",
     "qunit-dom": "^1.0.0",
-    "release-it": "^12.6.1",
+    "release-it": "^13.1.0",
     "release-it-lerna-changelog": "^1.0.3"
   },
   "engines": {
