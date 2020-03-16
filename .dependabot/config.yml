@@ -10,5 +10,5 @@ update_configs:
           dependency_type: "all"
           update_type: "all"
     version_requirement_updates: "increase_versions"
-    commit_message:
-      prefix: "[skip ci]"
+#    commit_message:
+#      prefix: "[skip ci]"
