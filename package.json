@@ -64,7 +64,7 @@
     "ember-resolver": "^8.0.0",
     "ember-sinon": "^5.0.0",
     "ember-sinon-qunit": "^5.0.0",
-    "ember-source": "~3.17.2",
+    "ember-source": "~3.18.0",
     "ember-source-channel-url": "^2.0.1",
     "ember-try": "^1.4.0",
     "eslint-plugin-ember": "^8.4.0",
