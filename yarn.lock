@@ -6206,10 +6206,10 @@ ember-auto-import@^1.5.3, ember-auto-import@^1.6.0:
     walk-sync "^0.3.3"
     webpack "~4.28"
 
-ember-classic-decorator@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/ember-classic-decorator/-/ember-classic-decorator-1.0.7.tgz#7f8773c54804e0f716b9d3e0c349aadbe36709c6"
-  integrity sha512-JsSw3aDJTy+KDGs0sEdXs8ZVCJ0f/5H4B4Qa1bjObd6wLWsL9NueAFHloxhuEm+tCRpVLvxfFFdTCeNeLSEddg==
+ember-classic-decorator@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/ember-classic-decorator/-/ember-classic-decorator-1.0.8.tgz#e290e5b0b1a31a569587a85a9c5c7a2f1242cabb"
+  integrity sha512-IsCDJ7rLsrFjYtgi9UXUmjzUQJaaJzmy/gKwGGtZ6kZwT5yhzSbScRi0P6Cb0guJPtlMMCE0sAQpJRbXmBb/gA==
   dependencies:
     babel-plugin-filter-imports "^3.0.0"
     ember-cli-babel "^7.11.1"
