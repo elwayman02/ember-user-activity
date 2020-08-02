@@ -9,6 +9,8 @@ This addon provides services for detecting user activity & idling across the ent
 
 Check out the [Demo](https://ember-user-activity.jhawk.co/)!
 
+We adhere to the [Ember Community Guidelines](https://emberjs.com/guidelines/) for our Code of Conduct.
+
 
 Compatibility
 ------------------------------------------------------------------------------
