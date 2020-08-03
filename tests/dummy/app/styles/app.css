@@ -68,3 +68,8 @@ body {
   border: 1px solid gray;
   border-radius: 2px;
 }
+
+footer {
+  position: fixed;
+  bottom: 0;
+}
