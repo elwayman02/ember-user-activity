@@ -54,7 +54,7 @@
     "ember-cli-release": "1.0.0-beta.2",
     "ember-cli-sri": "^2.1.1",
     "ember-cli-uglify": "^3.0.0",
-    "ember-decorators-polyfill": "^1.1.3",
+    "ember-decorators-polyfill": "^1.1.5",
     "ember-disable-prototype-extensions": "^1.1.3",
     "ember-export-application-global": "^2.0.1",
     "ember-fn-helper-polyfill": "^1.0.2",
