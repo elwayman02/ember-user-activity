@@ -1,15 +1,15 @@
 import { A as emberArray } from '@ember/array';
 import { typeOf } from '@ember/utils';
-import { module } from 'qunit';
+import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import test from 'ember-sinon-qunit/test-support/test';
+import sinon from 'sinon';
 
 module('Unit | Service | user activity', function(hooks) {
   setupTest(hooks);
 
   test('init', function (assert) {
     let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
-      enableEvent: this.stub()
+      enableEvent: sinon.stub()
     });
 
     assert.equal(typeOf(service._boundEventHandler), 'function', 'bound event handler initialized');
@@ -20,8 +20,8 @@ module('Unit | Service | user activity', function(hooks) {
   test('enableEvent', function (assert) {
     let event = 'foo';
     let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
-      _listen: this.stub(),
-      _setupListeners: this.stub()
+      _listen: sinon.stub(),
+      _setupListeners: sinon.stub()
     });
 
     service.enableEvent(event);
@@ -36,8 +36,8 @@ module('Unit | Service | user activity', function(hooks) {
     let event = 'foo';
     let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       enabledEvents: emberArray([event]),
-      _listen: this.stub(),
-      _setupListeners: this.stub()
+      _listen: sinon.stub(),
+      _setupListeners: sinon.stub()
     });
 
     service.enableEvent(event);
@@ -49,7 +49,7 @@ module('Unit | Service | user activity', function(hooks) {
     let event = 'foo';
     let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       enabledEvents: emberArray([event]),
-      _setupListeners: this.stub()
+      _setupListeners: sinon.stub()
     });
 
     assert.ok(service.enabledEvents.includes(event), 'enabledEvents preserved on init');
@@ -64,10 +64,10 @@ module('Unit | Service | user activity', function(hooks) {
     let event = 'foo';
     let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       enabledEvents: emberArray(),
-      _setupListeners: this.stub()
+      _setupListeners: sinon.stub()
     });
 
-    let addEventListenerStub = this.stub(window, 'addEventListener');
+    let addEventListenerStub = sinon.stub(window, 'addEventListener');
 
     assert.notOk(service.enabledEvents.length, 'enabledEvents preserved on init');
 
@@ -88,8 +88,8 @@ module('Unit | Service | user activity', function(hooks) {
   test('fireEvent - no subscribers', function (assert) {
     let event = { type: 'foo' };
     let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
-      trigger: this.stub(),
-      _setupListeners: this.stub()
+      trigger: sinon.stub(),
+      _setupListeners: sinon.stub()
     });
 
     service.fireEvent(event);
@@ -100,8 +100,8 @@ module('Unit | Service | user activity', function(hooks) {
   test('fireEvent - subscribed to event', function (assert) {
     let event = { type: 'foo' };
     let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
-      trigger: this.stub(),
-      _setupListeners: this.stub()
+      trigger: sinon.stub(),
+      _setupListeners: sinon.stub()
     });
 
     service.on(event.type, this, function() {});
@@ -118,8 +118,8 @@ module('Unit | Service | user activity', function(hooks) {
   test('fireEvent - subscribed to userActive', function (assert) {
     let event = { type: 'foo' };
     let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
-      trigger: this.stub(),
-      _setupListeners: this.stub()
+      trigger: sinon.stub(),
+      _setupListeners: sinon.stub()
     });
 
     service.on('userActive', this, function() {});
@@ -137,7 +137,7 @@ module('Unit | Service | user activity', function(hooks) {
     let event = 'foo';
     let service = this.owner.factoryFor('service:ember-user-activity@user-activity').create({
       enabledEvents: emberArray([event]),
-      _setupListeners: this.stub()
+      _setupListeners: sinon.stub()
     });
 
     assert.ok(service.isEnabled(event), 'event is enabled');
@@ -145,8 +145,8 @@ module('Unit | Service | user activity', function(hooks) {
   });
 
   test('unsubscribe from events', function(assert) {
-    this.spy(window, 'addEventListener');
-    this.spy(window, 'removeEventListener');
+    sinon.spy(window, 'addEventListener');
+    sinon.spy(window, 'removeEventListener');
 
     const service = this.owner.factoryFor('service:ember-user-activity@user-activity').create();
 
