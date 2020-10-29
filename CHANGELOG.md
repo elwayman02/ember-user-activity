@@ -1,3 +1,13 @@
+## v4.1.0 (2020-10-29)
+
+#### :house: Internal
+* [#320](https://github.com/elwayman02/ember-user-activity/pull/320) Use GitHub Actions for CI ([@Turbo87](https://github.com/Turbo87))
+
+#### Committers: 3
+- Logan Rosen ([@loganrosen](https://github.com/loganrosen))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v4.0.0 (2020-08-05)
 
 #### :rocket: Enhancement
