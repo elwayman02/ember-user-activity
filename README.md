@@ -2,7 +2,7 @@
 ==========================================
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/e30a3237-450a-4582-8d15-5d568c784d94/deploy-status)](https://app.netlify.com/sites/hopeful-carson-42f584/deploys)
-[![Build Status](https://travis-ci.org/elwayman02/ember-user-activity.svg?branch=master)](https://travis-ci.org/elwayman02/ember-user-activity)
+[![Build Status](https://github.com/elwayman02/ember-user-activity/workflows/CI/badge.svg)](https://github.com/elwayman02/ember-user-activity/actions?query=workflow%3ACI)
 [![Ember Observer Score](https://emberobserver.com/badges/ember-user-activity.svg)](https://emberobserver.com/addons/ember-user-activity)
 [![Code Climate](https://codeclimate.com/github/elwayman02/ember-user-activity/badges/gpa.svg)](https://codeclimate.com/github/elwayman02/ember-user-activity)
 
