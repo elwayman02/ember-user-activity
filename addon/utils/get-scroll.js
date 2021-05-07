@@ -5,7 +5,8 @@ export default function getScroll(elem, direction) {
     return;
   }
 
-  if (elem.jquery) { // Convert to DOM element if jQuery was used
+  if (elem.jquery) {
+    // Convert to DOM element if jQuery was used
     elem = elem[0];
   }
 

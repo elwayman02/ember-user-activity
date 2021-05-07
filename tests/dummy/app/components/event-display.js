@@ -7,21 +7,18 @@ import { classNames } from '@ember-decorators/component';
 @classNames('eventDisplay')
 export default class EventDisplay extends Component {
   eventName = 'userActive';
-  events = null;
+  events = A();
 
   @injectService('ember-user-activity@user-activity')
-  userActivity
-
-  init() {
-    super.init(...arguments);
-    this.set('events', A());
-  }
+  userActivity;
 
   didInsertElement() {
+    super.didInsertElement(...arguments);
     this.userActivity.on(this.eventName, this, this.registerActivity);
   }
 
   willDestroyElement() {
+    super.willDestroyElement(...arguments);
     this.userActivity.off(this.eventName, this, this.registerActivity);
     this.userActivity.disableEvent(this.eventName);
   }
