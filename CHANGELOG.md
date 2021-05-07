@@ -1,3 +1,16 @@
+## v5.0.0 (2021-05-07)
+
+#### :boom: Breaking Change
+* [#418](https://github.com/elwayman02/ember-user-activity/pull/418) Ember 3.26 Upgrade ([@elwayman02](https://github.com/elwayman02))
+
+#### :bug: Bug Fix
+* [#418](https://github.com/elwayman02/ember-user-activity/pull/418) Ember 3.26 Upgrade ([@elwayman02](https://github.com/elwayman02))
+
+#### Committers: 3
+- Jordan Hawker ([@elwayman02](https://github.com/elwayman02))
+- Logan Rosen ([@loganrosen](https://github.com/loganrosen))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
 ## v4.1.0 (2020-10-29)
 
 #### :house: Internal
