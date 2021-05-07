@@ -1,8 +1,8 @@
 import classic from 'ember-classic-decorator';
-import FastBootAwareEventManagerService from 'ember-user-activity/services/-private/fastboot-aware-event-manager'
+import FastBootAwareEventManagerService from 'ember-user-activity/services/-private/fastboot-aware-event-manager';
 import Ember from 'ember';
-import { A } from '@ember/array'
-import { throttle } from '@ember/runloop'
+import { A } from '@ember/array';
+import { throttle } from '@ember/runloop';
 import { inject as injectService } from '@ember/service';
 import { isEmpty } from '@ember/utils';
 import storageAvailable from '../utils/storage-available';
@@ -24,7 +24,8 @@ export default class UserActivityService extends FastBootAwareEventManagerServic
   init() {
     super.init(...arguments);
 
-    if (Ember.testing) { // Do not throttle in testing mode
+    if (Ember.testing) {
+      // Do not throttle in testing mode
       this.set('EVENT_THROTTLE', 0);
     }
 
@@ -61,14 +62,22 @@ export default class UserActivityService extends FastBootAwareEventManagerServic
   }
 
   has(eventName) {
-    return this._eventSubscriberCount[eventName] && this._eventSubscriberCount[eventName] > 0;
+    return (
+      this._eventSubscriberCount[eventName] &&
+      this._eventSubscriberCount[eventName] > 0
+    );
   }
 
   handleEvent(event) {
     if (event.type === 'storage' && event.key !== this.localStorageKey) {
       return;
     }
-    throttle(this, this._throttledEventHandlers[event.type], event, this.EVENT_THROTTLE);
+    throttle(
+      this,
+      this._throttledEventHandlers[event.type],
+      event,
+      this.EVENT_THROTTLE
+    );
   }
 
   _handleScroll() {
@@ -85,17 +94,20 @@ export default class UserActivityService extends FastBootAwareEventManagerServic
     if (eventName === 'scroll') {
       this.scrollActivity.on('scroll', this, this._handleScroll);
     } else if (this._eventsListened.indexOf(eventName) === -1) {
-      if (this._isFastBoot) { return; }
+      if (this._isFastBoot) {
+        return;
+      }
       this._eventsListened.pushObject(eventName);
       window.addEventListener(eventName, this._boundEventHandler, true);
     }
-
   }
 
   enableEvent(eventName) {
     if (!this.isEnabled(eventName)) {
       this.enabledEvents.pushObject(eventName);
-      this._throttledEventHandlers[eventName] = function fireEnabledEvent(event) {
+      this._throttledEventHandlers[eventName] = function fireEnabledEvent(
+        event
+      ) {
         if (this.isEnabled(event.type)) {
           this.fireEvent(event);
         }
@@ -111,7 +123,9 @@ export default class UserActivityService extends FastBootAwareEventManagerServic
     if (eventName === 'scroll') {
       this.scrollActivity.off('scroll', this, this._handleScroll);
     } else {
-      if (this._isFastBoot) { return; }
+      if (this._isFastBoot) {
+        return;
+      }
       window.removeEventListener(eventName, this._boundEventHandler, true);
     }
   }
@@ -124,7 +138,10 @@ export default class UserActivityService extends FastBootAwareEventManagerServic
     if (this.has('userActive')) {
       this.trigger('userActive', event);
     }
-    if (this._eventsListened.includes('storage')  && storageAvailable('localStorage')) {
+    if (
+      this._eventsListened.includes('storage') &&
+      storageAvailable('localStorage')
+    ) {
       // We store a date here since we have to update the storage with a new value
       localStorage.setItem(this.localStorageKey, new Date());
     }

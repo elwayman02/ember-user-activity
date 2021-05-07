@@ -22,7 +22,9 @@ export default class ScrollActivityService extends FastBootAwareEventManagerServ
   init() {
     super.init(...arguments);
 
-    if (this._isFastBoot) { return; }
+    if (this._isFastBoot) {
+      return;
+    }
 
     this._animationFrame = null;
     this._subscribers = [];
@@ -32,20 +34,20 @@ export default class ScrollActivityService extends FastBootAwareEventManagerServ
     this._pollScroll();
   }
 
-  subscribe(target, element, callback=() => {}, highPriority=true) {
+  subscribe(target, element, callback = () => {}, highPriority = true) {
     this._subscribers.push({
       target,
       element,
       callback,
       highPriority,
       scrollTop: null,
-      scrollLeft: null
+      scrollLeft: null,
     });
   }
 
   unsubscribe(target) {
     let { _subscribers: subscribers } = this;
-    for (let i=0;i<subscribers.length;i++) {
+    for (let i = 0; i < subscribers.length; i++) {
       let subscriber = subscribers[i];
       if (subscriber.target === target) {
         subscribers.splice(i, 1);
@@ -55,7 +57,9 @@ export default class ScrollActivityService extends FastBootAwareEventManagerServ
   }
 
   _pollScroll() {
-    if (this._isFastBoot) { return; }
+    if (this._isFastBoot) {
+      return;
+    }
     if (window.requestAnimationFrame) {
       this._animationFrame = requestAnimationFrame(() => this._checkScroll());
     } else {
@@ -82,17 +86,18 @@ export default class ScrollActivityService extends FastBootAwareEventManagerServ
   }
 
   _hasScrolled(now) {
-    let {
-      _subscribers: subscribers,
-      _lastCheckAt: lastCheckAt } = this;
-    let lowPriorityFrame = (now - lastCheckAt) < MAX_POLL_PERIOD;
+    let { _subscribers: subscribers, _lastCheckAt: lastCheckAt } = this;
+    let lowPriorityFrame = now - lastCheckAt < MAX_POLL_PERIOD;
     let hasScrolled = false;
-    for (let i=0;i<subscribers.length;i++) {
+    for (let i = 0; i < subscribers.length; i++) {
       let subscriber = subscribers[i];
       if (subscriber.highPriority || lowPriorityFrame) {
         let scrollTop = getScroll(subscriber.element);
         let scrollLeft = getScroll(subscriber.element, 'left');
-        if (scrollTop !== subscriber.scrollTop && scrollLeft !== subscriber.scrollLeft) {
+        if (
+          scrollTop !== subscriber.scrollTop &&
+          scrollLeft !== subscriber.scrollLeft
+        ) {
           hasScrolled = this._handleAllScrollChanged(subscriber, hasScrolled);
         } else if (scrollTop !== subscriber.scrollTop) {
           hasScrolled = this._handleScrollTopChanged(subscriber, hasScrolled);
@@ -114,7 +119,13 @@ export default class ScrollActivityService extends FastBootAwareEventManagerServ
 
       let scrollTop = getScroll(subscriber.element);
       let scrollLeft = getScroll(subscriber.element, 'left');
-      subscriber.callback(scrollTop, subscriber.scrollTop, SCROLL_EVENT_TYPE_DIAGONAL, scrollLeft, subscriber.scrollLeft);
+      subscriber.callback(
+        scrollTop,
+        subscriber.scrollTop,
+        SCROLL_EVENT_TYPE_DIAGONAL,
+        scrollLeft,
+        subscriber.scrollLeft
+      );
     }
     this._updateScroll(subscriber);
     return hasScrolled;
@@ -128,7 +139,11 @@ export default class ScrollActivityService extends FastBootAwareEventManagerServ
         run.begin();
         hasScrolled = true;
       }
-      subscriber.callback(getScroll(subscriber.element, 'left'), subscriber.scrollLeft, SCROLL_EVENT_TYPE_HORIZONTAL);
+      subscriber.callback(
+        getScroll(subscriber.element, 'left'),
+        subscriber.scrollLeft,
+        SCROLL_EVENT_TYPE_HORIZONTAL
+      );
     }
     this._updateScroll(subscriber);
     return hasScrolled;
@@ -142,14 +157,20 @@ export default class ScrollActivityService extends FastBootAwareEventManagerServ
         run.begin();
         hasScrolled = true;
       }
-      subscriber.callback(getScroll(subscriber.element), subscriber.scrollTop, SCROLL_EVENT_TYPE_VERTICAL);
+      subscriber.callback(
+        getScroll(subscriber.element),
+        subscriber.scrollTop,
+        SCROLL_EVENT_TYPE_VERTICAL
+      );
     }
     this._updateScroll(subscriber);
     return hasScrolled;
   }
 
   willDestroy() {
-    if (this._isFastBoot) { return; }
+    if (this._isFastBoot) {
+      return;
+    }
     if (window.requestAnimationFrame) {
       cancelAnimationFrame(this._animationFrame);
     } else {

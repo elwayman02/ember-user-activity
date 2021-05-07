@@ -2,7 +2,7 @@ import classic from 'ember-classic-decorator';
 import Ember from 'ember';
 import EventManagerService from 'ember-user-activity/services/-private/event-manager';
 import { inject as injectService } from '@ember/service';
-import { cancel, debounce } from '@ember/runloop'
+import { cancel, debounce } from '@ember/runloop';
 
 @classic
 export default class UserIdleService extends EventManagerService {
@@ -23,7 +23,8 @@ export default class UserIdleService extends EventManagerService {
   init() {
     super.init(...arguments);
 
-    if (Ember.testing) { // Shorter debounce in testing mode
+    if (Ember.testing) {
+      // Shorter debounce in testing mode
       this.set('IDLE_TIMEOUT', 10);
     }
     this._setupListeners('on');

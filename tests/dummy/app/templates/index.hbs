@@ -18,8 +18,8 @@
       <p>Scroll, click, or press keys to see events fire!</p>
 
       <p>
-        Add <a href="https://developer.mozilla.org/en-US/docs/Web/Events" target="_blank" rel="noopener noreferrer">another event</a>:
-        <Input class="eventInput" @value={{this.newEvent}} @enter={{fn this.addEvent this.newEvent}}/>
+        <label for="eventInput">Add <a href="https://developer.mozilla.org/en-US/docs/Web/Events" target="_blank" rel="noopener noreferrer">another event</a>:</label>
+        <Input id="eventInput" class="eventInput" @value={{this.newEvent}} @enter={{fn this.addEvent this.newEvent}}/>
       </p>
     </div>
 
@@ -27,7 +27,7 @@
 
     <div class="flexContainer">
       {{#each this.eventNames as |event|}}
-        <EventDisplay @eventName={{event}} @close={{fn this.removeEvent}} />
+        <EventDisplay @eventName={{event}} @close={{this.removeEvent}} />
       {{/each}}
     </div>
   </section>

@@ -3,12 +3,14 @@ import { A } from '@ember/array';
 import { action } from '@ember/object';
 
 export default class IndexController extends Controller {
-  eventNames = null;
-
-  init() {
-    super.init(...arguments);
-    this.set('eventNames', A(['userActive', 'scroll', 'mousedown', 'keydown', 'touchstart', 'storage']));
-  }
+  eventNames = A([
+    'userActive',
+    'scroll',
+    'mousedown',
+    'keydown',
+    'touchstart',
+    'storage',
+  ]);
 
   @action
   addEvent(eventName) {
