@@ -42,12 +42,12 @@ module('Unit | Service | user activity', function (hooks) {
 
     service.enableEvent(event);
 
-    assert.ok(
+    assert.true(
       service.enabledEvents.includes(event),
       'adds event name to enabled events'
     );
     let stub = service._listen;
-    assert.ok(stub.calledOnce, 'sets up listener');
+    assert.true(stub.calledOnce, 'sets up listener');
     assert.equal(stub.firstCall.args[0], event, 'passes event name to _listen');
   });
 
@@ -63,7 +63,7 @@ module('Unit | Service | user activity', function (hooks) {
 
     service.enableEvent(event);
 
-    assert.ok(!service._listen.called, 'does nothing if already enabled');
+    assert.false(service._listen.called, 'does nothing if already enabled');
   });
 
   test('disableEvent', function (assert) {
@@ -75,18 +75,18 @@ module('Unit | Service | user activity', function (hooks) {
         _setupListeners: sinon.stub(),
       });
 
-    assert.ok(
+    assert.true(
       service.enabledEvents.includes(event),
       'enabledEvents preserved on init'
     );
 
     service.disableEvent(event);
 
-    assert.ok(
-      !service.enabledEvents.includes(event),
+    assert.false(
+      service.enabledEvents.includes(event),
       'removed event from enabledEvents'
     );
-    assert.notOk(
+    assert.false(
       service._eventsListened.includes(event),
       'event should not be listed as listened'
     );
@@ -109,22 +109,22 @@ module('Unit | Service | user activity', function (hooks) {
     );
 
     service.enableEvent(event);
-    assert.ok(addEventListenerStub.called, 'event was not handled');
-    assert.ok(
+    assert.true(addEventListenerStub.called, 'event was not handled');
+    assert.true(
       service.enabledEvents.includes(event),
       'enabledEvents should include added event'
     );
 
     window.addEventListener.reset();
     service.disableEvent(event);
-    assert.ok(
-      !service.enabledEvents.includes(event),
+    assert.false(
+      service.enabledEvents.includes(event),
       'removed event from enabledEvents'
     );
 
     service.enableEvent(event);
-    assert.ok(window.addEventListener.called, 'event was not handled');
-    assert.ok(
+    assert.true(window.addEventListener.called, 'event was not handled');
+    assert.true(
       service.enabledEvents.includes(event),
       'enabledEvents should include added event'
     );
@@ -142,7 +142,7 @@ module('Unit | Service | user activity', function (hooks) {
 
     service.fireEvent(event);
 
-    assert.ok(!service.trigger.called, 'no events triggered');
+    assert.false(service.trigger.called, 'no events triggered');
   });
 
   test('fireEvent - subscribed to event', function (assert) {
@@ -159,7 +159,7 @@ module('Unit | Service | user activity', function (hooks) {
     service.fireEvent(event);
 
     let stub = service.trigger;
-    assert.ok(stub.calledOnce, 'triggers one event');
+    assert.true(stub.calledOnce, 'triggers one event');
     let { args } = stub.firstCall;
     assert.equal(args[0], event.type, 'triggers event by type');
     assert.equal(args[1], event, 'passes event');
@@ -179,7 +179,7 @@ module('Unit | Service | user activity', function (hooks) {
     service.fireEvent(event);
 
     let stub = service.trigger;
-    assert.ok(stub.calledOnce, 'triggers one event');
+    assert.true(stub.calledOnce, 'triggers one event');
     let { args } = stub.firstCall;
     assert.equal(args[0], 'userActive', 'triggers userActive event');
     assert.equal(args[1], event, 'passes event');
@@ -194,8 +194,8 @@ module('Unit | Service | user activity', function (hooks) {
         _setupListeners: sinon.stub(),
       });
 
-    assert.ok(service.isEnabled(event), 'event is enabled');
-    assert.ok(!service.isEnabled('bar'), 'other events are not enabled');
+    assert.true(service.isEnabled(event), 'event is enabled');
+    assert.false(service.isEnabled('bar'), 'other events are not enabled');
   });
 
   test('unsubscribe from events', function (assert) {
@@ -235,7 +235,7 @@ module('Unit | Service | user activity', function (hooks) {
 
     service.fireEvent(event);
 
-    assert.ok(!!localStorage.getItem(service.localStorageKey), '');
+    assert.true(!!localStorage.getItem(service.localStorageKey), '');
   });
 
   test('localStorage is not updated when not subscribed to storage event and other registered event is fired', function (assert) {
@@ -250,6 +250,6 @@ module('Unit | Service | user activity', function (hooks) {
 
     service.fireEvent(event);
 
-    assert.notOk(!!localStorage.getItem(service.localStorageKey), '');
+    assert.false(!!localStorage.getItem(service.localStorageKey), '');
   });
 });
