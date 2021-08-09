@@ -1,6 +1,6 @@
 import classic from 'ember-classic-decorator';
 import FastBootAwareEventManagerService from 'ember-user-activity/services/-private/fastboot-aware-event-manager';
-import { run } from '@ember/runloop';
+import { begin as beginRunloop, end as endRunloop } from '@ember/runloop';
 import getScroll from 'ember-user-activity/utils/get-scroll';
 
 /*
@@ -73,7 +73,7 @@ export default class ScrollActivityService extends FastBootAwareEventManagerServ
     if (subscribers.length) {
       if (this._hasScrolled(now)) {
         this.trigger('scroll');
-        run.end();
+        endRunloop();
       }
     }
     this._lastCheckAt = now;
@@ -113,7 +113,7 @@ export default class ScrollActivityService extends FastBootAwareEventManagerServ
     // If the values are changing from an initial null state to first-time values, do not treat it like a change.
     if (subscriber.scrollTop !== null && subscriber.scrollLeft !== null) {
       if (!hasScrolled) {
-        run.begin();
+        beginRunloop();
         hasScrolled = true;
       }
 
@@ -136,7 +136,7 @@ export default class ScrollActivityService extends FastBootAwareEventManagerServ
     // time value, do not treat it like a change.
     if (subscriber.scrollLeft !== null) {
       if (!hasScrolled) {
-        run.begin();
+        beginRunloop();
         hasScrolled = true;
       }
       subscriber.callback(
@@ -154,7 +154,7 @@ export default class ScrollActivityService extends FastBootAwareEventManagerServ
     // time value, do not treat it like a change.
     if (subscriber.scrollTop !== null) {
       if (!hasScrolled) {
-        run.begin();
+        beginRunloop();
         hasScrolled = true;
       }
       subscriber.callback(
