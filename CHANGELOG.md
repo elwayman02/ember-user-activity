@@ -1,3 +1,20 @@
+
+## v6.0.0 (2021-08-09)
+
+#### :boom: Breaking Change
+* [#479](https://github.com/elwayman02/ember-user-activity/pull/479) Ember 3.27 Upgrade (Drop Support for Ember 3.16 & IE 11) ([@elwayman02](https://github.com/elwayman02))
+
+#### :bug: Bug Fix
+* [#474](https://github.com/elwayman02/ember-user-activity/pull/474) Fixed runloop import deprecations in scroll-activity-service ([@karl-sjogren](https://github.com/karl-sjogren))
+
+#### :house: Internal
+* [#479](https://github.com/elwayman02/ember-user-activity/pull/479) Ember 3.27 Upgrade (Drop Support for Ember 3.16 & IE 11) ([@elwayman02](https://github.com/elwayman02))
+* [#474](https://github.com/elwayman02/ember-user-activity/pull/474) Fixed runloop import deprecations in scroll-activity-service ([@karl-sjogren](https://github.com/karl-sjogren))
+
+#### Committers: 2
+- Jordan Hawker ([@elwayman02](https://github.com/elwayman02))
+- Karl-Johan Sjögren ([@karl-sjogren](https://github.com/karl-sjogren))
+
 ## v5.0.0 (2021-05-07)
 
 #### :boom: Breaking Change
