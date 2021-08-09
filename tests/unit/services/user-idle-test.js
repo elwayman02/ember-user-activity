@@ -13,7 +13,7 @@ module('Unit | Service | user idle', function (hooks) {
         resetTimeout: sinon.stub(),
       });
 
-    assert.ok(service.resetTimeout.calledOnce, 'resetTimeout was called');
+    assert.true(service.resetTimeout.calledOnce, 'resetTimeout was called');
   });
 
   test('init sets up event listeners', function (assert) {
@@ -28,7 +28,7 @@ module('Unit | Service | user idle', function (hooks) {
     service.userActivity.trigger(event);
 
     let stub = service.resetTimeout;
-    assert.ok(stub.calledTwice, 'resetTimeout was called');
+    assert.true(stub.calledTwice, 'resetTimeout was called');
   });
 
   test('resetTimeout', function (assert) {
@@ -45,15 +45,15 @@ module('Unit | Service | user idle', function (hooks) {
     service.resetTimeout();
 
     let stub = service.trigger;
-    assert.ok(stub.calledOnce, 'triggers one event');
+    assert.true(stub.calledOnce, 'triggers one event');
     let { args } = stub.firstCall;
     assert.equal(args[0], 'idleChanged', 'triggers idleChanged event');
-    assert.equal(args[1], false, 'passes data');
+    assert.false(args[1], 'passes data');
 
-    assert.ok(!service.isIdle, 'isIdle is false');
+    assert.false(service.isIdle, 'isIdle is false');
 
     return settled().then(function () {
-      assert.ok(service.isIdle, 'isIdle is set to true after timeout');
+      assert.true(service.isIdle, 'isIdle is set to true after timeout');
     });
   });
 
@@ -68,11 +68,11 @@ module('Unit | Service | user idle', function (hooks) {
     service.setIdle();
 
     let stub = service.trigger;
-    assert.ok(stub.calledOnce, 'triggers one event');
+    assert.true(stub.calledOnce, 'triggers one event');
     let { args } = stub.firstCall;
     assert.equal(args[0], 'idleChanged', 'triggers idleChanged event');
-    assert.equal(args[1], true, 'passes data');
+    assert.true(args[1], 'passes data');
 
-    assert.ok(service.isIdle, 'isIdle is true');
+    assert.true(service.isIdle, 'isIdle is true');
   });
 });

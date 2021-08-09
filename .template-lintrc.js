@@ -1,10 +1,8 @@
 'use strict';
 
 module.exports = {
-  extends: 'octane',
+  extends: 'recommended',
   rules: {
-    'attribute-indentation': false,
-
     // Not on recommended list
     'no-trailing-spaces': true,
   },

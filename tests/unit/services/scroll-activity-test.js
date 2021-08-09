@@ -44,26 +44,20 @@ module('Unit | Service | scroll activity', function (hooks) {
     assert.equal(scrollEventCount, 0, 'precond - no scroll happens');
     wait(() => {
       assert.equal(scrollEventCount, 0, 'no scroll happens for nothing');
-      if (!window.navigator.userAgent.includes('PhantomJS')) {
-        // Scrolling doesn't work in phantom :feelsBadMan:
-        window.pageYOffset = 1;
+      window.pageYOffset = 1;
+      wait(() => {
+        assert.equal(scrollEventCount, 1, 'scroll fires for a body scroll');
         wait(() => {
-          assert.equal(scrollEventCount, 1, 'scroll fires for a body scroll');
-          wait(() => {
-            assert.equal(scrollEventCount, 1, 'no scroll happens for nothing');
-            done();
-          });
+          assert.equal(scrollEventCount, 1, 'no scroll happens for nothing');
+          done();
         });
-      } else {
-        // Fire two dummy assertions so that `assert.expect` passes
-        assert.ok(true);
-        assert.ok(true);
-        done();
-      }
+      });
     });
   });
 
   test('subscribe w/ no callback triggers event', function (assert) {
+    assert.expect(2);
+
     let done = assert.async();
     let scrollTop = 1234;
     let scrollLeft = 1234;
@@ -93,6 +87,8 @@ module('Unit | Service | scroll activity', function (hooks) {
   });
 
   test('subscribe w/ callback triggers callback and event', function (assert) {
+    assert.expect(8);
+
     let done = assert.async();
     let scrollTop = 1234;
     let scrollLeft = 1234;
@@ -158,6 +154,8 @@ module('Unit | Service | scroll activity', function (hooks) {
   });
 
   test('unsubscribe', function (assert) {
+    assert.expect(4);
+
     let done = assert.async();
     let scrollTop = 1234;
     let scrollLeft = 1234;
@@ -215,26 +213,20 @@ module('Unit | Service | scroll activity', function (hooks) {
     assert.equal(scrollEventCount, 0, 'precond - no scroll happens');
     wait(() => {
       assert.equal(scrollEventCount, 0, 'no scroll happens for nothing');
-      if (!window.navigator.userAgent.includes('PhantomJS')) {
-        // Scrolling doesn't work in phantom :feelsBadMan:
-        window.pageXOffset = 1;
+      window.pageXOffset = 1;
+      wait(() => {
+        assert.equal(scrollEventCount, 1, 'scroll fires for a body scroll');
         wait(() => {
-          assert.equal(scrollEventCount, 1, 'scroll fires for a body scroll');
-          wait(() => {
-            assert.equal(scrollEventCount, 1, 'no scroll happens for nothing');
-            done();
-          });
+          assert.equal(scrollEventCount, 1, 'no scroll happens for nothing');
+          done();
         });
-      } else {
-        // Fire two dummy assertions so that `assert.expect` passes
-        assert.ok(true);
-        assert.ok(true);
-        done();
-      }
+      });
     });
   });
 
   test('subscribe w/ no callback triggers horizontal scroll event', function (assert) {
+    assert.expect(2);
+
     let done = assert.async();
     let scrollTop = 1234;
     let scrollLeft = 1234;
@@ -264,6 +256,8 @@ module('Unit | Service | scroll activity', function (hooks) {
   });
 
   test('subscribe w/ callback triggers callback and horizontal scroll event', function (assert) {
+    assert.expect(8);
+
     let done = assert.async();
     let scrollTop = 1234;
     let scrollLeft = 1234;
@@ -329,6 +323,8 @@ module('Unit | Service | scroll activity', function (hooks) {
   });
 
   test('subscribe w/ callback triggers callback along with a scrollType parameter', function (assert) {
+    assert.expect(25);
+
     let done = assert.async();
     let scrollTop = 1234;
     let scrollLeft = 1234;

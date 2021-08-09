@@ -16,9 +16,9 @@ We adhere to the [Ember Community Guidelines](https://emberjs.com/guidelines/) f
 Compatibility
 ------------------------------------------------------------------------------
 
-* Ember.js v3.16 or above
-* Ember CLI v2.13 or above
-* Node.js v12 or above
+* Ember.js v3.20 or above
+* Ember CLI v3.20 or above
+* Node.js v10 or above
 
 
 Installation
@@ -27,6 +27,7 @@ Installation
 ```bash
 ember install ember-user-activity
 ```
+
 
 Usage
 ------------------------------------------------------------------------------
@@ -304,6 +305,7 @@ export default class UserIdle extends UserIdleService {
   IDLE_TIMEOUT = 3000 // 3 minutes
 };
 ```
+
 
 Contributing
 ------------------------------------------------------------------------------
