@@ -84,7 +84,7 @@
     "prettier": "^2.3.2",
     "qunit": "^2.16.0",
     "qunit-dom": "^1.6.0",
-    "release-it": "^14.11.5",
+    "release-it": "^14.11.6",
     "release-it-lerna-changelog": "^3.1.0"
   },
   "engines": {
