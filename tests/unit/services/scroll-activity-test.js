@@ -41,14 +41,22 @@ module('Unit | Service | scroll activity', function (hooks) {
     let scrollEventCount = 0;
     service.on('scroll', () => scrollEventCount++);
 
-    assert.equal(scrollEventCount, 0, 'precond - no scroll happens');
+    assert.strictEqual(scrollEventCount, 0, 'precond - no scroll happens');
     wait(() => {
-      assert.equal(scrollEventCount, 0, 'no scroll happens for nothing');
+      assert.strictEqual(scrollEventCount, 0, 'no scroll happens for nothing');
       window.pageYOffset = 1;
       wait(() => {
-        assert.equal(scrollEventCount, 1, 'scroll fires for a body scroll');
+        assert.strictEqual(
+          scrollEventCount,
+          1,
+          'scroll fires for a body scroll'
+        );
         wait(() => {
-          assert.equal(scrollEventCount, 1, 'no scroll happens for nothing');
+          assert.strictEqual(
+            scrollEventCount,
+            1,
+            'no scroll happens for nothing'
+          );
           done();
         });
       });
@@ -73,10 +81,10 @@ module('Unit | Service | scroll activity', function (hooks) {
     service.on('scroll', () => scrollEventCount++);
 
     wait(() => {
-      assert.equal(scrollEventCount, 0, 'precond - no scroll happens');
+      assert.strictEqual(scrollEventCount, 0, 'precond - no scroll happens');
       elem.scrollTop++;
       wait(() => {
-        assert.equal(
+        assert.strictEqual(
           scrollEventCount,
           1,
           'scroll happened twice when scrollTop changes'
@@ -112,37 +120,41 @@ module('Unit | Service | scroll activity', function (hooks) {
     service.on('scroll', () => scrollEventCount++);
 
     wait(() => {
-      assert.equal(scrollEventCount, 0, 'precond - no scroll event');
-      assert.equal(
+      assert.strictEqual(scrollEventCount, 0, 'precond - no scroll event');
+      assert.strictEqual(
         subscribedEventCount,
         0,
         'precond - no subscription callback'
       );
       wait(() => {
-        assert.equal(scrollEventCount, 0, 'no scroll when nothing happens');
-        assert.equal(
+        assert.strictEqual(
+          scrollEventCount,
+          0,
+          'no scroll when nothing happens'
+        );
+        assert.strictEqual(
           subscribedEventCount,
           0,
           'no subscription callback when nothing happens'
         );
         elem.scrollTop++;
         wait(() => {
-          assert.equal(
+          assert.strictEqual(
             scrollEventCount,
             1,
             'scroll happened when scrollTop changes'
           );
-          assert.equal(
+          assert.strictEqual(
             subscribedEventCount,
             1,
             'subscription callback fired once'
           );
-          assert.equal(
+          assert.strictEqual(
             subscribedLastScrollTop,
             scrollTop,
             'lastScrollTop is previous value'
           );
-          assert.equal(
+          assert.strictEqual(
             subscribedScrollTop,
             scrollTop + 1,
             'new scrollTop is new value'
@@ -175,8 +187,8 @@ module('Unit | Service | scroll activity', function (hooks) {
     service.on('scroll', () => scrollEventCount++);
 
     wait(() => {
-      assert.equal(scrollEventCount, 0, 'precond - no scroll event');
-      assert.equal(
+      assert.strictEqual(scrollEventCount, 0, 'precond - no scroll event');
+      assert.strictEqual(
         subscribedEventCount,
         0,
         'precond - no subscription callback'
@@ -185,8 +197,8 @@ module('Unit | Service | scroll activity', function (hooks) {
       elem.scrollLeft++;
       service.unsubscribe(target);
       wait(() => {
-        assert.equal(scrollEventCount, 0, 'no scroll event');
-        assert.equal(subscribedEventCount, 0, 'no subscription callback');
+        assert.strictEqual(scrollEventCount, 0, 'no scroll event');
+        assert.strictEqual(subscribedEventCount, 0, 'no subscription callback');
         done();
       });
     });
@@ -210,14 +222,22 @@ module('Unit | Service | scroll activity', function (hooks) {
     let scrollEventCount = 0;
     service.on('scroll', () => scrollEventCount++);
 
-    assert.equal(scrollEventCount, 0, 'precond - no scroll happens');
+    assert.strictEqual(scrollEventCount, 0, 'precond - no scroll happens');
     wait(() => {
-      assert.equal(scrollEventCount, 0, 'no scroll happens for nothing');
+      assert.strictEqual(scrollEventCount, 0, 'no scroll happens for nothing');
       window.pageXOffset = 1;
       wait(() => {
-        assert.equal(scrollEventCount, 1, 'scroll fires for a body scroll');
+        assert.strictEqual(
+          scrollEventCount,
+          1,
+          'scroll fires for a body scroll'
+        );
         wait(() => {
-          assert.equal(scrollEventCount, 1, 'no scroll happens for nothing');
+          assert.strictEqual(
+            scrollEventCount,
+            1,
+            'no scroll happens for nothing'
+          );
           done();
         });
       });
@@ -242,10 +262,10 @@ module('Unit | Service | scroll activity', function (hooks) {
     service.on('scroll', () => scrollEventCount++);
 
     wait(() => {
-      assert.equal(scrollEventCount, 0, 'precond - no scroll happens');
+      assert.strictEqual(scrollEventCount, 0, 'precond - no scroll happens');
       elem.scrollLeft++;
       wait(() => {
-        assert.equal(
+        assert.strictEqual(
           scrollEventCount,
           1,
           'scroll happened twice when scrollLeft changes'
@@ -281,37 +301,41 @@ module('Unit | Service | scroll activity', function (hooks) {
     service.on('scroll', () => scrollEventCount++);
 
     wait(() => {
-      assert.equal(scrollEventCount, 0, 'precond - no scroll event');
-      assert.equal(
+      assert.strictEqual(scrollEventCount, 0, 'precond - no scroll event');
+      assert.strictEqual(
         subscribedEventCount,
         0,
         'precond - no subscription callback'
       );
       wait(() => {
-        assert.equal(scrollEventCount, 0, 'no scroll when nothing happens');
-        assert.equal(
+        assert.strictEqual(
+          scrollEventCount,
+          0,
+          'no scroll when nothing happens'
+        );
+        assert.strictEqual(
           subscribedEventCount,
           0,
           'no subscription callback when nothing happens'
         );
         elem.scrollLeft++;
         wait(() => {
-          assert.equal(
+          assert.strictEqual(
             scrollEventCount,
             1,
             'scroll happened when scrollLeft changes'
           );
-          assert.equal(
+          assert.strictEqual(
             subscribedEventCount,
             1,
             'subscription callback fired once'
           );
-          assert.equal(
+          assert.strictEqual(
             subscribedLastScrollLeft,
             scrollLeft,
             'lastScrollLeft is previous value'
           );
-          assert.equal(
+          assert.strictEqual(
             subscribedScrollLeft,
             scrollLeft + 1,
             'new scrollLeft is new value'
@@ -379,89 +403,93 @@ module('Unit | Service | scroll activity', function (hooks) {
     service.on('scroll', () => scrollEventCount++);
 
     wait(() => {
-      assert.equal(scrollEventCount, 0, 'precond - no scroll event');
-      assert.equal(
+      assert.strictEqual(scrollEventCount, 0, 'precond - no scroll event');
+      assert.strictEqual(
         subscribedEventCount,
         0,
         'precond - no subscription callback'
       );
       wait(() => {
-        assert.equal(scrollEventCount, 0, 'no scroll when nothing happens');
-        assert.equal(
+        assert.strictEqual(
+          scrollEventCount,
+          0,
+          'no scroll when nothing happens'
+        );
+        assert.strictEqual(
           subscribedEventCount,
           0,
           'no subscription callback when nothing happens'
         );
         elem.scrollTop++;
         wait(() => {
-          assert.equal(
+          assert.strictEqual(
             scrollEventCount,
             1,
             'scroll happened when scrollTop changes'
           );
-          assert.equal(
+          assert.strictEqual(
             subscribedEventCount,
             1,
             'subscription callback fired once'
           );
-          assert.equal(
+          assert.strictEqual(
             subscribedLastScrollTop,
             scrollTop,
             'lastScrollTop is previous value'
           );
-          assert.equal(
+          assert.strictEqual(
             subscribedScrollTop,
             scrollTop + 1,
             'new scrollTop is new value'
           );
-          assert.equal(
+          assert.strictEqual(
             subscribedLastScrollLeft,
             null,
             'lastScrollLeft is unchanged'
           );
-          assert.equal(
+          assert.strictEqual(
             subscribedScrollLeft,
             null,
             'new scrollLeft is unchanged'
           );
-          assert.equal(
+          assert.strictEqual(
             subscribedScrollType,
             SCROLL_EVENT_TYPE_VERTICAL,
             'scroll type is vertical for vertical scroll event'
           );
           elem.scrollLeft++;
           wait(() => {
-            assert.equal(
+            assert.strictEqual(
               scrollEventCount,
               2,
               'scroll happened when scrollTop changes'
             );
-            assert.equal(
+            assert.strictEqual(
               subscribedEventCount,
               2,
               'subscription callback fired once'
             );
-            assert.equal(
+            assert.strictEqual(
               subscribedLastScrollTop,
               scrollTop,
               'lastScrollTop is previous value'
             );
-            assert.equal(
+            assert.strictEqual(
               subscribedScrollTop,
               scrollTop + 1,
               'new scrollTop is unchanged'
             );
-            assert.equal(
+            assert.strictEqual(
               subscribedLastScrollLeft,
               scrollLeft,
               'lastScrollLeft is previous value'
             );
-            assert.equal(
+            assert.strictEqual(
               subscribedScrollLeft,
               scrollLeft + 1,
               'new scrollLeft is new value'
             );
-            assert.equal(
+            assert.strictEqual(
               subscribedScrollType,
               SCROLL_EVENT_TYPE_HORIZONTAL,
               'scroll type is horizontal for horizontal scroll event'
@@ -469,37 +497,37 @@ module('Unit | Service | scroll activity', function (hooks) {
             elem.scrollTop++;
             elem.scrollLeft++;
             wait(() => {
-              assert.equal(
+              assert.strictEqual(
                 scrollEventCount,
                 3,
                 'scroll happened when scrollTop changes'
               );
-              assert.equal(
+              assert.strictEqual(
                 subscribedEventCount,
                 3,
                 'subscription callback fired once'
               );
-              assert.equal(
+              assert.strictEqual(
                 subscribedLastScrollTop,
                 scrollTop + 1,
                 'lastScrollTop is previous value'
               );
-              assert.equal(
+              assert.strictEqual(
                 subscribedScrollTop,
                 scrollTop + 2,
                 'new scrollTop is new value'
               );
-              assert.equal(
+              assert.strictEqual(
                 subscribedLastScrollLeft,
                 scrollLeft + 1,
                 'lastScrollLeft is previous value'
               );
-              assert.equal(
+              assert.strictEqual(
                 subscribedScrollLeft,
                 scrollLeft + 2,
                 'new scrollLeft unchanged'
               );
-              assert.equal(
+              assert.strictEqual(
                 subscribedScrollType,
                 SCROLL_EVENT_TYPE_DIAGONAL,
                 'scroll type is diagonal for diagonal scroll event'

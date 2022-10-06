@@ -47,7 +47,7 @@ module('Unit | Service | user idle', function (hooks) {
     let stub = service.trigger;
     assert.true(stub.calledOnce, 'triggers one event');
     let { args } = stub.firstCall;
-    assert.equal(args[0], 'idleChanged', 'triggers idleChanged event');
+    assert.strictEqual(args[0], 'idleChanged', 'triggers idleChanged event');
     assert.false(args[1], 'passes data');
 
     assert.false(service.isIdle, 'isIdle is false');
@@ -70,7 +70,7 @@ module('Unit | Service | user idle', function (hooks) {
     let stub = service.trigger;
     assert.true(stub.calledOnce, 'triggers one event');
     let { args } = stub.firstCall;
-    assert.equal(args[0], 'idleChanged', 'triggers idleChanged event');
+    assert.strictEqual(args[0], 'idleChanged', 'triggers idleChanged event');
     assert.true(args[1], 'passes data');
 
     assert.true(service.isIdle, 'isIdle is true');
