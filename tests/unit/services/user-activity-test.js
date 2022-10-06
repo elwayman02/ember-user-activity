@@ -14,17 +14,17 @@ module('Unit | Service | user activity', function (hooks) {
         enableEvent: sinon.stub(),
       });
 
-    assert.equal(
+    assert.strictEqual(
       typeOf(service._boundEventHandler),
       'function',
       'bound event handler initialized'
     );
-    assert.equal(
+    assert.strictEqual(
       typeOf(service.enabledEvents),
       'array',
       'enabledEvents set to empty array'
     );
-    assert.equal(
+    assert.strictEqual(
       service.enableEvent.callCount,
       service.defaultEvents.length,
       'Events enabled by default'
@@ -48,7 +48,11 @@ module('Unit | Service | user activity', function (hooks) {
     );
     let stub = service._listen;
     assert.true(stub.calledOnce, 'sets up listener');
-    assert.equal(stub.firstCall.args[0], event, 'passes event name to _listen');
+    assert.strictEqual(
+      stub.firstCall.args[0],
+      event,
+      'passes event name to _listen'
+    );
   });
 
   test('enableEvent - already enabled', function (assert) {
@@ -161,8 +165,8 @@ module('Unit | Service | user activity', function (hooks) {
     let stub = service.trigger;
     assert.true(stub.calledOnce, 'triggers one event');
     let { args } = stub.firstCall;
-    assert.equal(args[0], event.type, 'triggers event by type');
-    assert.equal(args[1], event, 'passes event');
+    assert.strictEqual(args[0], event.type, 'triggers event by type');
+    assert.strictEqual(args[1], event, 'passes event');
   });
 
   test('fireEvent - subscribed to userActive', function (assert) {
@@ -181,8 +185,8 @@ module('Unit | Service | user activity', function (hooks) {
     let stub = service.trigger;
     assert.true(stub.calledOnce, 'triggers one event');
     let { args } = stub.firstCall;
-    assert.equal(args[0], 'userActive', 'triggers userActive event');
-    assert.equal(args[1], event, 'passes event');
+    assert.strictEqual(args[0], 'userActive', 'triggers userActive event');
+    assert.strictEqual(args[1], event, 'passes event');
   });
 
   test('isEnabled', function (assert) {
@@ -206,14 +210,14 @@ module('Unit | Service | user activity', function (hooks) {
       .factoryFor('service:ember-user-activity@user-activity')
       .create();
 
-    assert.equal(
+    assert.strictEqual(
       window.addEventListener.callCount,
       4,
       'Subscribed to 4 window events'
     );
 
     service.willDestroy();
-    assert.equal(
+    assert.strictEqual(
       window.removeEventListener.callCount,
       4,
       'Unsubscribed from 4 window events'
