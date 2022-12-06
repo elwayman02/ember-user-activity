@@ -11,7 +11,7 @@ module.exports = {
       plugins: [
         [
           '@babel/plugin-proposal-decorators',
-          { decoratorsBeforeExport: true, version: '2021-12' },
+          { decoratorsBeforeExport: true, version: '2018-09' },
         ],
       ],
     },
