@@ -3,72 +3,74 @@ name: CI
 on:
   push:
     branches:
+      - main
       - master
-      - 'v*'
-  pull_request:
-  schedule:
-    - cron: '0 3 * * *' # daily, at 3am
+  pull_request: {}
+
+concurrency:
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
-    name: Tests
+    name: "Tests"
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: volta-cli/action@v1
-        with:
-          node-version: 12.x
-          yarn-version: 1.22.5
+      - uses: actions/checkout@v3
+      - name: Install Node
+        uses: volta-cli/action@v4
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+      - name: Lint
+        run: yarn lint
+      - name: Run Tests
+        run: yarn test:ember
 
-      - run: yarn install --frozen-lockfile
-      - run: yarn lint
-      - run: yarn test:ember
-
-  floating-dependencies:
-    name: Floating Dependencies
+  floating:
+    name: "Floating Dependencies"
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: volta-cli/action@v1
-        with:
-          node-version: 12.x
-          yarn-version: 1.22.5
-
-      - run: yarn install --no-lockfile
-      - run: yarn test:ember
+      - uses: actions/checkout@v3
+      - name: Install Node
+        uses: volta-cli/action@v4
+      - name: Install Dependencies
+        run: yarn install --no-lockfile
+      - name: Run Tests
+        run: yarn test:ember
 
   try-scenarios:
-    name: "ember-try: ${{ matrix.ember-try-scenario }}"
+    name: ${{ matrix.try-scenario }}
     runs-on: ubuntu-latest
-    needs: test
-    continue-on-error: ${{ matrix.experimental }}
+    needs: "test"
+    timeout-minutes: 10
 
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
-        ember-try-scenario:
-          - ember-lts-3.20
-          - ember-lts-3.24
+        try-scenario:
+          - ember-lts-3.28
+          - ember-lts-4.4
           - ember-release
-          - ember-default-with-jquery
           - ember-classic
+          - embroider-safe
         experimental: [false]
         include:
-          - ember-try-scenario: ember-beta
+          - try-scenario: ember-beta
             experimental: true
-          - ember-try-scenario: ember-canary
+          - try-scenario: ember-canary
+            experimental: true
+          - try-scenario: embroider-optimized
             experimental: true
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: volta-cli/action@v1
-        with:
-          node-version: 12.x
-          yarn-version: 1.22.5
-
-      - run: yarn install --frozen-lockfile
-
-      - name: test
-        run: yarn ember try:one ${{ matrix.ember-try-scenario }} --skip-cleanup
+      - uses: actions/checkout@v3
+      - name: Install Node
+        uses: volta-cli/action@v4
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+      - name: Run Tests
+        run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
