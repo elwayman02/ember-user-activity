@@ -1,7 +1,6 @@
-![Ember User Activity](docs/hero-logo.png)
-==========================================
+# ![Ember User Activity](docs/hero-logo.png)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/e30a3237-450a-4582-8d15-5d568c784d94/deploy-status)](https://app.netlify.com/sites/hopeful-carson-42f584/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8164e535-80cb-4efc-a347-998065f6b9e0/deploy-status)](https://app.netlify.com/sites/competent-heyrovsky-4758aa/deploys)
 [![Build Status](https://github.com/elwayman02/ember-user-activity/workflows/CI/badge.svg)](https://github.com/elwayman02/ember-user-activity/actions?query=workflow%3ACI)
 [![Ember Observer Score](https://emberobserver.com/badges/ember-user-activity.svg)](https://emberobserver.com/addons/ember-user-activity)
 [![Code Climate](https://codeclimate.com/github/elwayman02/ember-user-activity/badges/gpa.svg)](https://codeclimate.com/github/elwayman02/ember-user-activity)
@@ -13,24 +12,21 @@ Check out the [Demo](https://ember-user-activity.jhawk.co/)!
 We adhere to the [Ember Community Guidelines](https://emberjs.com/guidelines/) for our Code of Conduct.
 
 
-Compatibility
-------------------------------------------------------------------------------
+## Compatibility
 
-* Ember.js v3.20 or above
-* Ember CLI v3.20 or above
-* Node.js v10 or above
+* Ember.js v3.28 or above
+* Ember CLI v3.28 or above
+* Node.js v14 or above
 
 
-Installation
-------------------------------------------------------------------------------
+## Installation
 
 ```bash
 ember install ember-user-activity
 ```
 
 
-Usage
-------------------------------------------------------------------------------
+## Usage
 
 ### User Activity Service
 
@@ -307,13 +303,11 @@ export default class UserIdle extends UserIdleService {
 ```
 
 
-Contributing
-------------------------------------------------------------------------------
+## Contributing
 
 See the [Contributing](CONTRIBUTING.md) guide for details.
 
 
-License
-------------------------------------------------------------------------------
+## License
 
 This project is licensed under the [MIT License](LICENSE.md).
