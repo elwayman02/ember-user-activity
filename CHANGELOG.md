@@ -1,4 +1,22 @@
 
+
+## v7.0.0 (2022-12-12)
+
+#### :boom: Breaking Change
+* [#760](https://github.com/elwayman02/ember-user-activity/pull/760) Ember 4.9 Upgrade ([@elwayman02](https://github.com/elwayman02))
+
+#### :house: Internal
+* [#763](https://github.com/elwayman02/ember-user-activity/pull/763) Update release-it config ([@elwayman02](https://github.com/elwayman02))
+* [#761](https://github.com/elwayman02/ember-user-activity/pull/761) Allow embroider builds to fail ([@elwayman02](https://github.com/elwayman02))
+* [#760](https://github.com/elwayman02/ember-user-activity/pull/760) Ember 4.9 Upgrade ([@elwayman02](https://github.com/elwayman02))
+* [#758](https://github.com/elwayman02/ember-user-activity/pull/758) Add Webpack ([@elwayman02](https://github.com/elwayman02))
+* [#757](https://github.com/elwayman02/ember-user-activity/pull/757) Fix eslint decorator proposal version ([@elwayman02](https://github.com/elwayman02))
+* [#713](https://github.com/elwayman02/ember-user-activity/pull/713) Make linting work  ([@mrloop](https://github.com/mrloop))
+
+#### Committers: 2
+- Ewan McDougall ([@mrloop](https://github.com/mrloop))
+- Jordan Hawker ([@elwayman02](https://github.com/elwayman02))
+
 ## v6.0.0 (2021-08-09)
 
 #### :boom: Breaking Change
