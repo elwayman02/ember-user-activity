@@ -1,4 +1,3 @@
-import classic from 'ember-classic-decorator';
 import FastBootAwareEventManagerService from 'ember-user-activity/services/-private/fastboot-aware-event-manager';
 import { begin as beginRunloop, end as endRunloop } from '@ember/runloop';
 import getScroll from 'ember-user-activity/utils/get-scroll';
@@ -17,7 +16,6 @@ const SCROLL_EVENT_TYPE_VERTICAL = 'vertical';
 const SCROLL_EVENT_TYPE_HORIZONTAL = 'horizontal';
 const SCROLL_EVENT_TYPE_DIAGONAL = 'diagonal';
 
-@classic
 export default class ScrollActivityService extends FastBootAwareEventManagerService {
   init() {
     super.init(...arguments);
