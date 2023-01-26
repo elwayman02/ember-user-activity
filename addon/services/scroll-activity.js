@@ -17,16 +17,17 @@ const SCROLL_EVENT_TYPE_HORIZONTAL = 'horizontal';
 const SCROLL_EVENT_TYPE_DIAGONAL = 'diagonal';
 
 export default class ScrollActivityService extends FastBootAwareEventManagerService {
-  init() {
-    super.init(...arguments);
+  _animationFrame = null;
+  _subscribers = [];
+  _lastCheckAt = new Date();
+
+  constructor() {
+    super(...arguments);
 
     if (this._isFastBoot) {
       return;
     }
 
-    this._animationFrame = null;
-    this._subscribers = [];
-    this._lastCheckAt = new Date();
     this.subscribe(document, document, () => {}, false);
 
     this._pollScroll();
