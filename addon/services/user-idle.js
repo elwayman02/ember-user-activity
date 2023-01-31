@@ -1,10 +1,9 @@
-import classic from 'ember-classic-decorator';
 import Ember from 'ember';
 import EventManagerService from 'ember-user-activity/services/-private/event-manager';
 import { inject as injectService } from '@ember/service';
 import { cancel, debounce } from '@ember/runloop';
+import { tracked } from '@glimmer/tracking';
 
-@classic
 export default class UserIdleService extends EventManagerService {
   @injectService('ember-user-activity@user-activity')
   userActivity;
@@ -12,7 +11,7 @@ export default class UserIdleService extends EventManagerService {
   _debouncedTimeout = null;
   activeEvents = ['userActive'];
   IDLE_TIMEOUT = 600000; // 10 minutes
-  isIdle = false;
+  @tracked isIdle = false;
 
   _setupListeners(method) {
     this.activeEvents.forEach((event) => {
@@ -20,12 +19,14 @@ export default class UserIdleService extends EventManagerService {
     });
   }
 
+  // TODO: migrate to constructor
+  // eslint-disable-next-line ember/classic-decorator-hooks
   init() {
     super.init(...arguments);
 
     if (Ember.testing) {
       // Shorter debounce in testing mode
-      this.set('IDLE_TIMEOUT', 10);
+      this.IDLE_TIMEOUT = 10;
     }
     this._setupListeners('on');
     this.resetTimeout();
@@ -42,7 +43,7 @@ export default class UserIdleService extends EventManagerService {
 
   resetTimeout() {
     let oldIdle = this.isIdle;
-    this.set('isIdle', false);
+    this.isIdle = false;
     if (oldIdle) {
       this.trigger('idleChanged', false);
     }
@@ -53,7 +54,7 @@ export default class UserIdleService extends EventManagerService {
     if (this.isDestroyed) {
       return;
     }
-    this.set('isIdle', true);
+    this.isIdle = true;
     this.trigger('idleChanged', true);
   }
 }

@@ -30,7 +30,6 @@
     "release": "release-it"
   },
   "dependencies": {
-    "ember-classic-decorator": "^3.0.1",
     "ember-cli-babel": "^7.26.11"
   },
   "devDependencies": {
@@ -58,8 +57,6 @@
     "ember-cli-release": "1.0.0-beta.2",
     "ember-cli-sri": "^2.1.1",
     "ember-cli-terser": "^4.0.2",
-    "ember-data": "^4.9.1",
-    "ember-decorators": "^6.1.1",
     "ember-fetch": "^8.1.2",
     "ember-load-initializers": "^2.1.2",
     "ember-page-title": "^7.0.0",

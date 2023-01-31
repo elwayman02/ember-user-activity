@@ -25,13 +25,6 @@ module.exports = {
   env: {
     browser: true,
   },
-  rules: {
-    'ember/classic-decorator-hooks': 'off',
-    'ember/no-classic-components': 'off',
-    'ember/no-component-lifecycle-hooks': 'off',
-    'ember/no-computed-properties-in-native-classes': 'off',
-    'ember/require-tagless-components': 'off',
-  },
   overrides: [
     // node files
     {

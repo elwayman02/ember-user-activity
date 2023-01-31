@@ -1,42 +1,33 @@
-import classic from 'ember-classic-decorator';
 import FastBootAwareEventManagerService from 'ember-user-activity/services/-private/fastboot-aware-event-manager';
 import Ember from 'ember';
 import { A } from '@ember/array';
 import { throttle } from '@ember/runloop';
 import { inject as injectService } from '@ember/service';
-import { isEmpty } from '@ember/utils';
 import storageAvailable from '../utils/storage-available';
 
-@classic
 export default class UserActivityService extends FastBootAwareEventManagerService {
   @injectService('ember-user-activity@scroll-activity')
   scrollActivity;
 
-  EVENT_THROTTLE = 100;
+  EVENT_THROTTLE;
   defaultEvents = ['keydown', 'mousedown', 'scroll', 'touchstart', 'storage'];
-  enabledEvents = null;
-  _eventsListened = null;
-  _eventSubscriberCount = null;
-  _throttledEventHandlers = null;
+  enabledEvents = A();
+  _eventsListened = A();
+  _eventSubscriberCount = {};
+  _throttledEventHandlers = {};
   _boundEventHandler = null;
   localStorageKey = 'ember-user-activity';
 
+  // TODO: migrate to constructor
+  // eslint-disable-next-line ember/classic-decorator-hooks
   init() {
     super.init(...arguments);
 
-    if (Ember.testing) {
-      // Do not throttle in testing mode
-      this.set('EVENT_THROTTLE', 0);
-    }
+    // Do not throttle in testing mode
+    this.EVENT_THROTTLE = Ember.testing ? 0 : 100;
 
     this._boundEventHandler = this.handleEvent.bind(this);
-    this._eventsListened = A();
-    this._eventSubscriberCount = {};
-    this._throttledEventHandlers = {};
 
-    if (isEmpty(this.enabledEvents)) {
-      this.set('enabledEvents', A());
-    }
     this._setupListeners();
   }
 
