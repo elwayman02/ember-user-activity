@@ -1,5 +1,16 @@
 
 
+
+## v7.1.0 (2023-01-31)
+
+#### :house: Internal
+* [#795](https://github.com/elwayman02/ember-user-activity/pull/795) Ember 4.10 blueprint ([@elwayman02](https://github.com/elwayman02))
+* [#789](https://github.com/elwayman02/ember-user-activity/pull/789) Get rid of ember-classic-decorator dependency ([@andreyfel](https://github.com/andreyfel))
+
+#### Committers: 2
+- Andrey Fel ([@andreyfel](https://github.com/andreyfel))
+- Jordan Hawker ([@elwayman02](https://github.com/elwayman02))
+
 ## v7.0.0 (2022-12-12)
 
 #### :boom: Breaking Change
