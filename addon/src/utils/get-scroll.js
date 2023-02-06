@@ -1,4 +1,4 @@
-import getWindow from 'ember-user-activity/utils/window';
+import getWindow from './window';
 
 export default function getScroll(elem, direction) {
   if (elem === null || elem === undefined) {

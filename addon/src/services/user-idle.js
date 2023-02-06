@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import EventManagerService from 'ember-user-activity/services/-private/event-manager';
+import EventManagerService from './-private/event-manager';
 import { inject as injectService } from '@ember/service';
 import { cancel, debounce } from '@ember/runloop';
 import { tracked } from '@glimmer/tracking';

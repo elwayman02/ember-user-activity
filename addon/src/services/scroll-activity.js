@@ -1,6 +1,6 @@
-import FastBootAwareEventManagerService from 'ember-user-activity/services/-private/fastboot-aware-event-manager';
+import FastBootAwareEventManagerService from './-private/fastboot-aware-event-manager';
 import { begin as beginRunloop, end as endRunloop } from '@ember/runloop';
-import getScroll from 'ember-user-activity/utils/get-scroll';
+import getScroll from '../utils/get-scroll';
 
 /*
  * Polling uses rAF and/or a setTimeout at 16ms, however rAF will run in the

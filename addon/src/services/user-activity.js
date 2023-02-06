@@ -1,4 +1,4 @@
-import FastBootAwareEventManagerService from 'ember-user-activity/services/-private/fastboot-aware-event-manager';
+import FastBootAwareEventManagerService from './-private/fastboot-aware-event-manager';
 import Ember from 'ember';
 import { A } from '@ember/array';
 import { throttle } from '@ember/runloop';
