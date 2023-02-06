@@ -1,6 +1,5 @@
 {
   "name": "test-app",
-  "version": "7.1.0",
   "description": "Ember Addon for tracking user activity & idling",
   "keywords": [
     "user activity",
@@ -67,7 +66,7 @@
     "ember-source-channel-url": "^3.0.0",
     "ember-template-lint": "^5.3.3",
     "ember-try": "^2.0.0",
-    "ember-user-activity": "7.1.0",
+    "ember-user-activity": "8.0.0",
     "eslint": "^8.33.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-ember": "^11.4.5",
