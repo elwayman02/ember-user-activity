@@ -81,7 +81,7 @@
     "qunit-dom": "^2.0.0",
     "release-it": "^15.10.2",
     "release-it-lerna-changelog": "^5.0.0",
-    "webpack": "^5.78.0"
+    "webpack": "^5.81.0"
   },
   "peerDependencies": {
     "ember-source": "^3.28.0 || ^4.0.0"
