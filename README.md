@@ -167,7 +167,7 @@ configured to listen to a custom set of events from the `user-activity` service:
 import UserIdleService from 'ember-user-activity/services/user-idle';
 
 export default class UserIdle extends UserIdleService {
-  activeEvents = ['mousedown', 'keydown']
+  activeEvents = ['mousedown', 'keydown'];
 }
 ```
 
@@ -184,7 +184,7 @@ export default class MyComponent extends Component {
   @service('ember-user-activity@user-idle')
   userIdle;
 
-  init() {
+  constructor() {
     this.userIdle.on('idleChanged', (isIdle) => {
       // isIdle is true if idle. False otherwise.
     });
@@ -235,8 +235,10 @@ Make sure to remove any listeners before destroying their parent objects.
 
 ```javascript
 // app/components/foo-bar.js
-willDestroyElement() {
-  this.userActivity.off('keydown', this, this.keydownHandler);
+export default class FooBar extends Component {
+  willDestroy() {
+    this.userActivity.off('keydown', this, this.keydownHandler);
+  }
 }
 ```
 
