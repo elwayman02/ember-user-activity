@@ -47,27 +47,16 @@ A custom event, `userActive` is fired for ALL enabled events.
 To catch these events, simply inject the service and subscribe to the events you care about:
 
 ```javascript
-import { inject as injectService } from '@ember/service';
+import { service } from '@ember/service';
 
 // any file where services can be injected
-// Classic
-userActivity: injectService('ember-user-activity@user-activity'),
+
+@service('ember-user-activity@user-activity')
+userActivity;
 
 setupListeners() {
   this.userActivity.on('userActive', this, this.activeHandler);
-},
-activeHandler(event) {
-  // do stuff
 }
-
-
-// Octane
-@injectService('ember-user-activity@user-activity')
-userActivity
-
-setupListeners() {
-  this.userActivity.on('userActive', this, this.activeHandler);
-},
 activeHandler(event) {
   // do stuff
 }
@@ -94,15 +83,8 @@ If you would like to listen to a different set of events, extend the service in 
 // app/services/user-activity.js
 import UserActivityService from 'ember-user-activity/services/user-activity';
 
-// Classic
-export default UserActivityService.extend({
-  defaultEvents: ['keypress', 'mouseenter', 'mousemove']
-});
-
-
-// Octane
 export default class UserActivity extends UserActivityService {
-  defaultEvents = ['keypress', 'mouseenter', 'mousemove']
+  defaultEvents = ['keypress', 'mouseenter', 'mousemove'];
 }
 ```
 
@@ -134,14 +116,8 @@ the throttling can be configured by setting `EVENT_THROTTLE` on the activity ser
 // app/services/user-activity.js
 import UserActivityService from 'ember-user-activity/services/user-activity';
 
-// Classic
-export default UserActivityService.extend({
-  EVENT_THROTTLE: 200 // 200 ms
-});
-
-// Octane
 export default class UserActivity extends UserActivityService {
-  EVENT_THROTTLE = 200 // 200 ms
+  EVENT_THROTTLE = 200; // 200 ms
 }
 
 ```
@@ -156,20 +132,14 @@ This service tracks user activity to decide when a user has gone idle by
 not interacting with the page for a set amount of time.
 
 ```javascript
-import { inject as injectService } from '@ember/service';
+import { service } from '@ember/service';
 import { readOnly } from '@ember/object/computed'
 
-// Classic
-userIdle: injectService('ember-user-activity@user-idle')
-isIdle: readOnly('userIdle.isIdle')
-
-
-// Octane
 @injectService('ember-user-activity@user-idle')
-userIdle
+userIdle;
 
 @readOnly('userIdle.isIdle')
-isIdle
+isIdle;
 ```
 
 The default timeout is set for 10 minutes but can be overridden by extending the service:
@@ -178,12 +148,6 @@ The default timeout is set for 10 minutes but can be overridden by extending the
 // app/services/user-idle.js
 import UserIdleService from 'ember-user-activity/services/user-idle';
 
-// Classic
-export default UserIdleService.extend({
-  IDLE_TIMEOUT: 300000 // 5 minutes
-});
-
-// Octane
 export default class UserIdle extends UserIdleService {
   IDLE_TIMEOUT = 300000 // 5 minutes
 });
@@ -196,12 +160,6 @@ configured to listen to a custom set of events from the `user-activity` service:
 // app/services/user-idle.js
 import UserIdleService from 'ember-user-activity/services/user-idle';
 
-// Classic
-export default UserIdleService.extend({
-  activeEvents: ['mousedown', 'keydown']
-});
-
-// Octane
 export default class UserIdle extends UserIdleService {
   activeEvents = ['mousedown', 'keydown']
 };
@@ -213,25 +171,15 @@ so in most cases you won't need to change this.
 The idle service has a `idleChanged` event when `isIdle` gets changed.
 
 ```javascript
-import { inject as injectService } from '@ember/service';
+import { service } from '@ember/service';
 
-// Classic
-userIdle: injectService('ember-user-activity@user-idle'),
-
-init() {
-  this.userIdle.on('idleChanged', (isIdle) => {
-    // isIdle is true if idle. False otherwise.
-  })
-}
-
-// Octane
-@injectService('ember-user-activity@user-idle')
-userIdle
+@service('ember-user-activity@user-idle')
+userIdle;
 
 init() {
   this.userIdle.on('idleChanged', (isIdle) => {
     // isIdle is true if idle. False otherwise.
-  })
+  });
 }
 ```
 
@@ -291,15 +239,9 @@ Building your own addon to extend Ember User Activity? No problem!
 // my-addon/addon/services/user-idle.js
 import UserIdleService from 'ember-user-activity/services/user-idle';
 
-// Classic
-export default UserIdleService.extend({
-  IDLE_TIMEOUT: 3000 // 3 minutes
-});
-
-// Octane
 export default class UserIdle extends UserIdleService {
-  IDLE_TIMEOUT = 3000 // 3 minutes
-};
+  IDLE_TIMEOUT = 3000; // 3 minutes
+}
 ```
 
 
