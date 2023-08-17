@@ -47,18 +47,21 @@ A custom event, `userActive` is fired for ALL enabled events.
 To catch these events, simply inject the service and subscribe to the events you care about:
 
 ```javascript
+import Component from '@glimmer/component';
 import { service } from '@ember/service';
 
 // any file where services can be injected
+export default class MyComponent extends Component {
+  @service('ember-user-activity@user-activity')
+  userActivity;
 
-@service('ember-user-activity@user-activity')
-userActivity;
+  setupListeners() {
+    this.userActivity.on('userActive', this, this.activeHandler);
+  }
 
-setupListeners() {
-  this.userActivity.on('userActive', this, this.activeHandler);
-}
-activeHandler(event) {
-  // do stuff
+  activeHandler(event) {
+    // do stuff
+  }
 }
 ```
 
@@ -132,14 +135,17 @@ This service tracks user activity to decide when a user has gone idle by
 not interacting with the page for a set amount of time.
 
 ```javascript
+import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { readOnly } from '@ember/object/computed'
 
-@injectService('ember-user-activity@user-idle')
-userIdle;
+export default class MyComponent extends Component {
+  @service('ember-user-activity@user-idle')
+  userIdle;
 
-@readOnly('userIdle.isIdle')
-isIdle;
+  @readOnly('userIdle.isIdle')
+  isIdle;
+}
 ```
 
 The default timeout is set for 10 minutes but can be overridden by extending the service:
@@ -150,7 +156,7 @@ import UserIdleService from 'ember-user-activity/services/user-idle';
 
 export default class UserIdle extends UserIdleService {
   IDLE_TIMEOUT = 300000 // 5 minutes
-});
+}
 ```
 
 By default, the idle service listens to the `userActive` event, but it can be
@@ -162,7 +168,7 @@ import UserIdleService from 'ember-user-activity/services/user-idle';
 
 export default class UserIdle extends UserIdleService {
   activeEvents = ['mousedown', 'keydown']
-};
+}
 ```
 
 Note that the `userActive` event is a superset of all events fired from `user-activity`,
@@ -171,15 +177,18 @@ so in most cases you won't need to change this.
 The idle service has a `idleChanged` event when `isIdle` gets changed.
 
 ```javascript
+import Component from '@glimmer/component';
 import { service } from '@ember/service';
 
-@service('ember-user-activity@user-idle')
-userIdle;
+export default class MyComponent extends Component {
+  @service('ember-user-activity@user-idle')
+  userIdle;
 
-init() {
-  this.userIdle.on('idleChanged', (isIdle) => {
-    // isIdle is true if idle. False otherwise.
-  });
+  init() {
+    this.userIdle.on('idleChanged', (isIdle) => {
+      // isIdle is true if idle. False otherwise.
+    });
+  }
 }
 ```
 
