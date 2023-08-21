@@ -62,7 +62,7 @@
     "ember-load-initializers": "^2.1.2",
     "ember-page-title": "^7.0.0",
     "ember-qunit": "^6.2.0",
-    "ember-resolver": "^10.1.0",
+    "ember-resolver": "^11.0.1",
     "ember-sinon": "^5.0.0",
     "ember-sinon-qunit": "^6.0.0",
     "ember-source": "~4.12.0",
