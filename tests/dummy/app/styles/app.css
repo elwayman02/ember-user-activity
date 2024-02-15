@@ -16,10 +16,7 @@ body {
   flex-direction: row;
   justify-content: space-between;
   max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem auto;
 }
 
 .screenshot {

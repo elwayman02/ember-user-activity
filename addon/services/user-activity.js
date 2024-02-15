@@ -67,7 +67,7 @@ export default class UserActivityService extends FastBootAwareEventManagerServic
       this,
       this._throttledEventHandlers[event.type],
       event,
-      this.EVENT_THROTTLE
+      this.EVENT_THROTTLE,
     );
   }
 
@@ -97,7 +97,7 @@ export default class UserActivityService extends FastBootAwareEventManagerServic
     if (!this.isEnabled(eventName)) {
       this.enabledEvents.pushObject(eventName);
       this._throttledEventHandlers[eventName] = function fireEnabledEvent(
-        event
+        event,
       ) {
         if (this.isEnabled(event.type)) {
           this.fireEvent(event);
