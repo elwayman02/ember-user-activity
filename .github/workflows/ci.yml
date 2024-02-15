@@ -55,13 +55,12 @@ jobs:
           - ember-lts-4.8
           - ember-lts-4.12
           - ember-release
+          - embroider-safe
         experimental: [false]
         include:
           - try-scenario: ember-beta
             experimental: true
           - try-scenario: ember-canary
-            experimental: true
-          - try-scenario: embroider-safe
             experimental: true
           - try-scenario: embroider-optimized
             experimental: true
