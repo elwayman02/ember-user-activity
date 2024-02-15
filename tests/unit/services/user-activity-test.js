@@ -17,17 +17,17 @@ module('Unit | Service | user activity', function (hooks) {
     assert.strictEqual(
       typeOf(service._boundEventHandler),
       'function',
-      'bound event handler initialized'
+      'bound event handler initialized',
     );
     assert.strictEqual(
       typeOf(service.enabledEvents),
       'array',
-      'enabledEvents set to empty array'
+      'enabledEvents set to empty array',
     );
     assert.strictEqual(
       service.enableEvent.callCount,
       service.defaultEvents.length,
-      'Events enabled by default'
+      'Events enabled by default',
     );
   });
 
@@ -44,14 +44,14 @@ module('Unit | Service | user activity', function (hooks) {
 
     assert.true(
       service.enabledEvents.includes(event),
-      'adds event name to enabled events'
+      'adds event name to enabled events',
     );
     let stub = service._listen;
     assert.true(stub.calledOnce, 'sets up listener');
     assert.strictEqual(
       stub.firstCall.args[0],
       event,
-      'passes event name to _listen'
+      'passes event name to _listen',
     );
   });
 
@@ -81,18 +81,18 @@ module('Unit | Service | user activity', function (hooks) {
 
     assert.true(
       service.enabledEvents.includes(event),
-      'enabledEvents preserved on init'
+      'enabledEvents preserved on init',
     );
 
     service.disableEvent(event);
 
     assert.false(
       service.enabledEvents.includes(event),
-      'removed event from enabledEvents'
+      'removed event from enabledEvents',
     );
     assert.false(
       service._eventsListened.includes(event),
-      'event should not be listed as listened'
+      'event should not be listed as listened',
     );
   });
 
@@ -109,28 +109,28 @@ module('Unit | Service | user activity', function (hooks) {
 
     assert.notOk(
       service.enabledEvents.length,
-      'enabledEvents preserved on init'
+      'enabledEvents preserved on init',
     );
 
     service.enableEvent(event);
     assert.true(addEventListenerStub.called, 'event was not handled');
     assert.true(
       service.enabledEvents.includes(event),
-      'enabledEvents should include added event'
+      'enabledEvents should include added event',
     );
 
     window.addEventListener.reset();
     service.disableEvent(event);
     assert.false(
       service.enabledEvents.includes(event),
-      'removed event from enabledEvents'
+      'removed event from enabledEvents',
     );
 
     service.enableEvent(event);
     assert.true(window.addEventListener.called, 'event was not handled');
     assert.true(
       service.enabledEvents.includes(event),
-      'enabledEvents should include added event'
+      'enabledEvents should include added event',
     );
     window.addEventListener.restore();
   });
@@ -213,14 +213,14 @@ module('Unit | Service | user activity', function (hooks) {
     assert.strictEqual(
       window.addEventListener.callCount,
       4,
-      'Subscribed to 4 window events'
+      'Subscribed to 4 window events',
     );
 
     service.willDestroy();
     assert.strictEqual(
       window.removeEventListener.callCount,
       4,
-      'Unsubscribed from 4 window events'
+      'Unsubscribed from 4 window events',
     );
 
     window.addEventListener.restore();

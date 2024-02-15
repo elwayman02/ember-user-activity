@@ -123,7 +123,7 @@ export default class ScrollActivityService extends FastBootAwareEventManagerServ
         subscriber.scrollTop,
         SCROLL_EVENT_TYPE_DIAGONAL,
         scrollLeft,
-        subscriber.scrollLeft
+        subscriber.scrollLeft,
       );
     }
     this._updateScroll(subscriber);
@@ -141,7 +141,7 @@ export default class ScrollActivityService extends FastBootAwareEventManagerServ
       subscriber.callback(
         getScroll(subscriber.element, 'left'),
         subscriber.scrollLeft,
-        SCROLL_EVENT_TYPE_HORIZONTAL
+        SCROLL_EVENT_TYPE_HORIZONTAL,
       );
     }
     this._updateScroll(subscriber);
@@ -159,7 +159,7 @@ export default class ScrollActivityService extends FastBootAwareEventManagerServ
       subscriber.callback(
         getScroll(subscriber.element),
         subscriber.scrollTop,
-        SCROLL_EVENT_TYPE_VERTICAL
+        SCROLL_EVENT_TYPE_VERTICAL,
       );
     }
     this._updateScroll(subscriber);

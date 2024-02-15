@@ -4,15 +4,12 @@ module.exports = {
   root: true,
   parser: '@babel/eslint-parser',
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 'latest',
     sourceType: 'module',
     requireConfigFile: false,
     babelOptions: {
       plugins: [
-        [
-          '@babel/plugin-proposal-decorators',
-          { decoratorsBeforeExport: true, version: '2018-09' },
-        ],
+        ['@babel/plugin-proposal-decorators', { decoratorsBeforeExport: true }],
       ],
     },
   },
@@ -31,6 +28,7 @@ module.exports = {
       files: [
         './.eslintrc.js',
         './.prettierrc.js',
+        './.stylelintrc.js',
         './.template-lintrc.js',
         './ember-cli-build.js',
         './index.js',
@@ -52,6 +50,9 @@ module.exports = {
       // test files
       files: ['tests/**/*-test.{js,ts}'],
       extends: ['plugin:qunit/recommended'],
+      rules: {
+        'qunit/require-expect': ['error', 'except-simple'],
+      },
     },
   ],
 };
