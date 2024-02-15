@@ -1,6 +1,22 @@
 
 
 
+
+## v8.0.0 (2024-02-15)
+
+#### :boom: Breaking Change
+* [#965](https://github.com/elwayman02/ember-user-activity/pull/965) Ember 5 Blueprint (Drop Node 14 & Ember <4.8) ([@elwayman02](https://github.com/elwayman02))
+
+#### :house: Internal
+* [#974](https://github.com/elwayman02/ember-user-activity/pull/974) eslint-plugin-ember 12 ([@elwayman02](https://github.com/elwayman02))
+* [#970](https://github.com/elwayman02/ember-user-activity/pull/970) Require embroider-safe to pass ([@elwayman02](https://github.com/elwayman02))
+* [#969](https://github.com/elwayman02/ember-user-activity/pull/969) Node 18.19.1 ([@elwayman02](https://github.com/elwayman02))
+* [#965](https://github.com/elwayman02/ember-user-activity/pull/965) Ember 5 Blueprint (Drop Node 14 & Ember <4.8) ([@elwayman02](https://github.com/elwayman02))
+
+#### Committers: 2
+- Charles Fries ([@charlesfries](https://github.com/charlesfries))
+- Jordan Hawker ([@elwayman02](https://github.com/elwayman02))
+
 ## v7.1.0 (2023-01-31)
 
 #### :house: Internal
