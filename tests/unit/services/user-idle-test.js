@@ -8,7 +8,7 @@ module('Unit | Service | user idle', function (hooks) {
 
   test('init starts timer', function (assert) {
     let service = this.owner
-      .factoryFor('service:ember-user-activity@user-idle')
+      .factoryFor('service:user-idle')
       .create({
         resetTimeout: sinon.stub(),
       });
@@ -19,7 +19,7 @@ module('Unit | Service | user idle', function (hooks) {
   test('init sets up event listeners', function (assert) {
     let event = 'foo';
     let service = this.owner
-      .factoryFor('service:ember-user-activity@user-idle')
+      .factoryFor('service:user-idle')
       .create({
         activeEvents: [event],
         resetTimeout: sinon.stub(),
@@ -35,7 +35,7 @@ module('Unit | Service | user idle', function (hooks) {
     assert.expect(5);
 
     let service = this.owner
-      .factoryFor('service:ember-user-activity@user-idle')
+      .factoryFor('service:user-idle')
       .create({
         trigger: sinon.stub(),
         isIdle: true,
@@ -59,7 +59,7 @@ module('Unit | Service | user idle', function (hooks) {
 
   test('setIdle', function (assert) {
     let service = this.owner
-      .factoryFor('service:ember-user-activity@user-idle')
+      .factoryFor('service:user-idle')
       .create({
         trigger: sinon.stub(),
         resetTimeout: sinon.stub(),

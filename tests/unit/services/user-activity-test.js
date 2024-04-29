@@ -9,7 +9,7 @@ module('Unit | Service | user activity', function (hooks) {
 
   test('init', function (assert) {
     let service = this.owner
-      .factoryFor('service:ember-user-activity@user-activity')
+      .factoryFor('service:user-activity')
       .create({
         enableEvent: sinon.stub(),
       });
@@ -34,7 +34,7 @@ module('Unit | Service | user activity', function (hooks) {
   test('enableEvent', function (assert) {
     let event = 'foo';
     let service = this.owner
-      .factoryFor('service:ember-user-activity@user-activity')
+      .factoryFor('service:user-activity')
       .create({
         _listen: sinon.stub(),
         _setupListeners: sinon.stub(),
@@ -58,7 +58,7 @@ module('Unit | Service | user activity', function (hooks) {
   test('enableEvent - already enabled', function (assert) {
     let event = 'foo';
     let service = this.owner
-      .factoryFor('service:ember-user-activity@user-activity')
+      .factoryFor('service:user-activity')
       .create({
         enabledEvents: emberArray([event]),
         _listen: sinon.stub(),
@@ -73,7 +73,7 @@ module('Unit | Service | user activity', function (hooks) {
   test('disableEvent', function (assert) {
     let event = 'foo';
     let service = this.owner
-      .factoryFor('service:ember-user-activity@user-activity')
+      .factoryFor('service:user-activity')
       .create({
         enabledEvents: emberArray([event]),
         _setupListeners: sinon.stub(),
@@ -99,7 +99,7 @@ module('Unit | Service | user activity', function (hooks) {
   test('re-enabled events should fire', function (assert) {
     let event = 'foo';
     let service = this.owner
-      .factoryFor('service:ember-user-activity@user-activity')
+      .factoryFor('service:user-activity')
       .create({
         enabledEvents: emberArray(),
         _setupListeners: sinon.stub(),
@@ -138,7 +138,7 @@ module('Unit | Service | user activity', function (hooks) {
   test('fireEvent - no subscribers', function (assert) {
     let event = { type: 'foo' };
     let service = this.owner
-      .factoryFor('service:ember-user-activity@user-activity')
+      .factoryFor('service:user-activity')
       .create({
         trigger: sinon.stub(),
         _setupListeners: sinon.stub(),
@@ -152,7 +152,7 @@ module('Unit | Service | user activity', function (hooks) {
   test('fireEvent - subscribed to event', function (assert) {
     let event = { type: 'foo' };
     let service = this.owner
-      .factoryFor('service:ember-user-activity@user-activity')
+      .factoryFor('service:user-activity')
       .create({
         trigger: sinon.stub(),
         _setupListeners: sinon.stub(),
@@ -172,7 +172,7 @@ module('Unit | Service | user activity', function (hooks) {
   test('fireEvent - subscribed to userActive', function (assert) {
     let event = { type: 'foo' };
     let service = this.owner
-      .factoryFor('service:ember-user-activity@user-activity')
+      .factoryFor('service:user-activity')
       .create({
         trigger: sinon.stub(),
         _setupListeners: sinon.stub(),
@@ -192,7 +192,7 @@ module('Unit | Service | user activity', function (hooks) {
   test('isEnabled', function (assert) {
     let event = 'foo';
     let service = this.owner
-      .factoryFor('service:ember-user-activity@user-activity')
+      .factoryFor('service:user-activity')
       .create({
         enabledEvents: emberArray([event]),
         _setupListeners: sinon.stub(),
@@ -207,7 +207,7 @@ module('Unit | Service | user activity', function (hooks) {
     sinon.spy(window, 'removeEventListener');
 
     const service = this.owner
-      .factoryFor('service:ember-user-activity@user-activity')
+      .factoryFor('service:user-activity')
       .create();
 
     assert.strictEqual(
@@ -230,7 +230,7 @@ module('Unit | Service | user activity', function (hooks) {
   test('localStorage is updated when subscribed to storage event and other registered event is fired', function (assert) {
     let event = { type: 'foo' };
     let service = this.owner
-      .factoryFor('service:ember-user-activity@user-activity')
+      .factoryFor('service:user-activity')
       .create({
         defaultEvents: ['foo', 'storage'],
       });
@@ -245,7 +245,7 @@ module('Unit | Service | user activity', function (hooks) {
   test('localStorage is not updated when not subscribed to storage event and other registered event is fired', function (assert) {
     let event = { type: 'foo' };
     let service = this.owner
-      .factoryFor('service:ember-user-activity@user-activity')
+      .factoryFor('service:user-activity')
       .create({
         defaultEvents: ['foo'],
       });
