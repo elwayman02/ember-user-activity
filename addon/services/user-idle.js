@@ -1,12 +1,11 @@
 import Ember from 'ember';
 import EventManagerService from 'ember-user-activity/services/-private/event-manager';
-import { inject as injectService } from '@ember/service';
+import { service } from '@ember/service';
 import { cancel, debounce } from '@ember/runloop';
 import { tracked } from '@glimmer/tracking';
 
 export default class UserIdleService extends EventManagerService {
-  @injectService('ember-user-activity@user-activity')
-  userActivity;
+  @service userActivity;
 
   _debouncedTimeout = null;
   activeEvents = ['userActive'];

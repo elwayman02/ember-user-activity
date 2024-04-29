@@ -1,12 +1,11 @@
 import Component from '@glimmer/component';
-import { inject as injectService } from '@ember/service';
+import { service } from '@ember/service';
 import { A } from '@ember/array';
 
 export default class EventDisplay extends Component {
   events = A();
 
-  @injectService('ember-user-activity@user-activity')
-  userActivity;
+  @service userActivity;
 
   constructor() {
     super(...arguments);
