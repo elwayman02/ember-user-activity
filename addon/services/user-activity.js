@@ -2,12 +2,11 @@ import FastBootAwareEventManagerService from 'ember-user-activity/services/-priv
 import Ember from 'ember';
 import { A } from '@ember/array';
 import { throttle } from '@ember/runloop';
-import { inject as injectService } from '@ember/service';
+import { service } from '@ember/service';
 import storageAvailable from '../utils/storage-available';
 
 export default class UserActivityService extends FastBootAwareEventManagerService {
-  @injectService('ember-user-activity@scroll-activity')
-  scrollActivity;
+  @service scrollActivity;
 
   EVENT_THROTTLE;
   defaultEvents = ['keydown', 'mousedown', 'scroll', 'touchstart', 'storage'];

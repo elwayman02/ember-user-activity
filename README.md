@@ -52,8 +52,7 @@ import { service } from '@ember/service';
 
 // any file where services can be injected
 export default class MyComponent extends Component {
-  @service('ember-user-activity@user-activity')
-  userActivity;
+  @service userActivity;
 
   setupListeners() {
     this.userActivity.on('userActive', this, this.activeHandler);
@@ -140,8 +139,7 @@ import { service } from '@ember/service';
 import { readOnly } from '@ember/object/computed'
 
 export default class MyComponent extends Component {
-  @service('ember-user-activity@user-idle')
-  userIdle;
+  @service userIdle;
 
   @readOnly('userIdle.isIdle')
   isIdle;
@@ -181,8 +179,7 @@ import Component from '@glimmer/component';
 import { service } from '@ember/service';
 
 export default class MyComponent extends Component {
-  @service('ember-user-activity@user-idle')
-  userIdle;
+  @service userIdle;
 
   constructor() {
     this.userIdle.on('idleChanged', (isIdle) => {
