@@ -7390,10 +7390,10 @@ engine.io@~6.5.2:
     engine.io-parser "~5.2.1"
     ws "~8.17.1"
 
-enhanced-resolve@^5.15.0:
-  version "5.15.0"
-  resolved "https://registry.yarnpkg.com/enhanced-resolve/-/enhanced-resolve-5.15.0.tgz#1af946c7d93603eb88e9896cee4904dc012e9c35"
-  integrity sha512-LXYT42KJ7lpIKECr2mAXIaMldcNCh/7E0KBKOu4KSfkHmP+mZmSs+8V5gBAqisWBy0OO4W5Oyys0GO1Y8KtdKg==
+enhanced-resolve@^5.15.0, enhanced-resolve@^5.17.0:
+  version "5.17.0"
+  resolved "https://registry.yarnpkg.com/enhanced-resolve/-/enhanced-resolve-5.17.0.tgz#d037603789dd9555b89aaec7eb78845c49089bc5"
+  integrity sha512-dwDPwZL0dmye8Txp2gzFmA6sxALaSvdRDjPH0viLcKrtlOL3tw62nWWweVD1SdILDTJrbrL6tdWVN58Wo6U3eA==
   dependencies:
     graceful-fs "^4.2.4"
     tapable "^2.2.0"
@@ -7665,13 +7665,13 @@ eslint-plugin-es-x@^7.5.0:
     "@eslint-community/regexpp" "^4.6.0"
     eslint-compat-utils "^0.1.2"
 
-eslint-plugin-n@^17.4.0:
-  version "17.4.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-n/-/eslint-plugin-n-17.4.0.tgz#a090462d523c4aa959ea7aa0851f1e70f12fac51"
-  integrity sha512-RtgGgNpYxECwE9dFr+D66RtbN0B8r/fY6ZF8EVsmK2YnZxE8/n9LNQhgnkL9z37UFZjYVmvMuC32qu7fQBsLVQ==
+eslint-plugin-n@^17.9.0:
+  version "17.9.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-n/-/eslint-plugin-n-17.9.0.tgz#91b43d4e10a35e455bfac2c64671f9cecc396590"
+  integrity sha512-CPSaXDXdrT4nsrOrO4mT4VB6FMUkoySRkHWuuJJHVqsIEjIeZgMY1H7AzSwPbDScikBmLN82KeM1u7ixV7PzGg==
   dependencies:
     "@eslint-community/eslint-utils" "^4.4.0"
-    enhanced-resolve "^5.15.0"
+    enhanced-resolve "^5.17.0"
     eslint-plugin-es-x "^7.5.0"
     get-tsconfig "^4.7.0"
     globals "^15.0.0"
