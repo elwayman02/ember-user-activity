@@ -79,7 +79,7 @@
     "prettier": "^3.3.3",
     "qunit": "^2.21.0",
     "qunit-dom": "^3.2.0",
-    "release-it": "^17.4.1",
+    "release-it": "^17.6.0",
     "sinon": "^17.0.1",
     "stylelint": "^15.11.0",
     "stylelint-config-standard": "^34.0.0",
