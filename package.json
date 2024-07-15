@@ -36,7 +36,7 @@
     "ember-cli-babel": "^7.26.11 || ^8.2.0"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.24.7",
+    "@babel/eslint-parser": "^7.24.8",
     "@babel/plugin-proposal-decorators": "^7.24.7",
     "@ember/optional-features": "^2.0.0",
     "@ember/string": "^3.1.1",
