@@ -475,7 +475,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.14.5"
 
-"@babel/plugin-syntax-decorators@^7.16.7", "@babel/plugin-syntax-decorators@^7.24.7":
+"@babel/plugin-syntax-decorators@^7.16.7", "@babel/plugin-syntax-decorators@^7.23.3", "@babel/plugin-syntax-decorators@^7.24.7":
   version "7.24.7"
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-decorators/-/plugin-syntax-decorators-7.24.7.tgz#e4f8a0a8778ccec669611cd5aed1ed8e6e3a6fcf"
   integrity sha512-Ui4uLJJrRV1lb38zg1yYTmRKmiZLiftDEvZN2iq3kd9kUFU+PttmzTbAFC2ucRk/XJmtek6G23gPsuZbhrT8fQ==
@@ -1328,13 +1328,14 @@
     ember-cli-version-checker "^5.1.2"
     semver "^7.3.5"
 
-"@embroider/addon-shim@^1.5.0", "@embroider/addon-shim@^1.6.0", "@embroider/addon-shim@^1.8.4", "@embroider/addon-shim@^1.8.6", "@embroider/addon-shim@^1.8.7":
-  version "1.8.7"
-  resolved "https://registry.yarnpkg.com/@embroider/addon-shim/-/addon-shim-1.8.7.tgz#ba2dcb0647ed2cb0c500c835326266b89ceec595"
-  integrity sha512-JGOQNRj3UR0NdWEg8MsM2eqPLncEwSB1IX+rwntIj22TEKj8biqx7GDgSbeH+ZedijmCh354Hf2c5rthrdzUAw==
+"@embroider/addon-shim@^1.5.0", "@embroider/addon-shim@^1.6.0", "@embroider/addon-shim@^1.8.4", "@embroider/addon-shim@^1.8.6", "@embroider/addon-shim@^1.8.7", "@embroider/addon-shim@^1.8.9":
+  version "1.8.9"
+  resolved "https://registry.yarnpkg.com/@embroider/addon-shim/-/addon-shim-1.8.9.tgz#ef37eba069d391b2d2a80aa62880c469051c4d43"
+  integrity sha512-qyN64T1jMHZ99ihlk7VFHCWHYZHLE1DOdHi0J7lmn5waV1DoW7gD8JLi1i7FregzXtKhbDc7shyEmTmWPTs8MQ==
   dependencies:
-    "@embroider/shared-internals" "^2.5.1"
+    "@embroider/shared-internals" "^2.6.0"
     broccoli-funnel "^3.0.8"
+    common-ancestor-path "^1.0.1"
     semver "^7.3.8"
 
 "@embroider/macros@^0.50.0 || ^1.0.0", "@embroider/macros@^1.0.0", "@embroider/macros@^1.10.0", "@embroider/macros@^1.12.2", "@embroider/macros@^1.13.1", "@embroider/macros@^1.16.5", "@embroider/macros@^1.8.1", "@embroider/macros@^1.9.0":
@@ -1351,7 +1352,7 @@
     resolve "^1.20.0"
     semver "^7.3.2"
 
-"@embroider/shared-internals@2.6.2", "@embroider/shared-internals@^2.0.0", "@embroider/shared-internals@^2.5.1":
+"@embroider/shared-internals@2.6.2", "@embroider/shared-internals@^2.0.0", "@embroider/shared-internals@^2.6.0":
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/@embroider/shared-internals/-/shared-internals-2.6.2.tgz#66297a8606587108f9dbcbaa1a9dcc6b4a4ca605"
   integrity sha512-jL3Bjn8C73AUBlTex+VixP7YmqvPNN/BZFB85odTstzLFOuR8y2mmGiuWbq17qNuFyoxc6xtndMnAeqwCXBNkA==
@@ -2571,10 +2572,10 @@
     "@types/mime" "*"
     "@types/node" "*"
 
-"@types/sinon@^10.0.19":
-  version "10.0.20"
-  resolved "https://registry.yarnpkg.com/@types/sinon/-/sinon-10.0.20.tgz#f1585debf4c0d99f9938f4111e5479fb74865146"
-  integrity sha512-2APKKruFNCAZgx3daAyACGzWuJ028VVCUDk6o2rw/Z4PXT0ogwdV4KUegW0MwVs0Zu59auPXbbuBJHF12Sx1Eg==
+"@types/sinon@^17.0.3":
+  version "17.0.3"
+  resolved "https://registry.yarnpkg.com/@types/sinon/-/sinon-17.0.3.tgz#9aa7e62f0a323b9ead177ed23a36ea757141a5fa"
+  integrity sha512-j3uovdn8ewky9kRBG19bOwaZbexJu/XjtkHyjvUgt4xfPFz18dcORIMqnYh66Fx3Powhcr85NT5+er3+oViapw==
   dependencies:
     "@types/sinonjs__fake-timers" "*"
 
@@ -3214,6 +3215,11 @@ babel-import-util@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/babel-import-util/-/babel-import-util-2.0.1.tgz#263a2963ee9208428c04f05326c6ea32b2206ac6"
   integrity sha512-N1ZfNprtf/37x0R05J0QCW/9pCAcuI+bjZIK9tlu0JEkwEST7ssdD++gxHRbD58AiG5QE5OuNYhRoEFsc1wESw==
+
+babel-import-util@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/babel-import-util/-/babel-import-util-3.0.0.tgz#5814c6a58e7b80e64156b48fdfd34d48e6e0b1df"
+  integrity sha512-4YNPkuVsxAW5lnSTa6cn4Wk49RX6GAB6vX+M6LqEtN0YePqoFczv1/x0EyLK/o+4E1j9jEuYj5Su7IEPab5JHQ==
 
 babel-loader@^8.0.6:
   version "8.3.0"
@@ -4715,6 +4721,11 @@ commander@^8.3.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-8.3.0.tgz#4837ea1b2da67b9c616a67afbb0fafee567bca66"
   integrity sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==
 
+common-ancestor-path@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/common-ancestor-path/-/common-ancestor-path-1.0.1.tgz#4f7d2d1394d91b7abdf51871c62f71eadb0182a7"
+  integrity sha512-L3sHRo1pXXEqX8VU28kfgUY+YGsk09hPqZiZmLacNib6XNTCM8ubYeT7ryXQw8asB1sKgcU5lkB7ONug08aB8w==
+
 common-tags@^1.8.0:
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/common-tags/-/common-tags-1.8.2.tgz#94ebb3c076d26032745fd54face7f688ef5ac9c6"
@@ -5205,6 +5216,14 @@ decompress-response@^6.0.0:
   integrity sha512-aW35yZM6Bb/4oJlZncMH2LCoZtJXTRxES17vE3hoRiowU2kWHaJKFkSBDnDR+cm9J+9QhXmREyIfv0pji9ejCQ==
   dependencies:
     mimic-response "^3.1.0"
+
+decorator-transforms@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/decorator-transforms/-/decorator-transforms-2.0.0.tgz#4e9178a8905c81ff79f4078dc6dfb716244ecd37"
+  integrity sha512-ETfQccGcotK01YJsoB0AGTdUp7kS9jI93mBzrRY5Oyo+bOJfa2UKTSjCNf+iRNwAWBmBKlbiCcyL4tkY4C4dZQ==
+  dependencies:
+    "@babel/plugin-syntax-decorators" "^7.23.3"
+    babel-import-util "^3.0.0"
 
 deep-extend@^0.6.0:
   version "0.6.0"
@@ -6360,13 +6379,14 @@ ember-set-helper@^2.0.1:
   dependencies:
     ember-cli-babel "^7.18.0"
 
-ember-sinon-qunit@^7.4.0:
-  version "7.4.0"
-  resolved "https://registry.yarnpkg.com/ember-sinon-qunit/-/ember-sinon-qunit-7.4.0.tgz#90b25cfae11082dd2d4987db4460a3853d1e4b1f"
-  integrity sha512-BcH2scgJ4Vpq5Fnjeq5Z2ESnHLsmcfFRaq/gOujy3my+8w7WTtrHyaUgWzmd5mLw+tfCYssAUEalQhk1ZNpV+g==
+ember-sinon-qunit@^7.5.0:
+  version "7.5.0"
+  resolved "https://registry.yarnpkg.com/ember-sinon-qunit/-/ember-sinon-qunit-7.5.0.tgz#12e5a6a01ecfe62b185d1258a2deb7c3334c4fe7"
+  integrity sha512-wSoRqBbiytUtDFIE6DLPDZFYhoS4FH+kgHhr707HJMF5tUYpKPIruBusF9kWezj/yOrJLyLqoWFoaAJ2aG2FQw==
   dependencies:
-    "@embroider/addon-shim" "^1.8.6"
-    "@types/sinon" "^10.0.19"
+    "@embroider/addon-shim" "^1.8.9"
+    "@types/sinon" "^17.0.3"
+    decorator-transforms "^2.0.0"
 
 ember-source-channel-url@^3.0.0:
   version "3.0.0"
