@@ -1293,10 +1293,10 @@
   dependencies:
     ember-cli-babel "^7.26.6"
 
-"@ember/test-helpers@^3.2.1":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@ember/test-helpers/-/test-helpers-3.3.0.tgz#abf83ff2b111493d25266cb90327134498cb9090"
-  integrity sha512-HEI28wtjnQuEj9+DstHUEEKPtqPAEVN9AAVr4EifVCd3DyEDy0m6hFT4qbap1WxAIktLja2QXGJg50lVWzZc5g==
+"@ember/test-helpers@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@ember/test-helpers/-/test-helpers-3.3.1.tgz#b19287dbb7ba169a2033574bb5021c0490b199b9"
+  integrity sha512-h4uFBy4pquBtHsHI+tx9S0wtMmn1L+8dkXiDiyoqG1+3e0Awk6GBujiFM9s4ANq6wC8uIhC3wEFyts10h2OAoQ==
   dependencies:
     "@ember/test-waiters" "^3.0.2"
     "@embroider/macros" "^1.10.0"
@@ -1305,20 +1305,10 @@
     broccoli-funnel "^3.0.8"
     dom-element-descriptors "^0.5.0"
     ember-auto-import "^2.6.0"
-    ember-cli-babel "^7.26.11"
+    ember-cli-babel "^8.2.0"
     ember-cli-htmlbars "^6.2.0"
 
-"@ember/test-waiters@^3.0.0":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@ember/test-waiters/-/test-waiters-3.0.2.tgz#5b950c580a1891ed1d4ee64f9c6bacf49a15ea6f"
-  integrity sha512-H8Q3Xy9rlqhDKnQpwt2pzAYDouww4TZIGSI1pZJhM7mQIGufQKuB0ijzn/yugA6Z+bNdjYp1HioP8Y4hn2zazQ==
-  dependencies:
-    calculate-cache-key-for-tree "^2.0.0"
-    ember-cli-babel "^7.26.6"
-    ember-cli-version-checker "^5.1.2"
-    semver "^7.3.5"
-
-"@ember/test-waiters@^3.0.2", "@ember/test-waiters@^3.1.0":
+"@ember/test-waiters@^3.0.0", "@ember/test-waiters@^3.0.2", "@ember/test-waiters@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@ember/test-waiters/-/test-waiters-3.1.0.tgz#61399919cbf793978da0b8bfdfdb7bca0cb80e9e"
   integrity sha512-bb9h95ktG2wKY9+ja1sdsFBdOms2lB19VWs8wmNpzgHv1NCetonBoV5jHBV4DHt0uS1tg9z66cZqhUVlYs96KQ==
