@@ -11821,10 +11821,10 @@ quick-temp@^0.1.2, quick-temp@^0.1.3, quick-temp@^0.1.5, quick-temp@^0.1.8:
     rimraf "^2.5.4"
     underscore.string "~3.3.4"
 
-qunit-dom@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/qunit-dom/-/qunit-dom-3.2.0.tgz#ad2e5696acfad8ceedd4f34853f6bab72db88e9c"
-  integrity sha512-VYFXbwod2sis16Nzgx5UrdCvjNUPYIAbTwEGv7hF1RfgJaVgG5ASVaQz9en0ZRvlybtql0LrVuAbleJU/57zQQ==
+qunit-dom@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/qunit-dom/-/qunit-dom-3.2.1.tgz#650707b818d5a889ac1923a5cdbdc0d9daf4db7a"
+  integrity sha512-+qSm8zQ7hPA9NijmTDVsUFNGEFP/K+DTymjlsU01O3NhkGtb9rsZRztJXwaiAlmVSX4vSzjydPxpZCRhpWIq4A==
   dependencies:
     dom-element-descriptors "^0.5.1"
 
