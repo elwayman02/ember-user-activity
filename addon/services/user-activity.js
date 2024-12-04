@@ -8,7 +8,7 @@ import storageAvailable from '../utils/storage-available';
 export default class UserActivityService extends FastBootAwareEventManagerService {
   @service scrollActivity;
 
-  EVENT_THROTTLE;
+  EVENT_THROTTLE = 100;
   defaultEvents = ['keydown', 'mousedown', 'scroll', 'touchstart', 'storage'];
   enabledEvents = A();
   _eventsListened = A();
@@ -23,7 +23,9 @@ export default class UserActivityService extends FastBootAwareEventManagerServic
     super.init(...arguments);
 
     // Do not throttle in testing mode
-    this.EVENT_THROTTLE = Ember.testing ? 0 : 100;
+    if (Ember.testing) {
+      this.EVENT_THROTTLE = 0;
+    }
 
     this._boundEventHandler = this.handleEvent.bind(this);
 
