@@ -1,6 +1,14 @@
+## v8.0.1 (2024-12-04)
 
+#### :bug: Bug Fix
+* [#1073](https://github.com/elwayman02/ember-user-activity/pull/1073) Use ES6 initialization for EVENT_THROTTLE ([@elwayman02](https://github.com/elwayman02))
 
+#### :house: Internal
+* [#1007](https://github.com/elwayman02/ember-user-activity/pull/1007) Remove namespaced service injections, uninstall `ember-cli-deprecation-workflow` ([@charlesfries](https://github.com/charlesfries))
 
+#### Committers: 2
+- Charles Fries ([@charlesfries](https://github.com/charlesfries))
+- Jordan Hawker ([@elwayman02](https://github.com/elwayman02))
 
 ## v8.0.0 (2024-02-15)
 
