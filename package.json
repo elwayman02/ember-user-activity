@@ -32,7 +32,7 @@
     "release": "release-it"
   },
   "dependencies": {
-    "@babel/core": "^7.25.2",
+    "@babel/core": "^7.26.0",
     "ember-cli-babel": "^8.2.0"
   },
   "devDependencies": {
