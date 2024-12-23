@@ -5658,7 +5658,7 @@ ember-cli-babel-plugin-helpers@^1.0.0, ember-cli-babel-plugin-helpers@^1.1.1:
   resolved "https://registry.yarnpkg.com/ember-cli-babel-plugin-helpers/-/ember-cli-babel-plugin-helpers-1.1.1.tgz#5016b80cdef37036c4282eef2d863e1d73576879"
   integrity sha512-sKvOiPNHr5F/60NLd7SFzMpYPte/nnGkq/tMIfXejfKHIhaiIkYFqX8Z9UFTKWLLn+V7NOaby6niNPZUdvKCRw==
 
-ember-cli-babel@^7.1.3, ember-cli-babel@^7.10.0, ember-cli-babel@^7.18.0, ember-cli-babel@^7.22.1, ember-cli-babel@^7.23.0, ember-cli-babel@^7.23.1, ember-cli-babel@^7.26.11, ember-cli-babel@^7.26.3, ember-cli-babel@^7.26.6, ember-cli-babel@^7.26.8, ember-cli-babel@^7.7.3:
+ember-cli-babel@^7.1.3, ember-cli-babel@^7.10.0, ember-cli-babel@^7.18.0, ember-cli-babel@^7.22.1, ember-cli-babel@^7.23.1, ember-cli-babel@^7.26.11, ember-cli-babel@^7.26.3, ember-cli-babel@^7.26.6, ember-cli-babel@^7.26.8, ember-cli-babel@^7.7.3:
   version "7.26.11"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-7.26.11.tgz#50da0fe4dcd99aada499843940fec75076249a9f"
   integrity sha512-JJYeYjiz/JTn34q7F5DSOjkkZqy8qwFOOxXfE6pe9yEJqWGu4qErKxlz8I22JoVEQ/aBUO+OcKTpmctvykM9YA==
@@ -5895,13 +5895,6 @@ ember-cli-terser@^4.0.2:
   integrity sha512-Ej77K+YhCZImotoi/CU2cfsoZaswoPlGaM5TB3LvjvPDlVPRhxUHO2RsaUVC5lsGeRLRiHCOxVtoJ6GyqexzFA==
   dependencies:
     broccoli-terser-sourcemap "^4.1.0"
-
-ember-cli-test-loader@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-test-loader/-/ember-cli-test-loader-3.1.0.tgz#13abd43b7e07e2266a9f0fc5b9dc5455883b18ff"
-  integrity sha512-0aocZV9SIoOHiU3hrH3IuLR6busWhTX6UVXgd490hmJkIymmOXNH2+jJoC7Ebkeo3PiOfAdjqhb765QDlHSJOw==
-  dependencies:
-    ember-cli-babel "^7.23.0"
 
 ember-cli-typescript-blueprint-polyfill@^0.1.0:
   version "0.1.0"
@@ -6262,14 +6255,13 @@ ember-page-title@^8.2.3:
     "@embroider/addon-shim" "^1.8.7"
     "@simple-dom/document" "^1.4.0"
 
-ember-qunit@^8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/ember-qunit/-/ember-qunit-8.1.0.tgz#c9dcd5bc97d3b122db7e416e3aef09fba7db39f9"
-  integrity sha512-55/xqvVQwhiNcnh/tCzWyvlYzrYqwDY0/cIPyDQbAxGKtkUt9jCfRUGllfyOofC6LX0fL/0fIi+5e9sg1m6vXw==
+ember-qunit@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/ember-qunit/-/ember-qunit-9.0.1.tgz#3ca2c8d7e43ec67e6ef0c554573c2a7cfb352ddc"
+  integrity sha512-9DgjczFG7ZjINmwWFYDtUF8McbYqQir82hyFp/ZbMOLkpFvHCKPw1mtKcpcdLnLAAYJpwR2/MCyPNiEMkR11aA==
   dependencies:
     "@embroider/addon-shim" "^1.8.6"
     "@embroider/macros" "^1.13.1"
-    ember-cli-test-loader "^3.1.0"
     qunit-theme-ember "^1.0.0"
 
 ember-resolver@^13.0.2:
