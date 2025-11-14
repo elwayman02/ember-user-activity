@@ -1,5 +1,5 @@
 import FastBootAwareEventManagerService from 'ember-user-activity/services/-private/fastboot-aware-event-manager';
-import Ember from 'ember';
+import { isTesting } from '@ember/debug';
 import { A } from '@ember/array';
 import { throttle } from '@ember/runloop';
 import { service } from '@ember/service';
@@ -23,7 +23,7 @@ export default class UserActivityService extends FastBootAwareEventManagerServic
     super.init(...arguments);
 
     // Do not throttle in testing mode
-    if (Ember.testing) {
+    if (isTesting()) {
       this.EVENT_THROTTLE = 0;
     }
 
