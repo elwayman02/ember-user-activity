@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { isTesting } from '@ember/debug';
 import EventManagerService from 'ember-user-activity/services/-private/event-manager';
 import { service } from '@ember/service';
 import { cancel, debounce } from '@ember/runloop';
@@ -23,7 +23,7 @@ export default class UserIdleService extends EventManagerService {
   init() {
     super.init(...arguments);
 
-    if (Ember.testing) {
+    if (isTesting()) {
       // Shorter debounce in testing mode
       this.IDLE_TIMEOUT = 10;
     }
